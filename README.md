@@ -2,6 +2,18 @@
 
 版本：v1.0｜建立日：2026-10-25｜狀態：**規格完成，未送出、未簽約、未付費**
 
+## 線上網址
+
+| 用途 | 網址 |
+|---|---|
+| 互動資料頁（主要入口） | <https://emily77.github.io/premium-cosmetics/> |
+| 網頁直接連結 | <https://emily77.github.io/premium-cosmetics/web/> |
+| 投資與獲利分析報告 PDF | <https://emily77.github.io/premium-cosmetics/docs/07_投資與獲利分析報告.pdf> |
+| 程式庫 | <https://github.com/emily77/premium-cosmetics> |
+
+> 網頁為單檔自包含（資料全部內嵌），也可離線開 `web\index.html`。
+> 程式庫目前為**公開**（GitHub Pages 免費方案僅支援公開 repo）。
+
 ## 一、這個專案是什麼
 
 Rokaizumi 合同會社（品牌：ROKAIZUMI ATELIER／露海澄研）的**頂級保養品產品線**，
@@ -63,7 +75,8 @@ premium-cosmetics\
    ├─ finance_model.py                ← 投資／損益／回收／AI 團隊模型
    ├─ build_web.py                    ← 產生 web\index.html
    ├─ build_docx.py                   ← 產生 Word 報告與 6 張圖表
-   └─ finalize_docx.ps1               ← 用本機 Word 更新目錄並匯出 PDF
+   ├─ finalize_docx.ps1               ← 用本機 Word 更新目錄並匯出 PDF
+   └─ deploy_github.ps1               ← 部署到 GitHub 並啟用 Pages
 ```
 
 ## 四、14 支 SKU 一覽
@@ -123,6 +136,8 @@ premium-cosmetics\
 | 彩色 Word 分析報告 | ✅ 完成（21 頁，含 6 張圖表、目錄已填入） |
 | PDF 版報告 | ✅ 完成（1.26 MB，21 頁） |
 | Google Drive 上傳 | ✅ 完成（34 個檔案逐檔比對大小一致） |
+| GitHub 部署 | ✅ 完成（<https://github.com/emily77/premium-cosmetics>） |
+| GitHub Pages 網頁 | ✅ 完成（<https://emily77.github.io/premium-cosmetics/>） |
 | 商標檢索 | ❌ 未執行（P-102） |
 | 向代工廠送出 RFQ | ❌ 未執行（P-104，需林總授權） |
 | 打樣 | ❌ 未開始 |
@@ -183,12 +198,16 @@ premium-cosmetics\
 
 **要一個免費公開網址**（給代工廠或股東看）：
 
-1. 開 <https://app.netlify.com/drop>
-2. 把 `web\index.html` 直接拖進去
-3. 立刻得到 `https://xxxx.netlify.app` 網址（免費、免註冊即可先試）
+已部署完成，網址：<https://emily77.github.io/premium-cosmetics/>
+
+- 由 GitHub Pages 提供，免費、自動 HTTPS、每次 push 自動重建
+- 前提：repo 必須是**公開**（GitHub 免費方案的 Pages 不支援私有 repo）
+- 若之後改回私有，Pages 會失效，可改用 Netlify Drop：
+  1. 開 <https://app.netlify.com/drop>
+  2. 把 `web\index.html` 直接拖進去
+  3. 立刻得到 `https://xxxx.netlify.app` 網址
 
 > Google Drive 不能直接渲染 HTML，所以雲端上的 `06_網頁\index.html` 只能下載後本機開。
-> 要公開網址請用上面的 Netlify Drop，或 Cloudflare Pages／GitHub Pages。
 
 ### Word／PDF 報告（`docs\07_投資與獲利分析報告.*`）
 
