@@ -1,0 +1,249 @@
+sku_code,phase,inci_name,function_category,pct_min,pct_max,regulatory_limit_tw,note
+RA-C01,A,Cetearyl Alcohol,增稠／助乳化,2.0,4.0,無,
+RA-C01,A,Glyceryl Stearate SE,乳化劑,1.5,3.0,無,
+RA-C01,A,Caprylic/Capric Triglyceride,油相／潤膚,5.0,10.0,無,
+RA-C01,A,Squalane,油相／親膚,2.0,5.0,無,建議橄欖來源
+RA-C01,A,"Cetearyl Olivate, Sorbitan Olivate",天然乳化劑,2.0,4.0,無,
+RA-C01,A,Tocopheryl Acetate,抗氧化,0.1,0.5,無,
+RA-C01,B,Aqua,溶劑,q.s.,q.s.,—,補足至 100%
+RA-C01,B,Glycerin,保濕,5.0,12.0,無,
+RA-C01,B,Butylene Glycol,保濕／溶劑,2.0,5.0,無,
+RA-C01,B,Sodium Cocoyl Isethionate,溫和界面活性劑,3.0,8.0,無,胺基酸系
+RA-C01,B,Cocamidopropyl Betaine,溫和界面活性劑,2.0,5.0,無,
+RA-C01,B,Panthenol,舒緩,0.5,2.0,無,
+RA-C01,B,Allantoin,舒緩,0.1,0.3,無,
+RA-C01,B,Disodium EDTA,螯合劑,0.05,0.1,無,
+RA-C01,C,Xanthan Gum,增稠,0.1,0.3,無,
+RA-C01,C,Sodium Polyacrylate,增稠／穩定,0.1,0.3,無,
+RA-C01,D,Phenoxyethanol,防腐,0.5,0.8,1.0%,
+RA-C01,D,Ethylhexylglycerin,防腐增效,0.1,0.3,無,
+RA-C01,D,Fragrance,香精,0.05,0.15,依 IFRA,另備無香版
+RA-C01,D,Citric Acid,pH 調整,q.s.,q.s.,—,目標 pH 5.0-5.5
+RA-C02,,Aqua,溶劑,q.s.,q.s.,—,補足至 100%
+RA-C02,,Butylene Glycol,保濕／溶劑,3.0,6.0,無,
+RA-C02,,Propanediol,保濕／溶劑,2.0,4.0,無,替代部分 BG 降低黏感
+RA-C02,,Glycerin,保濕,3.0,8.0,無,
+RA-C02,,Betaine,保濕,1.0,3.0,無,
+RA-C02,,Trehalose,保濕,1.0,3.0,無,
+RA-C02,,Sodium Hyaluronate,保濕（高分子）,0.05,0.15,無,
+RA-C02,,Hydrolyzed Hyaluronic Acid,保濕（低分子）,0.1,0.5,無,
+RA-C02,,Panthenol,舒緩,0.5,2.0,無,
+RA-C02,,Allantoin,舒緩,0.1,0.3,無,
+RA-C02,,Centella Asiatica Extract,植物舒緩,0.5,2.0,無,
+RA-C02,,Madecassoside,積雪草苷,0.05,0.2,無,
+RA-C02,,Glycyrrhiza Glabra Root Extract,植物舒緩,0.1,0.5,無,
+RA-C02,,PEG-60 Hydrogenated Castor Oil,增溶劑,0.1,0.3,無,若加精油需提高
+RA-C02,,Disodium EDTA,螯合劑,0.02,0.05,無,
+RA-C02,,Phenoxyethanol,防腐,0.5,0.8,1.0%,
+RA-C02,,Ethylhexylglycerin,防腐增效,0.1,0.3,無,
+RA-C02,,"Citric Acid, Sodium Citrate",pH／緩衝,q.s.,q.s.,—,目標 pH 5.0-5.5
+RA-H03,,Aqua,溶劑,q.s.,q.s.,—,補足至 100%
+RA-H03,,Glycerin,保濕,5.0,10.0,無,
+RA-H03,,Propanediol,保濕／溶劑,3.0,6.0,無,
+RA-H03,,Sodium Hyaluronate,玻尿酸（高分子）,0.1,0.3,無,
+RA-H03,,Hydrolyzed Hyaluronic Acid,玻尿酸（低分子）,0.2,1.0,無,
+RA-H03,,Sodium Hyaluronate Crosspolymer,玻尿酸（交聯）,0.1,0.5,無,
+RA-H03,,Sodium Acetylated Hyaluronate,玻尿酸（乙醯化）,0.05,0.2,無,
+RA-H03,,Panthenol,舒緩,1.0,3.0,無,
+RA-H03,,Ectoin,保濕／抗壓,0.5,2.0,無,
+RA-H03,,Trehalose,保濕,1.0,3.0,無,
+RA-H03,,Betaine,保濕,1.0,3.0,無,
+RA-H03,,Allantoin,舒緩,0.1,0.3,無,
+RA-H03,,Carbomer,增稠,0.1,0.3,無,
+RA-H03,,Sodium Polyacrylate,增稠／穩定,0.1,0.3,無,
+RA-H03,,Xanthan Gum,增稠,0.05,0.2,無,
+RA-H03,,Disodium EDTA,螯合劑,0.02,0.05,無,
+RA-H03,,Phenoxyethanol,防腐,0.5,0.8,1.0%,
+RA-H03,,Ethylhexylglycerin,防腐增效,0.1,0.3,無,
+RA-H03,,Sodium Hydroxide,pH 調整,q.s.,q.s.,—,目標 pH 5.5-6.0
+RA-H04,A,Squalane,油相,3.0,8.0,無,
+RA-H04,A,Caprylic/Capric Triglyceride,油相,3.0,8.0,無,
+RA-H04,A,Cetearyl Alcohol,增稠／助乳化,2.0,4.0,無,
+RA-H04,A,Glyceryl Stearate,乳化劑,1.5,3.0,無,
+RA-H04,A,"Cetearyl Olivate, Sorbitan Olivate",天然乳化劑,2.0,4.0,無,
+RA-H04,A,Ceramide NP,屏障修護,0.1,0.5,無,三種神經醯胺合計 0.17-0.8%
+RA-H04,A,Ceramide AP,屏障修護,0.05,0.2,無,
+RA-H04,A,Ceramide EOP,屏障修護,0.02,0.1,無,
+RA-H04,A,Cholesterol,屏障（脂質三元）,0.1,0.5,無,與脂肪酸、神經醯胺成比例
+RA-H04,A,Phytosphingosine,屏障,0.02,0.1,無,
+RA-H04,A,Tocopheryl Acetate,抗氧化,0.1,0.5,無,
+RA-H04,B,Aqua,溶劑,q.s.,q.s.,—,補足至 100%
+RA-H04,B,Glycerin,保濕,5.0,10.0,無,
+RA-H04,B,Butylene Glycol,保濕／溶劑,2.0,5.0,無,
+RA-H04,B,Panthenol,舒緩,1.0,3.0,無,
+RA-H04,B,Sodium Hyaluronate,保濕,0.05,0.2,無,
+RA-H04,B,Allantoin,舒緩,0.1,0.3,無,
+RA-H04,B,Bisabolol,舒緩,0.1,0.5,無,
+RA-H04,B,Disodium EDTA,螯合劑,0.05,0.1,無,
+RA-H04,C,Xanthan Gum,增稠,0.1,0.3,無,
+RA-H04,C,Carbomer,增稠,0.05,0.2,無,
+RA-H04,D,Phenoxyethanol,防腐,0.5,0.8,1.0%,
+RA-H04,D,Ethylhexylglycerin,防腐增效,0.1,0.3,無,
+RA-H04,D,Sodium Hydroxide,pH 調整,q.s.,q.s.,—,目標 pH 5.5-6.0
+RA-H05,,Aqua,溶劑,q.s.,q.s.,—,補足至 100%
+RA-H05,,Glycerin,保濕,5.0,10.0,無,
+RA-H05,,Butylene Glycol,保濕／溶劑,3.0,6.0,無,
+RA-H05,,Propanediol,保濕／溶劑,2.0,4.0,無,
+RA-H05,,Sodium Hyaluronate,保濕,0.1,0.3,無,
+RA-H05,,Hydrolyzed Hyaluronic Acid,保濕,0.2,0.8,無,
+RA-H05,,Panthenol,舒緩,1.0,3.0,無,
+RA-H05,,Trehalose,保濕,1.0,3.0,無,
+RA-H05,,Betaine,保濕,1.0,3.0,無,
+RA-H05,,Allantoin,舒緩,0.1,0.3,無,
+RA-H05,,Centella Asiatica Extract,植物舒緩,1.0,3.0,無,
+RA-H05,,Madecassoside,積雪草苷,0.1,0.3,無,
+RA-H05,,Ectoin,保濕／抗壓,0.5,1.5,無,
+RA-H05,,Hydroxyethylcellulose,增稠,0.1,0.3,無,
+RA-H05,,Disodium EDTA,螯合劑,0.02,0.05,無,
+RA-H05,,Phenoxyethanol,防腐,0.5,0.8,1.0%,
+RA-H05,,Ethylhexylglycerin,防腐增效,0.1,0.3,無,
+RA-H05,,Citric Acid,pH 調整,q.s.,q.s.,—,目標 pH 5.0-5.5
+RA-L06,,Aqua,溶劑,q.s.,q.s.,—,補足至 100%
+RA-L06,,Niacinamide,亮白／屏障,3.0,5.0,無,>5% 刺激風險上升
+RA-L06,,Glycerin,保濕,3.0,8.0,無,
+RA-L06,,Propanediol,保濕／溶劑,2.0,5.0,無,
+RA-L06,,Butylene Glycol,保濕／溶劑,2.0,5.0,無,
+RA-L06,,Zinc PCA,控油／調理,0.5,1.5,無,
+RA-L06,,Panthenol,舒緩,0.5,2.0,無,
+RA-L06,,Tranexamic Acid,亮白,1.0,3.0,3.0%,需法遵複核最新公告
+RA-L06,,Alpha-Arbutin,亮白,1.0,2.0,7.0%,熊果素類限量；需法遵複核
+RA-L06,,3-O-Ethyl Ascorbic Acid,抗氧化／亮白,1.0,2.0,無,
+RA-L06,,Sodium Hyaluronate,保濕,0.05,0.2,無,
+RA-L06,,Allantoin,舒緩,0.1,0.3,無,
+RA-L06,,Carbomer,增稠,0.1,0.3,無,
+RA-L06,,Xanthan Gum,增稠,0.05,0.2,無,
+RA-L06,,Disodium EDTA,螯合劑,0.02,0.05,無,
+RA-L06,,Phenoxyethanol,防腐,0.5,0.8,1.0%,
+RA-L06,,Ethylhexylglycerin,防腐增效,0.1,0.3,無,
+RA-L06,,Sodium Hydroxide,pH 調整,q.s.,q.s.,—,目標 pH 5.5-6.0
+RA-L07,A,Ethylhexyl Methoxycinnamate,UVB 防曬劑,7.0,10.0,10.0%,
+RA-L07,A,Diethylamino Hydroxybenzoyl Hexyl Benzoate,UVA 防曬劑,5.0,10.0,10.0%,
+RA-L07,A,"Bis-Ethylhexyloxyphenol Methoxyphenyl Triazine",廣域防曬劑,3.0,10.0,10.0%,
+RA-L07,A,Ethylhexyl Triazone,UVB 防曬劑,2.0,5.0,5.0%,
+RA-L07,A,C12-15 Alkyl Benzoate,油相／溶劑,3.0,8.0,無,助防曬劑溶解
+RA-L07,A,Caprylic/Capric Triglyceride,油相,2.0,5.0,無,
+RA-L07,A,Cetearyl Alcohol,增稠／助乳化,1.5,3.0,無,
+RA-L07,A,Glyceryl Stearate,乳化劑,1.0,2.5,無,
+RA-L07,A,"Cetearyl Olivate, Sorbitan Olivate",天然乳化劑,1.5,3.0,無,
+RA-L07,A,Tocopheryl Acetate,抗氧化,0.1,0.5,無,
+RA-L07,B,Aqua,溶劑,q.s.,q.s.,—,補足至 100%
+RA-L07,B,Glycerin,保濕,3.0,8.0,無,
+RA-L07,B,Butylene Glycol,保濕／溶劑,2.0,5.0,無,
+RA-L07,B,Sodium Hyaluronate,保濕,0.05,0.2,無,
+RA-L07,B,Panthenol,舒緩,0.5,2.0,無,
+RA-L07,B,Disodium EDTA,螯合劑,0.05,0.1,無,
+RA-L07,C,Xanthan Gum,增稠,0.1,0.3,無,
+RA-L07,C,Acrylates/C10-30 Alkyl Acrylate Crosspolymer,增稠,0.1,0.3,無,
+RA-L07,D,Phenoxyethanol,防腐,0.5,0.8,1.0%,
+RA-L07,D,Ethylhexylglycerin,防腐增效,0.1,0.3,無,
+RA-L07,D,Fragrance,香精,0.05,0.15,依 IFRA,
+RA-L07,D,Sodium Hydroxide,pH 調整,q.s.,q.s.,—,目標 pH 6.0-7.0
+RA-L08,,Aqua,溶劑,q.s.,q.s.,—,補足至 100%
+RA-L08,,Tranexamic Acid,亮白,2.0,3.0,3.0%,需法遵複核最新公告
+RA-L08,,Niacinamide,亮白,2.0,4.0,無,
+RA-L08,,Alpha-Arbutin,亮白,1.0,2.0,7.0%,熊果素類限量；需法遵複核
+RA-L08,,3-O-Ethyl Ascorbic Acid,抗氧化／亮白,2.0,3.0,無,
+RA-L08,,Glycerin,保濕,3.0,8.0,無,
+RA-L08,,Propanediol,保濕／溶劑,2.0,5.0,無,
+RA-L08,,Panthenol,舒緩,0.5,2.0,無,
+RA-L08,,Sodium Hyaluronate,保濕,0.05,0.2,無,
+RA-L08,,Allantoin,舒緩,0.1,0.3,無,
+RA-L08,,Hydroxyethylcellulose,增稠,0.1,0.3,無,
+RA-L08,,Disodium EDTA,螯合劑,0.02,0.05,無,
+RA-L08,,Phenoxyethanol,防腐,0.5,0.8,1.0%,
+RA-L08,,Ethylhexylglycerin,防腐增效,0.1,0.3,無,
+RA-L08,,Citric Acid,pH 調整,q.s.,q.s.,—,目標 pH 5.0-5.5
+RA-N09,A,Squalane,油相,3.0,8.0,無,
+RA-N09,A,Caprylic/Capric Triglyceride,油相,3.0,8.0,無,
+RA-N09,A,Cetearyl Alcohol,增稠／助乳化,2.0,4.0,無,
+RA-N09,A,Glyceryl Stearate,乳化劑,1.5,3.0,無,
+RA-N09,A,"Cetearyl Olivate, Sorbitan Olivate",天然乳化劑,2.0,4.0,無,
+RA-N09,A,Tocopheryl Acetate,抗氧化,0.1,0.5,無,
+RA-N09,B,Aqua,溶劑,q.s.,q.s.,—,補足至 100%
+RA-N09,B,Glycerin,保濕,5.0,10.0,無,
+RA-N09,B,Butylene Glycol,保濕／溶劑,2.0,5.0,無,
+RA-N09,B,Caffeine,循環調理,0.5,2.0,無,
+RA-N09,B,Palmitoyl Tripeptide-1,胜肽,1.0,3.0,無,以 100 ppm 溶液計；純肽約 0.0001-0.0003%
+RA-N09,B,Palmitoyl Tetrapeptide-7,胜肽,1.0,3.0,無,以 100 ppm 溶液計
+RA-N09,B,Acetyl Hexapeptide-8,胜肽,2.0,5.0,無,以 5% 溶液計
+RA-N09,B,Copper Tripeptide-1,胜肽,0.5,2.0,無,以 0.1% 溶液計
+RA-N09,B,Niacinamide,亮白／屏障,1.0,3.0,無,
+RA-N09,B,Panthenol,舒緩,1.0,3.0,無,
+RA-N09,B,Sodium Hyaluronate,保濕,0.05,0.2,無,
+RA-N09,B,Allantoin,舒緩,0.1,0.3,無,
+RA-N09,B,Disodium EDTA,螯合劑,0.05,0.1,無,
+RA-N09,C,Xanthan Gum,增稠,0.1,0.3,無,
+RA-N09,C,Carbomer,增稠,0.05,0.2,無,
+RA-N09,D,Phenoxyethanol,防腐,0.5,0.8,1.0%,
+RA-N09,D,Ethylhexylglycerin,防腐增效,0.1,0.3,無,
+RA-N09,D,Sodium Hydroxide,pH 調整,q.s.,q.s.,—,目標 pH 5.5-6.0
+RA-N10,A,Squalane,油相,3.0,8.0,無,
+RA-N10,A,Caprylic/Capric Triglyceride,油相,3.0,8.0,無,
+RA-N10,A,Cetearyl Alcohol,增稠／助乳化,2.0,4.0,無,
+RA-N10,A,Glyceryl Stearate,乳化劑,1.5,3.0,無,
+RA-N10,A,"Cetearyl Olivate, Sorbitan Olivate",天然乳化劑,2.0,4.0,無,
+RA-N10,A,Dimethicone,膚感／防水,1.0,3.0,無,
+RA-N10,A,Tocopherol,抗氧化,0.1,0.5,無,
+RA-N10,B,Aqua,溶劑,q.s.,q.s.,—,補足至 100%
+RA-N10,B,Glycerin,保濕,5.0,10.0,無,
+RA-N10,B,Butylene Glycol,保濕／溶劑,2.0,5.0,無,
+RA-N10,B,Niacinamide,亮白／屏障,1.0,3.0,無,
+RA-N10,B,Panthenol,舒緩,1.0,3.0,無,
+RA-N10,B,Sodium Hyaluronate,保濕,0.05,0.2,無,
+RA-N10,B,Disodium EDTA,螯合劑,0.05,0.1,無,
+RA-N10,C,Retinol,抗老,0.05,0.3,0.3%,retinol equivalent；需法遵複核；需充氮避光
+RA-N10,C,Bakuchiol,植物抗老替代,0.5,1.0,無,降低 A 醇刺激
+RA-N10,C,Polysorbate 20,增溶劑,0.5,1.5,無,助 A 醇分散
+RA-N10,D,Xanthan Gum,增稠,0.1,0.3,無,
+RA-N10,D,Carbomer,增稠,0.05,0.2,無,
+RA-N10,E,Phenoxyethanol,防腐,0.5,0.8,1.0%,
+RA-N10,E,Ethylhexylglycerin,防腐增效,0.1,0.3,無,
+RA-N10,E,Sodium Hydroxide,pH 調整,q.s.,q.s.,—,目標 pH 5.5-6.0
+RA-R11,,Squalane,基底油,30.0,50.0,無,
+RA-R11,,Caprylic/Capric Triglyceride,基底油,15.0,30.0,無,
+RA-R11,,Isoamyl Laurate,輕質油,5.0,15.0,無,降低油膩感
+RA-R11,,Coco-Caprylate/Caprate,輕質油,5.0,15.0,無,
+RA-R11,,Camellia Japonica Seed Oil,植物油,3.0,8.0,無,山茶花油
+RA-R11,,Argania Spinosa Kernel Oil,植物油,2.0,5.0,無,摩洛哥堅果油
+RA-R11,,Rosa Canina Fruit Oil,植物油,1.0,3.0,無,玫瑰果油
+RA-R11,,Simmondsia Chinensis Seed Oil,植物油（蠟酯）,2.0,5.0,無,荷荷芭油
+RA-R11,,Helianthus Annuus Seed Oil,植物油／載體,1.0,5.0,無,
+RA-R11,,Tocopherol,抗氧化,0.2,1.0,無,
+RA-R11,,Bisabolol,舒緩,0.1,0.5,無,
+RA-R11,,Fragrance,香精,0.1,0.3,依 IFRA,另備無香版
+RA-S13,,Aqua,溶劑,q.s.,q.s.,—,補足至 100%
+RA-S13,,Sodium Lauroyl Methyl Isethionate,溫和界面活性劑,8.0,15.0,無,胺基酸系主劑
+RA-S13,,Cocamidopropyl Betaine,溫和界面活性劑,3.0,8.0,無,
+RA-S13,,Decyl Glucoside,溫和界面活性劑,2.0,5.0,無,糖苷系
+RA-S13,,Glycerin,保濕,2.0,5.0,無,
+RA-S13,,Polyquaternium-7,調理,0.2,0.8,無,
+RA-S13,,Polyquaternium-10,調理,0.1,0.3,無,
+RA-S13,,Panthenol,舒緩,0.5,2.0,無,
+RA-S13,,Niacinamide,頭皮調理,0.5,2.0,無,
+RA-S13,,Caffeine,頭皮調理,0.2,1.0,無,
+RA-S13,,Menthol,清涼感,0.05,0.2,無,可選
+RA-S13,,Piroctone Olamine,抗屑,0.2,0.5,1.0%,
+RA-S13,,Salicylic Acid,角質調理,0.2,0.5,3.0%,洗髮精限量
+RA-S13,,Disodium EDTA,螯合劑,0.05,0.1,無,
+RA-S13,,Sodium Chloride,增黏,0.5,2.0,無,依黏度調整
+RA-S13,,Citric Acid,pH 調整,q.s.,q.s.,—,目標 pH 5.0-5.5
+RA-S13,,Sodium Benzoate,防腐,0.2,0.5,0.5%,以酸計
+RA-S13,,Fragrance,香精,0.2,0.5,依 IFRA,
+RA-S14,,Aqua,溶劑,q.s.,q.s.,—,補足至 100%
+RA-S14,,Alcohol Denat.,溶劑（可選）,0.0,10.0,無,敏弱頭皮建議 0%
+RA-S14,,Butylene Glycol,保濕／溶劑,2.0,5.0,無,
+RA-S14,,Propanediol,保濕／溶劑,2.0,5.0,無,
+RA-S14,,Glycerin,保濕,2.0,5.0,無,
+RA-S14,,Niacinamide,頭皮調理,1.0,3.0,無,
+RA-S14,,Caffeine,頭皮調理,0.5,2.0,無,
+RA-S14,,Panthenol,舒緩,1.0,3.0,無,
+RA-S14,,Copper Tripeptide-1,胜肽,0.5,2.0,無,以 0.1% 溶液計
+RA-S14,,Biotin,頭皮調理,0.01,0.05,無,
+RA-S14,,Zinc PCA,控油,0.2,1.0,無,
+RA-S14,,Menthol,清涼感,0.05,0.2,無,可選
+RA-S14,,Allantoin,舒緩,0.1,0.3,無,
+RA-S14,,Hydroxyethylcellulose,增稠,0.1,0.3,無,
+RA-S14,,Disodium EDTA,螯合劑,0.02,0.05,無,
+RA-S14,,Phenoxyethanol,防腐,0.5,0.8,1.0%,
+RA-S14,,Ethylhexylglycerin,防腐增效,0.1,0.3,無,
+RA-S14,,Citric Acid,pH 調整,q.s.,q.s.,—,目標 pH 5.0-5.5

@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# 暫存與輸出
+*.tmp
+*.log
+~$*
+.DS_Store
+Thumbs.db
+
+# 本機環境
+.env
+.env.*
+!.env.example

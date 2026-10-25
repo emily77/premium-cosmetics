@@ -1,0 +1,1545 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-10-25T21:37:28+08:00",
+  "project": "Rokaizumi 頂級化妝品線",
+  "status": "估算模型，非報價、非承諾；所有 SKU 仍 enabled=false",
+  "assumptions": {
+    "usd_twd": 32.0,
+    "tax_rate": 0.2,
+    "channel_cut": 0.5,
+    "self_direct_share": 0.7,
+    "payment_fee": 0.05,
+    "logistics_pct": 0.04,
+    "marketing_pct": 0.18,
+    "agent_commission_pct": 0.12,
+    "community_pct": 0.03,
+    "misc_pct": 0.03,
+    "headcount": 2,
+    "salary_per_month": 45000,
+    "ai_budget_usd_month": 60
+  },
+  "investment": {
+    "rows": [
+      {
+        "cat_code": "A",
+        "category": "產品開發",
+        "item": "打樣（4 支 P0 × 3 輪）",
+        "amount_twd": 240000,
+        "note": "每支每輪 20,000，含配方調整與穩定性初篩"
+      },
+      {
+        "cat_code": "A",
+        "category": "產品開發",
+        "item": "安定性與相容性測試",
+        "amount_twd": 120000,
+        "note": "3 個月加速安定性 + 包材相容性"
+      },
+      {
+        "cat_code": "A",
+        "category": "產品開發",
+        "item": "微生物與重金屬檢驗（14 支）",
+        "amount_twd": 168000,
+        "note": "每支 12,000，含生菌數、黴菌、鉛汞砷鎘"
+      },
+      {
+        "cat_code": "A",
+        "category": "產品開發",
+        "item": "功效評估（4 支，人體試驗）",
+        "amount_twd": 480000,
+        "note": "每支 120,000，含 28 天人體功效與安全性"
+      },
+      {
+        "cat_code": "A",
+        "category": "產品開發",
+        "item": "法規登錄與 PIF 建置（14 支）",
+        "amount_twd": 280000,
+        "note": "每支 20,000，含產品登錄、PIF、標示審查"
+      },
+      {
+        "cat_code": "B",
+        "category": "包材與模具",
+        "item": "公版瓶器打樣與測試",
+        "amount_twd": 60000,
+        "note": "多款公版比對、跌落測試、相容性"
+      },
+      {
+        "cat_code": "B",
+        "category": "包材與模具",
+        "item": "私模開模（霜罐 + 滴管瓶 2 款）",
+        "amount_twd": 280000,
+        "note": "每款 140,000，含模具與首件確認"
+      },
+      {
+        "cat_code": "B",
+        "category": "包材與模具",
+        "item": "印刷網版與打樣",
+        "amount_twd": 90000,
+        "note": "網印／燙金／UV 各版費"
+      },
+      {
+        "cat_code": "C",
+        "category": "品牌與通路",
+        "item": "品牌識別與視覺系統",
+        "amount_twd": 250000,
+        "note": "LOGO、標準字、色彩、輔助圖形、品牌手冊"
+      },
+      {
+        "cat_code": "C",
+        "category": "品牌與通路",
+        "item": "包裝設計（14 支）",
+        "amount_twd": 210000,
+        "note": "每支 15,000，含外盒、瓶身、標籤"
+      },
+      {
+        "cat_code": "C",
+        "category": "品牌與通路",
+        "item": "官網與電商系統",
+        "amount_twd": 300000,
+        "note": "含商品頁、購物車、金流串接、會員系統"
+      },
+      {
+        "cat_code": "C",
+        "category": "品牌與通路",
+        "item": "商標註冊（台灣 + 日本，6 類）",
+        "amount_twd": 180000,
+        "note": "每國每類 15,000，含檢索與申請"
+      },
+      {
+        "cat_code": "D",
+        "category": "首批量產",
+        "item": "4 支 P0 × 3,000 支（含 10% 損耗）",
+        "amount_twd": 1244000,
+        "note": "依成本引擎出廠成本計算"
+      },
+      {
+        "cat_code": "E",
+        "category": "行銷啟動",
+        "item": "KOL／部落客合作",
+        "amount_twd": 350000,
+        "note": "20 位中小型 KOL，含產品寄送"
+      },
+      {
+        "cat_code": "E",
+        "category": "行銷啟動",
+        "item": "內容製作（攝影、影片）",
+        "amount_twd": 180000,
+        "note": "產品攝影、形象影片、短影音素材"
+      },
+      {
+        "cat_code": "E",
+        "category": "行銷啟動",
+        "item": "數位廣告（3 個月）",
+        "amount_twd": 450000,
+        "note": "Meta、Google、LINE 投放"
+      },
+      {
+        "cat_code": "E",
+        "category": "行銷啟動",
+        "item": "通路陳列與試用",
+        "amount_twd": 120000,
+        "note": "藥粧通路陳列架、試用品"
+      },
+      {
+        "cat_code": "F",
+        "category": "AI Agent 系統",
+        "item": "建置（一次性）",
+        "amount_twd": 150000,
+        "note": "20 個 Agent 規格落地、6 個值班入口、知識庫"
+      },
+      {
+        "cat_code": "F",
+        "category": "AI Agent 系統",
+        "item": "年度維運（USD 60/月）",
+        "amount_twd": 23040,
+        "note": "D-029 核定預算"
+      },
+      {
+        "cat_code": "G",
+        "category": "營運週轉金",
+        "item": "人事（3 人 × 6 個月）",
+        "amount_twd": 810000,
+        "note": "籌備期人力"
+      },
+      {
+        "cat_code": "G",
+        "category": "營運週轉金",
+        "item": "辦公室與雜支（6 個月）",
+        "amount_twd": 180000,
+        "note": "租金、設備、行政"
+      }
+    ],
+    "by_category": [
+      {
+        "category": "產品開發",
+        "amount_twd": 1288000
+      },
+      {
+        "category": "包材與模具",
+        "amount_twd": 430000
+      },
+      {
+        "category": "品牌與通路",
+        "amount_twd": 940000
+      },
+      {
+        "category": "首批量產",
+        "amount_twd": 1244000
+      },
+      {
+        "category": "行銷啟動",
+        "amount_twd": 1100000
+      },
+      {
+        "category": "AI Agent 系統",
+        "amount_twd": 173040
+      },
+      {
+        "category": "營運週轉金",
+        "amount_twd": 990000
+      }
+    ],
+    "total_twd": 6165040
+  },
+  "factory": {
+    "name": "台灣安成生化科技有限公司",
+    "role": "委託製造（OEM／ODM）",
+    "factory_cash_investment_twd": 0,
+    "factory_note": "代工廠不投入資金、不佔股。所有開發費用由品牌方負擔，避免股權與配方歸屬糾纏。",
+    "factory_contribution": [
+      [
+        "人力",
+        "配方工程師、品保、生產線人力",
+        "依打樣與量產排程投入"
+      ],
+      [
+        "設備",
+        "乳化槽、均質機、充填線、包裝線",
+        "既有設備，不需新增"
+      ],
+      [
+        "品保",
+        "原料檢驗、半成品與成品檢驗、留樣",
+        "依 GMP 規範"
+      ],
+      [
+        "文件",
+        "GMP 證明、成分表、COA、MSDS",
+        "隨每批提供"
+      ],
+      [
+        "法規協助",
+        "化粧品登錄所需製造廠資料",
+        "配合提供"
+      ]
+    ],
+    "brand_side_pays": [
+      [
+        "打樣費",
+        "每支每輪 20,000",
+        "3 輪為限，超出另計"
+      ],
+      [
+        "開模費",
+        "每款 140,000",
+        "可談分攤 50% 換 2 年獨家"
+      ],
+      [
+        "檢驗費",
+        "每支 12,000",
+        "第三方公正檢驗"
+      ],
+      [
+        "法規登錄費",
+        "每支 20,000",
+        "含 PIF 建置"
+      ]
+    ],
+    "contract_terms": [
+      [
+        "配方所有權",
+        "歸品牌方（Rokaizumi）所有",
+        "代工廠不得自行使用或轉售"
+      ],
+      [
+        "獨家代工",
+        "2 年獨家，換取開模費分攤 50%",
+        "期滿可續約或轉廠"
+      ],
+      [
+        "價格鎖定",
+        "簽約後 12 個月不調價",
+        "原料漲幅超過 15% 可重議"
+      ],
+      [
+        "MOQ",
+        "首批 3,000 支／SKU，後續 1,500 支",
+        "低於 MOQ 加收換線費"
+      ],
+      [
+        "付款條件",
+        "30% 訂金、70% 出貨前付清",
+        "首批可談 40% / 60%"
+      ],
+      [
+        "品質違約",
+        "不良率 > 2% 全額重製",
+        "含運費與延遲損失"
+      ],
+      [
+        "保密條款",
+        "配方、客戶、銷量均為機密",
+        "違約賠償 3 年營業額"
+      ],
+      [
+        "交期",
+        "下單後 45 天交貨",
+        "急單 30 天加收 15%"
+      ]
+    ],
+    "risk_notes": [
+      "代工廠若同時代工競品，需在合約中約定競業限制",
+      "配方應分階段揭露，避免一次性交付完整配方",
+      "關鍵原料建議品牌方自行採購或指定供應商，避免被綁定",
+      "每批留樣保存 3 年，以備法規查核與客訴追溯"
+    ]
+  },
+  "ai_team": {
+    "rows": [
+      {
+        "code": "E1",
+        "name": "法遵與品保",
+        "agents": "A04 法遵、A05 品保",
+        "human_role": "法遵專員 0.5 人",
+        "human_cost_twd": 22500,
+        "ai_cost_twd": 320.0,
+        "duty": "法規限量核對、宣稱白名單、PIF 文件、標示審查"
+      },
+      {
+        "code": "E2",
+        "name": "產品與配方",
+        "agents": "A06 配方、A07 成本",
+        "human_role": "產品經理 0.5 人",
+        "human_cost_twd": 25000,
+        "ai_cost_twd": 320.0,
+        "duty": "配方架構、打樣追蹤、成本試算、供應商比價"
+      },
+      {
+        "code": "E3",
+        "name": "內容與行銷",
+        "agents": "A08 內容、A09 社群、A10 廣告",
+        "human_role": "內容編輯 1 人",
+        "human_cost_twd": 38000,
+        "ai_cost_twd": 320.0,
+        "duty": "文案、素材腳本、社群排程、廣告投放建議"
+      },
+      {
+        "code": "E4",
+        "name": "客服與代理",
+        "agents": "A11 客服、A12 代理管理",
+        "human_role": "客服專員 1 人",
+        "human_cost_twd": 32000,
+        "ai_cost_twd": 320.0,
+        "duty": "常見問題、客訴分類、代理招募與佣金結算"
+      },
+      {
+        "code": "E5",
+        "name": "數據與財務",
+        "agents": "A14 記帳、A15 報表、A16 對帳",
+        "human_role": "會計 0.5 人",
+        "human_cost_twd": 20000,
+        "ai_cost_twd": 320.0,
+        "duty": "收支記帳、月報、平台對帳、稅務資料整理"
+      },
+      {
+        "code": "E6",
+        "name": "供應鏈與物流",
+        "agents": "A17 採購、A18 庫存、A19 出貨",
+        "human_role": "採購 0.5 人",
+        "human_cost_twd": 22000,
+        "ai_cost_twd": 320.0,
+        "duty": "原料採購、庫存預警、出貨排程、物流追蹤"
+      }
+    ],
+    "summary": {
+      "agent_count": 20,
+      "entry_count": 6,
+      "full_human_headcount": 4,
+      "full_human_month_twd": 159500,
+      "full_human_year_twd": 1914000,
+      "ai_month_usd": 60,
+      "ai_month_twd": 1920.0,
+      "ai_year_twd": 23040.0,
+      "lean_headcount": 2,
+      "lean_human_year_twd": 1080000,
+      "lean_total_year_twd": 1103040.0,
+      "saving_year_twd": 810960.0,
+      "saving_pct": 42.4,
+      "note": "AI 不取代人，是讓人從 4 人降到 2 人。留下的人負責判斷、核定與對外關係。"
+    }
+  },
+  "pricing": {
+    "target_multiple": 7.0,
+    "original": [
+      {
+        "sku_code": "RA-C01",
+        "name_zh": "澄淨胺基酸潔膚霜",
+        "exfactory": 84.84,
+        "price": 1280.0,
+        "multiple": 15.1
+      },
+      {
+        "sku_code": "RA-C02",
+        "name_zh": "澄潤前導精華露",
+        "exfactory": 104.63,
+        "price": 1680.0,
+        "multiple": 16.1
+      },
+      {
+        "sku_code": "RA-H03",
+        "name_zh": "潤澤玻尿酸精華",
+        "exfactory": 85.62,
+        "price": 2280.0,
+        "multiple": 26.6
+      },
+      {
+        "sku_code": "RA-H04",
+        "name_zh": "潤屏神經醯胺乳霜",
+        "exfactory": 100.87,
+        "price": 2880.0,
+        "multiple": 28.6
+      },
+      {
+        "sku_code": "RA-H05",
+        "name_zh": "潤澤密集修護面膜",
+        "exfactory": 114.69,
+        "price": 1280.0,
+        "multiple": 11.2
+      },
+      {
+        "sku_code": "RA-L06",
+        "name_zh": "曜白菸鹼醯胺精華",
+        "exfactory": 85.43,
+        "price": 2480.0,
+        "multiple": 29.0
+      },
+      {
+        "sku_code": "RA-L07",
+        "name_zh": "曜光維C防護乳 SPF50+ PA++++",
+        "exfactory": 92.38,
+        "price": 1880.0,
+        "multiple": 20.4
+      },
+      {
+        "sku_code": "RA-L08",
+        "name_zh": "曜白淡斑安瓶",
+        "exfactory": 168.38,
+        "price": 3280.0,
+        "multiple": 19.5
+      },
+      {
+        "sku_code": "RA-N09",
+        "name_zh": "齡活胜肽眼霜",
+        "exfactory": 74.0,
+        "price": 2680.0,
+        "multiple": 36.2
+      },
+      {
+        "sku_code": "RA-N10",
+        "name_zh": "齡活A醇晚霜",
+        "exfactory": 119.67,
+        "price": 3880.0,
+        "multiple": 32.4
+      },
+      {
+        "sku_code": "RA-R11",
+        "name_zh": "御藏全效精華油",
+        "exfactory": 103.21,
+        "price": 3280.0,
+        "multiple": 31.8
+      },
+      {
+        "sku_code": "RA-R12",
+        "name_zh": "御藏頂級禮盒",
+        "exfactory": 374.54,
+        "price": 9800.0,
+        "multiple": 26.2
+      },
+      {
+        "sku_code": "RA-S13",
+        "name_zh": "沁淨頭皮平衡洗髮精",
+        "exfactory": 120.73,
+        "price": 980.0,
+        "multiple": 8.1
+      },
+      {
+        "sku_code": "RA-S14",
+        "name_zh": "沁養頭皮養護精華",
+        "exfactory": 74.31,
+        "price": 1680.0,
+        "multiple": 22.6
+      }
+    ],
+    "suggested": [
+      {
+        "sku_code": "RA-C01",
+        "name_zh": "澄淨胺基酸潔膚霜",
+        "exfactory": 84.84,
+        "price": 590,
+        "multiple": 7.0
+      },
+      {
+        "sku_code": "RA-C02",
+        "name_zh": "澄潤前導精華露",
+        "exfactory": 104.63,
+        "price": 730,
+        "multiple": 7.0
+      },
+      {
+        "sku_code": "RA-H03",
+        "name_zh": "潤澤玻尿酸精華",
+        "exfactory": 85.62,
+        "price": 600,
+        "multiple": 7.0
+      },
+      {
+        "sku_code": "RA-H04",
+        "name_zh": "潤屏神經醯胺乳霜",
+        "exfactory": 100.87,
+        "price": 710,
+        "multiple": 7.0
+      },
+      {
+        "sku_code": "RA-H05",
+        "name_zh": "潤澤密集修護面膜",
+        "exfactory": 114.69,
+        "price": 800,
+        "multiple": 7.0
+      },
+      {
+        "sku_code": "RA-L06",
+        "name_zh": "曜白菸鹼醯胺精華",
+        "exfactory": 85.43,
+        "price": 600,
+        "multiple": 7.0
+      },
+      {
+        "sku_code": "RA-L07",
+        "name_zh": "曜光維C防護乳 SPF50+ PA++++",
+        "exfactory": 92.38,
+        "price": 650,
+        "multiple": 7.0
+      },
+      {
+        "sku_code": "RA-L08",
+        "name_zh": "曜白淡斑安瓶",
+        "exfactory": 168.38,
+        "price": 1180,
+        "multiple": 7.0
+      },
+      {
+        "sku_code": "RA-N09",
+        "name_zh": "齡活胜肽眼霜",
+        "exfactory": 74.0,
+        "price": 520,
+        "multiple": 7.0
+      },
+      {
+        "sku_code": "RA-N10",
+        "name_zh": "齡活A醇晚霜",
+        "exfactory": 119.67,
+        "price": 840,
+        "multiple": 7.0
+      },
+      {
+        "sku_code": "RA-R11",
+        "name_zh": "御藏全效精華油",
+        "exfactory": 103.21,
+        "price": 720,
+        "multiple": 7.0
+      },
+      {
+        "sku_code": "RA-R12",
+        "name_zh": "御藏頂級禮盒",
+        "exfactory": 374.54,
+        "price": 2250,
+        "multiple": 6.0
+      },
+      {
+        "sku_code": "RA-S13",
+        "name_zh": "沁淨頭皮平衡洗髮精",
+        "exfactory": 120.73,
+        "price": 850,
+        "multiple": 7.0
+      },
+      {
+        "sku_code": "RA-S14",
+        "name_zh": "沁養頭皮養護精華",
+        "exfactory": 74.31,
+        "price": 520,
+        "multiple": 7.0
+      }
+    ]
+  },
+  "pnl": {
+    "y1_original": {
+      "label": "第一年｜原提案價",
+      "gross_retail_revenue": 31284000.0,
+      "self_direct_revenue": 21898800.0,
+      "channel_revenue": 9385200.0,
+      "net_revenue": 25496460.0,
+      "expenses": {
+        "產品成本（出廠）": 1561981.0,
+        "物流與倉儲": 1019858.0,
+        "行銷": 4589363.0,
+        "人事": 1080000,
+        "平台與金流": 1094940.0,
+        "代理佣金": 1126224.0,
+        "社群貢獻回饋": 764894.0,
+        "雜支": 764894.0,
+        "AI Agent 維運": 23040.0
+      },
+      "total_expenses": 12025194.0,
+      "ebt": 13471266.0,
+      "tax": 2694253.0,
+      "net_profit": 10777013.0,
+      "net_margin_pct": 42.3,
+      "lines": [
+        {
+          "sku_code": "RA-C01",
+          "name_zh": "澄淨胺基酸潔膚霜",
+          "qty": 6000,
+          "unit_price": 1280.0,
+          "retail_revenue": 7680000.0,
+          "unit_exfactory": 84.84,
+          "product_cost": 509040.0,
+          "unit_gross": 1195.16,
+          "gross_margin_pct": 93.4
+        },
+        {
+          "sku_code": "RA-C02",
+          "name_zh": "澄潤前導精華露",
+          "qty": 4500,
+          "unit_price": 1680.0,
+          "retail_revenue": 7560000.0,
+          "unit_exfactory": 104.63,
+          "product_cost": 470835.0,
+          "unit_gross": 1575.37,
+          "gross_margin_pct": 93.8
+        },
+        {
+          "sku_code": "RA-H03",
+          "name_zh": "潤澤玻尿酸精華",
+          "qty": 3500,
+          "unit_price": 2280.0,
+          "retail_revenue": 7980000.0,
+          "unit_exfactory": 85.62,
+          "product_cost": 299670.0,
+          "unit_gross": 2194.38,
+          "gross_margin_pct": 96.2
+        },
+        {
+          "sku_code": "RA-H04",
+          "name_zh": "潤屏神經醯胺乳霜",
+          "qty": 2800,
+          "unit_price": 2880.0,
+          "retail_revenue": 8064000.0,
+          "unit_exfactory": 100.87,
+          "product_cost": 282436.0,
+          "unit_gross": 2779.13,
+          "gross_margin_pct": 96.5
+        }
+      ]
+    },
+    "y1_suggested": {
+      "label": "第一年｜建議價（7 倍）",
+      "gross_retail_revenue": 10913000.0,
+      "self_direct_revenue": 7639100.0,
+      "channel_revenue": 3273900.0,
+      "net_revenue": 8894095.0,
+      "expenses": {
+        "產品成本（出廠）": 1561981.0,
+        "物流與倉儲": 355764.0,
+        "行銷": 1600937.0,
+        "人事": 1080000,
+        "平台與金流": 381955.0,
+        "代理佣金": 392868.0,
+        "社群貢獻回饋": 266823.0,
+        "雜支": 266823.0,
+        "AI Agent 維運": 23040.0
+      },
+      "total_expenses": 5930191.0,
+      "ebt": 2963904.0,
+      "tax": 592781.0,
+      "net_profit": 2371124.0,
+      "net_margin_pct": 26.7,
+      "lines": [
+        {
+          "sku_code": "RA-C01",
+          "name_zh": "澄淨胺基酸潔膚霜",
+          "qty": 6000,
+          "unit_price": 590,
+          "retail_revenue": 3540000,
+          "unit_exfactory": 84.84,
+          "product_cost": 509040.0,
+          "unit_gross": 505.15999999999997,
+          "gross_margin_pct": 85.6
+        },
+        {
+          "sku_code": "RA-C02",
+          "name_zh": "澄潤前導精華露",
+          "qty": 4500,
+          "unit_price": 730,
+          "retail_revenue": 3285000,
+          "unit_exfactory": 104.63,
+          "product_cost": 470835.0,
+          "unit_gross": 625.37,
+          "gross_margin_pct": 85.7
+        },
+        {
+          "sku_code": "RA-H03",
+          "name_zh": "潤澤玻尿酸精華",
+          "qty": 3500,
+          "unit_price": 600,
+          "retail_revenue": 2100000,
+          "unit_exfactory": 85.62,
+          "product_cost": 299670.0,
+          "unit_gross": 514.38,
+          "gross_margin_pct": 85.7
+        },
+        {
+          "sku_code": "RA-H04",
+          "name_zh": "潤屏神經醯胺乳霜",
+          "qty": 2800,
+          "unit_price": 710,
+          "retail_revenue": 1988000,
+          "unit_exfactory": 100.87,
+          "product_cost": 282436.0,
+          "unit_gross": 609.13,
+          "gross_margin_pct": 85.8
+        }
+      ]
+    },
+    "y2_original": {
+      "label": "第二年｜原提案價",
+      "gross_retail_revenue": 122992000.0,
+      "self_direct_revenue": 86094400.0,
+      "channel_revenue": 36897600.0,
+      "net_revenue": 100238480.0,
+      "expenses": {
+        "產品成本（出廠）": 6069567.0,
+        "物流與倉儲": 4009539.0,
+        "行銷": 18042926.0,
+        "人事": 1080000,
+        "平台與金流": 4304720.0,
+        "代理佣金": 4427712.0,
+        "社群貢獻回饋": 3007154.0,
+        "雜支": 3007154.0,
+        "AI Agent 維運": 23040.0
+      },
+      "total_expenses": 43971813.0,
+      "ebt": 56266667.0,
+      "tax": 11253333.0,
+      "net_profit": 45013333.0,
+      "net_margin_pct": 44.9,
+      "lines": [
+        {
+          "sku_code": "RA-C01",
+          "name_zh": "澄淨胺基酸潔膚霜",
+          "qty": 12000,
+          "unit_price": 1280.0,
+          "retail_revenue": 15360000.0,
+          "unit_exfactory": 84.84,
+          "product_cost": 1018080.0,
+          "unit_gross": 1195.16,
+          "gross_margin_pct": 93.4
+        },
+        {
+          "sku_code": "RA-C02",
+          "name_zh": "澄潤前導精華露",
+          "qty": 9000,
+          "unit_price": 1680.0,
+          "retail_revenue": 15120000.0,
+          "unit_exfactory": 104.63,
+          "product_cost": 941670.0,
+          "unit_gross": 1575.37,
+          "gross_margin_pct": 93.8
+        },
+        {
+          "sku_code": "RA-H03",
+          "name_zh": "潤澤玻尿酸精華",
+          "qty": 7000,
+          "unit_price": 2280.0,
+          "retail_revenue": 15960000.0,
+          "unit_exfactory": 85.62,
+          "product_cost": 599340.0,
+          "unit_gross": 2194.38,
+          "gross_margin_pct": 96.2
+        },
+        {
+          "sku_code": "RA-H04",
+          "name_zh": "潤屏神經醯胺乳霜",
+          "qty": 5600,
+          "unit_price": 2880.0,
+          "retail_revenue": 16128000.0,
+          "unit_exfactory": 100.87,
+          "product_cost": 564872.0,
+          "unit_gross": 2779.13,
+          "gross_margin_pct": 96.5
+        },
+        {
+          "sku_code": "RA-H05",
+          "name_zh": "潤澤密集修護面膜",
+          "qty": 4000,
+          "unit_price": 1280.0,
+          "retail_revenue": 5120000.0,
+          "unit_exfactory": 114.69,
+          "product_cost": 458760.0,
+          "unit_gross": 1165.31,
+          "gross_margin_pct": 91.0
+        },
+        {
+          "sku_code": "RA-L06",
+          "name_zh": "曜白菸鹼醯胺精華",
+          "qty": 3500,
+          "unit_price": 2480.0,
+          "retail_revenue": 8680000.0,
+          "unit_exfactory": 85.43,
+          "product_cost": 299005.0,
+          "unit_gross": 2394.57,
+          "gross_margin_pct": 96.6
+        },
+        {
+          "sku_code": "RA-L07",
+          "name_zh": "曜光維C防護乳 SPF50+ PA++++",
+          "qty": 3000,
+          "unit_price": 1880.0,
+          "retail_revenue": 5640000.0,
+          "unit_exfactory": 92.38,
+          "product_cost": 277140.0,
+          "unit_gross": 1787.62,
+          "gross_margin_pct": 95.1
+        },
+        {
+          "sku_code": "RA-L08",
+          "name_zh": "曜白淡斑安瓶",
+          "qty": 1500,
+          "unit_price": 3280.0,
+          "retail_revenue": 4920000.0,
+          "unit_exfactory": 168.38,
+          "product_cost": 252570.0,
+          "unit_gross": 3111.62,
+          "gross_margin_pct": 94.9
+        },
+        {
+          "sku_code": "RA-N09",
+          "name_zh": "齡活胜肽眼霜",
+          "qty": 2500,
+          "unit_price": 2680.0,
+          "retail_revenue": 6700000.0,
+          "unit_exfactory": 74.0,
+          "product_cost": 185000.0,
+          "unit_gross": 2606.0,
+          "gross_margin_pct": 97.2
+        },
+        {
+          "sku_code": "RA-N10",
+          "name_zh": "齡活A醇晚霜",
+          "qty": 1800,
+          "unit_price": 3880.0,
+          "retail_revenue": 6984000.0,
+          "unit_exfactory": 119.67,
+          "product_cost": 215406.0,
+          "unit_gross": 3760.33,
+          "gross_margin_pct": 96.9
+        },
+        {
+          "sku_code": "RA-R11",
+          "name_zh": "御藏全效精華油",
+          "qty": 2000,
+          "unit_price": 3280.0,
+          "retail_revenue": 6560000.0,
+          "unit_exfactory": 103.21,
+          "product_cost": 206420.0,
+          "unit_gross": 3176.79,
+          "gross_margin_pct": 96.9
+        },
+        {
+          "sku_code": "RA-R12",
+          "name_zh": "御藏頂級禮盒",
+          "qty": 600,
+          "unit_price": 9800.0,
+          "retail_revenue": 5880000.0,
+          "unit_exfactory": 374.54,
+          "product_cost": 224724.0,
+          "unit_gross": 9425.46,
+          "gross_margin_pct": 96.2
+        },
+        {
+          "sku_code": "RA-S13",
+          "name_zh": "沁淨頭皮平衡洗髮精",
+          "qty": 5000,
+          "unit_price": 980.0,
+          "retail_revenue": 4900000.0,
+          "unit_exfactory": 120.73,
+          "product_cost": 603650.0,
+          "unit_gross": 859.27,
+          "gross_margin_pct": 87.7
+        },
+        {
+          "sku_code": "RA-S14",
+          "name_zh": "沁養頭皮養護精華",
+          "qty": 3000,
+          "unit_price": 1680.0,
+          "retail_revenue": 5040000.0,
+          "unit_exfactory": 74.31,
+          "product_cost": 222930.0,
+          "unit_gross": 1605.69,
+          "gross_margin_pct": 95.6
+        }
+      ]
+    },
+    "y2_suggested": {
+      "label": "第二年｜建議價（7 倍）",
+      "gross_retail_revenue": 42258000.0,
+      "self_direct_revenue": 29580600.0,
+      "channel_revenue": 12677400.0,
+      "net_revenue": 34440270.0,
+      "expenses": {
+        "產品成本（出廠）": 6069567.0,
+        "物流與倉儲": 1377611.0,
+        "行銷": 6199249.0,
+        "人事": 1080000,
+        "平台與金流": 1479030.0,
+        "代理佣金": 1521288.0,
+        "社群貢獻回饋": 1033208.0,
+        "雜支": 1033208.0,
+        "AI Agent 維運": 23040.0
+      },
+      "total_expenses": 19816201.0,
+      "ebt": 14624069.0,
+      "tax": 2924814.0,
+      "net_profit": 11699256.0,
+      "net_margin_pct": 34.0,
+      "lines": [
+        {
+          "sku_code": "RA-C01",
+          "name_zh": "澄淨胺基酸潔膚霜",
+          "qty": 12000,
+          "unit_price": 590,
+          "retail_revenue": 7080000,
+          "unit_exfactory": 84.84,
+          "product_cost": 1018080.0,
+          "unit_gross": 505.15999999999997,
+          "gross_margin_pct": 85.6
+        },
+        {
+          "sku_code": "RA-C02",
+          "name_zh": "澄潤前導精華露",
+          "qty": 9000,
+          "unit_price": 730,
+          "retail_revenue": 6570000,
+          "unit_exfactory": 104.63,
+          "product_cost": 941670.0,
+          "unit_gross": 625.37,
+          "gross_margin_pct": 85.7
+        },
+        {
+          "sku_code": "RA-H03",
+          "name_zh": "潤澤玻尿酸精華",
+          "qty": 7000,
+          "unit_price": 600,
+          "retail_revenue": 4200000,
+          "unit_exfactory": 85.62,
+          "product_cost": 599340.0,
+          "unit_gross": 514.38,
+          "gross_margin_pct": 85.7
+        },
+        {
+          "sku_code": "RA-H04",
+          "name_zh": "潤屏神經醯胺乳霜",
+          "qty": 5600,
+          "unit_price": 710,
+          "retail_revenue": 3976000,
+          "unit_exfactory": 100.87,
+          "product_cost": 564872.0,
+          "unit_gross": 609.13,
+          "gross_margin_pct": 85.8
+        },
+        {
+          "sku_code": "RA-H05",
+          "name_zh": "潤澤密集修護面膜",
+          "qty": 4000,
+          "unit_price": 800,
+          "retail_revenue": 3200000,
+          "unit_exfactory": 114.69,
+          "product_cost": 458760.0,
+          "unit_gross": 685.31,
+          "gross_margin_pct": 85.7
+        },
+        {
+          "sku_code": "RA-L06",
+          "name_zh": "曜白菸鹼醯胺精華",
+          "qty": 3500,
+          "unit_price": 600,
+          "retail_revenue": 2100000,
+          "unit_exfactory": 85.43,
+          "product_cost": 299005.0,
+          "unit_gross": 514.5699999999999,
+          "gross_margin_pct": 85.8
+        },
+        {
+          "sku_code": "RA-L07",
+          "name_zh": "曜光維C防護乳 SPF50+ PA++++",
+          "qty": 3000,
+          "unit_price": 650,
+          "retail_revenue": 1950000,
+          "unit_exfactory": 92.38,
+          "product_cost": 277140.0,
+          "unit_gross": 557.62,
+          "gross_margin_pct": 85.8
+        },
+        {
+          "sku_code": "RA-L08",
+          "name_zh": "曜白淡斑安瓶",
+          "qty": 1500,
+          "unit_price": 1180,
+          "retail_revenue": 1770000,
+          "unit_exfactory": 168.38,
+          "product_cost": 252570.0,
+          "unit_gross": 1011.62,
+          "gross_margin_pct": 85.7
+        },
+        {
+          "sku_code": "RA-N09",
+          "name_zh": "齡活胜肽眼霜",
+          "qty": 2500,
+          "unit_price": 520,
+          "retail_revenue": 1300000,
+          "unit_exfactory": 74.0,
+          "product_cost": 185000.0,
+          "unit_gross": 446.0,
+          "gross_margin_pct": 85.8
+        },
+        {
+          "sku_code": "RA-N10",
+          "name_zh": "齡活A醇晚霜",
+          "qty": 1800,
+          "unit_price": 840,
+          "retail_revenue": 1512000,
+          "unit_exfactory": 119.67,
+          "product_cost": 215406.0,
+          "unit_gross": 720.33,
+          "gross_margin_pct": 85.8
+        },
+        {
+          "sku_code": "RA-R11",
+          "name_zh": "御藏全效精華油",
+          "qty": 2000,
+          "unit_price": 720,
+          "retail_revenue": 1440000,
+          "unit_exfactory": 103.21,
+          "product_cost": 206420.0,
+          "unit_gross": 616.79,
+          "gross_margin_pct": 85.7
+        },
+        {
+          "sku_code": "RA-R12",
+          "name_zh": "御藏頂級禮盒",
+          "qty": 600,
+          "unit_price": 2250,
+          "retail_revenue": 1350000,
+          "unit_exfactory": 374.54,
+          "product_cost": 224724.0,
+          "unit_gross": 1875.46,
+          "gross_margin_pct": 83.4
+        },
+        {
+          "sku_code": "RA-S13",
+          "name_zh": "沁淨頭皮平衡洗髮精",
+          "qty": 5000,
+          "unit_price": 850,
+          "retail_revenue": 4250000,
+          "unit_exfactory": 120.73,
+          "product_cost": 603650.0,
+          "unit_gross": 729.27,
+          "gross_margin_pct": 85.8
+        },
+        {
+          "sku_code": "RA-S14",
+          "name_zh": "沁養頭皮養護精華",
+          "qty": 3000,
+          "unit_price": 520,
+          "retail_revenue": 1560000,
+          "unit_exfactory": 74.31,
+          "product_cost": 222930.0,
+          "unit_gross": 445.69,
+          "gross_margin_pct": 85.7
+        }
+      ]
+    }
+  },
+  "payback": {
+    "y1_original_years": 0.57,
+    "y1_suggested_years": 2.6,
+    "y2_original_years": 0.14,
+    "y2_suggested_years": 0.53
+  },
+  "waterfall": [
+    {
+      "sku_code": "RA-C01",
+      "name_zh": "澄淨胺基酸潔膚霜",
+      "retail_price": 590,
+      "items": [
+        {
+          "name": "通路抽成",
+          "amount": 88.5,
+          "pct": 15.0,
+          "note": "百貨／藥粧 50%，僅 30% 走通路"
+        },
+        {
+          "name": "產品成本（出廠）",
+          "amount": 84.8,
+          "pct": 14.4,
+          "note": "含料體、包材、充填、檢驗、代工廠毛利"
+        },
+        {
+          "name": "平台與金流",
+          "amount": 20.7,
+          "pct": 3.5,
+          "note": "自營部分 5%"
+        },
+        {
+          "name": "物流與倉儲",
+          "amount": 20.1,
+          "pct": 3.4,
+          "note": "佔品牌實收 4%"
+        },
+        {
+          "name": "行銷",
+          "amount": 90.3,
+          "pct": 15.3,
+          "note": "佔品牌實收 18%"
+        },
+        {
+          "name": "代理佣金",
+          "amount": 21.2,
+          "pct": 3.6,
+          "note": "通路部分 12%"
+        },
+        {
+          "name": "社群貢獻回饋",
+          "amount": 15.0,
+          "pct": 2.5,
+          "note": "佔品牌實收 3%"
+        },
+        {
+          "name": "雜支",
+          "amount": 15.0,
+          "pct": 2.5,
+          "note": "佔品牌實收 3%"
+        },
+        {
+          "name": "營所稅",
+          "amount": 46.9,
+          "pct": 7.9,
+          "note": "20%"
+        },
+        {
+          "name": "品牌稅後淨利",
+          "amount": 187.5,
+          "pct": 31.8,
+          "note": ""
+        }
+      ],
+      "check_sum": 590.0
+    },
+    {
+      "sku_code": "RA-C02",
+      "name_zh": "澄潤前導精華露",
+      "retail_price": 730,
+      "items": [
+        {
+          "name": "通路抽成",
+          "amount": 109.5,
+          "pct": 15.0,
+          "note": "百貨／藥粧 50%，僅 30% 走通路"
+        },
+        {
+          "name": "產品成本（出廠）",
+          "amount": 104.6,
+          "pct": 14.3,
+          "note": "含料體、包材、充填、檢驗、代工廠毛利"
+        },
+        {
+          "name": "平台與金流",
+          "amount": 25.5,
+          "pct": 3.5,
+          "note": "自營部分 5%"
+        },
+        {
+          "name": "物流與倉儲",
+          "amount": 24.8,
+          "pct": 3.4,
+          "note": "佔品牌實收 4%"
+        },
+        {
+          "name": "行銷",
+          "amount": 111.7,
+          "pct": 15.3,
+          "note": "佔品牌實收 18%"
+        },
+        {
+          "name": "代理佣金",
+          "amount": 26.3,
+          "pct": 3.6,
+          "note": "通路部分 12%"
+        },
+        {
+          "name": "社群貢獻回饋",
+          "amount": 18.6,
+          "pct": 2.5,
+          "note": "佔品牌實收 3%"
+        },
+        {
+          "name": "雜支",
+          "amount": 18.6,
+          "pct": 2.5,
+          "note": "佔品牌實收 3%"
+        },
+        {
+          "name": "營所稅",
+          "amount": 58.1,
+          "pct": 8.0,
+          "note": "20%"
+        },
+        {
+          "name": "品牌稅後淨利",
+          "amount": 232.2,
+          "pct": 31.8,
+          "note": ""
+        }
+      ],
+      "check_sum": 730.0
+    },
+    {
+      "sku_code": "RA-H03",
+      "name_zh": "潤澤玻尿酸精華",
+      "retail_price": 600,
+      "items": [
+        {
+          "name": "通路抽成",
+          "amount": 90.0,
+          "pct": 15.0,
+          "note": "百貨／藥粧 50%，僅 30% 走通路"
+        },
+        {
+          "name": "產品成本（出廠）",
+          "amount": 85.6,
+          "pct": 14.3,
+          "note": "含料體、包材、充填、檢驗、代工廠毛利"
+        },
+        {
+          "name": "平台與金流",
+          "amount": 21.0,
+          "pct": 3.5,
+          "note": "自營部分 5%"
+        },
+        {
+          "name": "物流與倉儲",
+          "amount": 20.4,
+          "pct": 3.4,
+          "note": "佔品牌實收 4%"
+        },
+        {
+          "name": "行銷",
+          "amount": 91.8,
+          "pct": 15.3,
+          "note": "佔品牌實收 18%"
+        },
+        {
+          "name": "代理佣金",
+          "amount": 21.6,
+          "pct": 3.6,
+          "note": "通路部分 12%"
+        },
+        {
+          "name": "社群貢獻回饋",
+          "amount": 15.3,
+          "pct": 2.5,
+          "note": "佔品牌實收 3%"
+        },
+        {
+          "name": "雜支",
+          "amount": 15.3,
+          "pct": 2.5,
+          "note": "佔品牌實收 3%"
+        },
+        {
+          "name": "營所稅",
+          "amount": 47.8,
+          "pct": 8.0,
+          "note": "20%"
+        },
+        {
+          "name": "品牌稅後淨利",
+          "amount": 191.2,
+          "pct": 31.9,
+          "note": ""
+        }
+      ],
+      "check_sum": 600.0
+    },
+    {
+      "sku_code": "RA-H04",
+      "name_zh": "潤屏神經醯胺乳霜",
+      "retail_price": 710,
+      "items": [
+        {
+          "name": "通路抽成",
+          "amount": 106.5,
+          "pct": 15.0,
+          "note": "百貨／藥粧 50%，僅 30% 走通路"
+        },
+        {
+          "name": "產品成本（出廠）",
+          "amount": 100.9,
+          "pct": 14.2,
+          "note": "含料體、包材、充填、檢驗、代工廠毛利"
+        },
+        {
+          "name": "平台與金流",
+          "amount": 24.8,
+          "pct": 3.5,
+          "note": "自營部分 5%"
+        },
+        {
+          "name": "物流與倉儲",
+          "amount": 24.1,
+          "pct": 3.4,
+          "note": "佔品牌實收 4%"
+        },
+        {
+          "name": "行銷",
+          "amount": 108.6,
+          "pct": 15.3,
+          "note": "佔品牌實收 18%"
+        },
+        {
+          "name": "代理佣金",
+          "amount": 25.6,
+          "pct": 3.6,
+          "note": "通路部分 12%"
+        },
+        {
+          "name": "社群貢獻回饋",
+          "amount": 18.1,
+          "pct": 2.6,
+          "note": "佔品牌實收 3%"
+        },
+        {
+          "name": "雜支",
+          "amount": 18.1,
+          "pct": 2.6,
+          "note": "佔品牌實收 3%"
+        },
+        {
+          "name": "營所稅",
+          "amount": 56.6,
+          "pct": 8.0,
+          "note": "20%"
+        },
+        {
+          "name": "品牌稅後淨利",
+          "amount": 226.6,
+          "pct": 31.9,
+          "note": ""
+        }
+      ],
+      "check_sum": 710.0
+    }
+  ],
+  "cost": {
+    "RA-C01": {
+      "name_zh": "澄淨胺基酸潔膚霜",
+      "form": "O/W 潔膚霜",
+      "size_ml": "120",
+      "priority": "P0",
+      "raw": 25.5,
+      "pack": 26.0,
+      "fill": 13.2,
+      "qc": 6.0,
+      "exfactory": 84.84,
+      "total": 91.63,
+      "retail": 1280.0
+    },
+    "RA-C02": {
+      "name_zh": "澄潤前導精華露",
+      "form": "水相精華露",
+      "size_ml": "150",
+      "priority": "P0",
+      "raw": 32.19,
+      "pack": 34.0,
+      "fill": 15.0,
+      "qc": 6.0,
+      "exfactory": 104.63,
+      "total": 113.0,
+      "retail": 1680.0
+    },
+    "RA-H03": {
+      "name_zh": "潤澤玻尿酸精華",
+      "form": "水相凝露",
+      "size_ml": "30",
+      "priority": "P0",
+      "raw": 15.35,
+      "pack": 42.0,
+      "fill": 8.0,
+      "qc": 6.0,
+      "exfactory": 85.62,
+      "total": 92.47,
+      "retail": 2280.0
+    },
+    "RA-H04": {
+      "name_zh": "潤屏神經醯胺乳霜",
+      "form": "O/W 乳霜",
+      "size_ml": "50",
+      "priority": "P0",
+      "raw": 21.06,
+      "pack": 48.0,
+      "fill": 9.0,
+      "qc": 6.0,
+      "exfactory": 100.87,
+      "total": 108.94,
+      "retail": 2880.0
+    },
+    "RA-H05": {
+      "name_zh": "潤澤密集修護面膜",
+      "form": "片狀面膜",
+      "size_ml": "25",
+      "priority": "P1",
+      "raw": 9.57,
+      "pack": 55.0,
+      "fill": 25.0,
+      "qc": 6.0,
+      "exfactory": 114.69,
+      "total": 123.86,
+      "retail": 1280.0
+    },
+    "RA-L06": {
+      "name_zh": "曜白菸鹼醯胺精華",
+      "form": "水相精華",
+      "size_ml": "30",
+      "priority": "P1",
+      "raw": 15.2,
+      "pack": 42.0,
+      "fill": 8.0,
+      "qc": 6.0,
+      "exfactory": 85.43,
+      "total": 92.27,
+      "retail": 2480.0
+    },
+    "RA-L07": {
+      "name_zh": "曜光維C防護乳 SPF50+ PA++++",
+      "form": "O/W 防曬乳",
+      "size_ml": "40",
+      "priority": "P2",
+      "raw": 38.58,
+      "pack": 24.0,
+      "fill": 8.4,
+      "qc": 6.0,
+      "exfactory": 92.38,
+      "total": 99.77,
+      "retail": 1880.0
+    },
+    "RA-L08": {
+      "name_zh": "曜白淡斑安瓶",
+      "form": "安瓶（高濃度水相）",
+      "size_ml": "15",
+      "priority": "P2",
+      "raw": 8.32,
+      "pack": 96.0,
+      "fill": 30.0,
+      "qc": 6.0,
+      "exfactory": 168.38,
+      "total": 181.85,
+      "retail": 3280.0
+    },
+    "RA-N09": {
+      "name_zh": "齡活胜肽眼霜",
+      "form": "眼霜",
+      "size_ml": "15",
+      "priority": "P1",
+      "raw": 9.66,
+      "pack": 38.0,
+      "fill": 8.0,
+      "qc": 6.0,
+      "exfactory": 74.0,
+      "total": 79.91,
+      "retail": 2680.0
+    },
+    "RA-N10": {
+      "name_zh": "齡活A醇晚霜",
+      "form": "O/W 晚霜",
+      "size_ml": "50",
+      "priority": "P2",
+      "raw": 36.73,
+      "pack": 48.0,
+      "fill": 9.0,
+      "qc": 6.0,
+      "exfactory": 119.67,
+      "total": 129.25,
+      "retail": 3880.0
+    },
+    "RA-R11": {
+      "name_zh": "御藏全效精華油",
+      "form": "油相（無水）",
+      "size_ml": "30",
+      "priority": "P1",
+      "raw": 26.01,
+      "pack": 46.0,
+      "fill": 8.0,
+      "qc": 6.0,
+      "exfactory": 103.21,
+      "total": 111.46,
+      "retail": 3280.0
+    },
+    "RA-R12": {
+      "name_zh": "御藏頂級禮盒",
+      "form": "組合",
+      "size_ml": "",
+      "priority": "P2",
+      "raw": 87.92,
+      "pack": 180.0,
+      "fill": 38.2,
+      "qc": 6.0,
+      "exfactory": 374.54,
+      "total": 404.51,
+      "retail": 9800.0
+    },
+    "RA-S13": {
+      "name_zh": "沁淨頭皮平衡洗髮精",
+      "form": "洗髮精（透明凝露）",
+      "size_ml": "300",
+      "priority": "P1",
+      "raw": 34.61,
+      "pack": 42.0,
+      "fill": 18.0,
+      "qc": 6.0,
+      "exfactory": 120.73,
+      "total": 130.39,
+      "retail": 980.0
+    },
+    "RA-S14": {
+      "name_zh": "沁養頭皮養護精華",
+      "form": "頭皮精華（水相，免沖）",
+      "size_ml": "50",
+      "priority": "P1",
+      "raw": 6.92,
+      "pack": 40.0,
+      "fill": 9.0,
+      "qc": 6.0,
+      "exfactory": 74.31,
+      "total": 80.25,
+      "retail": 1680.0
+    }
+  }
+}

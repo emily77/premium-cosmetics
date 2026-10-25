@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rokaizumi 頂級化妝品線 — 完整資料儀表板</title>
+<style>
+:root{
+  --bg:#0d1117; --bg2:#161b22; --bg3:#1c2128; --line:#30363d;
+  --fg:#e6edf3; --fg2:#8b949e; --accent:#58a6ff; --accent2:#3fb950;
+  --warn:#d29922; --danger:#f85149; --purple:#bc8cff; --pink:#f778ba;
+  --shadow:0 2px 12px rgba(0,0,0,.4);
+}
+[data-theme="light"]{
+  --bg:#f6f8fa; --bg2:#ffffff; --bg3:#eef1f4; --line:#d0d7de;
+  --fg:#1f2328; --fg2:#656d76; --accent:#0969da; --accent2:#1a7f37;
+  --warn:#9a6700; --danger:#cf222e; --purple:#8250df; --pink:#bf3989;
+  --shadow:0 2px 12px rgba(0,0,0,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:"Segoe UI","Microsoft JhengHei","PingFang TC",system-ui,sans-serif;
+  background:var(--bg); color:var(--fg); line-height:1.65; font-size:15px;
+}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* ---------- 版面 ---------- */
+.wrap{display:flex;min-height:100vh}
+nav{
+  width:230px;flex:0 0 230px;background:var(--bg2);border-right:1px solid var(--line);
+  padding:20px 0;position:sticky;top:0;height:100vh;overflow-y:auto;
+}
+nav h1{font-size:15px;padding:0 18px 14px;color:var(--accent);letter-spacing:.5px}
+nav .sub{font-size:11px;color:var(--fg2);padding:0 18px 16px;line-height:1.5}
+nav a{
+  display:block;padding:8px 18px;font-size:13.5px;color:var(--fg2);
+  border-left:3px solid transparent;
+}
+nav a:hover{background:var(--bg3);color:var(--fg);text-decoration:none}
+nav a.on{border-left-color:var(--accent);color:var(--accent);background:var(--bg3)}
+main{flex:1;padding:28px 36px 80px;max-width:1400px;overflow-x:hidden}
+
+/* ---------- 標題 ---------- */
+h2{
+  font-size:22px;margin:44px 0 6px;padding-bottom:10px;
+  border-bottom:2px solid var(--line);scroll-margin-top:20px;
+}
+h2:first-of-type{margin-top:0}
+h2 .n{color:var(--accent);font-weight:400;margin-right:8px}
+h3{font-size:16px;margin:26px 0 10px;color:var(--accent)}
+h4{font-size:14px;margin:18px 0 8px;color:var(--fg2);font-weight:600}
+.lead{color:var(--fg2);font-size:13.5px;margin-bottom:18px}
+
+/* ---------- 卡片 ---------- */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:18px 0}
+.kpi{
+  background:var(--bg2);border:1px solid var(--line);border-radius:10px;
+  padding:16px 18px;box-shadow:var(--shadow);
+}
+.kpi .lbl{font-size:12px;color:var(--fg2);margin-bottom:6px}
+.kpi .val{font-size:24px;font-weight:700;letter-spacing:-.5px}
+.kpi .unit{font-size:12px;color:var(--fg2);font-weight:400;margin-left:3px}
+.kpi .note{font-size:11.5px;color:var(--fg2);margin-top:6px}
+.kpi.g .val{color:var(--accent2)}
+.kpi.b .val{color:var(--accent)}
+.kpi.w .val{color:var(--warn)}
+.kpi.r .val{color:var(--danger)}
+.kpi.p .val{color:var(--purple)}
+
+/* ---------- 表格 ---------- */
+.tw{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:10px}
+table{width:100%;border-collapse:collapse;font-size:13px;background:var(--bg2)}
+th{
+  background:var(--bg3);padding:10px 12px;text-align:left;font-weight:600;
+  color:var(--fg2);font-size:12px;white-space:nowrap;border-bottom:1px solid var(--line);
+  position:sticky;top:0;
+}
+th.s{cursor:pointer;user-select:none}
+th.s:hover{color:var(--accent)}
+td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--bg3)}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tfoot td{background:var(--bg3);font-weight:700;border-top:2px solid var(--line)}
+.tag{
+  display:inline-block;padding:1px 7px;border-radius:20px;font-size:11px;
+  font-weight:600;white-space:nowrap;
+}
+.t-p0{background:rgba(248,81,73,.15);color:var(--danger)}
+.t-p1{background:rgba(210,153,34,.15);color:var(--warn)}
+.t-p2{background:rgba(139,148,158,.15);color:var(--fg2)}
+.t-ok{background:rgba(63,185,80,.15);color:var(--accent2)}
+.t-l1{background:rgba(88,166,255,.15);color:var(--accent)}
+.t-l2{background:rgba(188,140,255,.15);color:var(--purple)}
+.t-l3{background:rgba(63,185,80,.15);color:var(--accent2)}
+.t-bad{background:rgba(248,81,73,.15);color:var(--danger)}
+
+/* ---------- 長條圖 ---------- */
+.bar{display:flex;align-items:center;gap:10px;margin:5px 0;font-size:12.5px}
+.bar .nm{width:150px;flex:0 0 150px;color:var(--fg2);text-align:right;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar .tr{flex:1;background:var(--bg3);border-radius:4px;height:20px;overflow:hidden}
+.bar .fl{height:100%;border-radius:4px;transition:width .4s}
+.bar .vl{width:110px;flex:0 0 110px;text-align:right;font-variant-numeric:tabular-nums}
+
+/* ---------- SKU 卡 ---------- */
+.skus{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin:18px 0}
+.sku{
+  background:var(--bg2);border:1px solid var(--line);border-radius:10px;
+  padding:16px;box-shadow:var(--shadow);border-top:3px solid var(--accent);
+}
+.sku.p0{border-top-color:var(--danger)}
+.sku.p1{border-top-color:var(--warn)}
+.sku.p2{border-top-color:var(--fg2)}
+.sku .hd{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.sku .code{font-size:11px;color:var(--fg2);font-family:Consolas,monospace}
+.sku .nm{font-size:15px;font-weight:700;margin:3px 0 8px}
+.sku .meta{font-size:12px;color:var(--fg2);margin-bottom:10px}
+.sku .row{display:flex;justify-content:space-between;font-size:12.5px;padding:3px 0;
+  border-bottom:1px dashed var(--line)}
+.sku .row:last-child{border-bottom:none}
+.sku .row b{font-variant-numeric:tabular-nums}
+
+/* ---------- 其他 ---------- */
+.note{
+  background:var(--bg2);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;
+  padding:12px 16px;margin:14px 0;font-size:13px;color:var(--fg2);
+}
+.note.warn{border-left-color:var(--warn)}
+.note.danger{border-left-color:var(--danger)}
+.note.ok{border-left-color:var(--accent2)}
+.note b{color:var(--fg)}
+ul,ol{margin:10px 0 10px 22px;font-size:13.5px}
+li{margin:5px 0}
+code{
+  background:var(--bg3);padding:1px 6px;border-radius:4px;
+  font-family:Consolas,monospace;font-size:12.5px;color:var(--pink);
+}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0;align-items:center}
+input[type=text],select{
+  background:var(--bg2);border:1px solid var(--line);color:var(--fg);
+  padding:7px 12px;border-radius:7px;font-size:13px;font-family:inherit;
+}
+input[type=text]{min-width:240px}
+input[type=text]:focus,select:focus{outline:none;border-color:var(--accent)}
+button{
+  background:var(--bg2);border:1px solid var(--line);color:var(--fg);
+  padding:7px 14px;border-radius:7px;font-size:13px;cursor:pointer;font-family:inherit;
+}
+button:hover{border-color:var(--accent);color:var(--accent)}
+.theme-btn{position:fixed;top:16px;right:20px;z-index:99;box-shadow:var(--shadow)}
+footer{
+  margin-top:60px;padding-top:20px;border-top:1px solid var(--line);
+  font-size:12px;color:var(--fg2);
+}
+@media(max-width:900px){
+  nav{display:none}
+  main{padding:20px 16px 60px}
+  .bar .nm{width:90px;flex:0 0 90px}
+}
+@media print{
+  nav,.theme-btn,.toolbar{display:none}
+  body{background:#fff;color:#000}
+  main{max-width:none;padding:0}
+  .tw{break-inside:avoid}
+  h2{break-after:avoid}
+}
+</style>
+</head>
+<body data-theme="dark">
+<button class="theme-btn" onclick="toggleTheme()">🌓 切換主題</button>
+<div class="wrap">
+<nav>
+  <h1>ROKAIZUMI ATELIER</h1>
+  <div class="sub">頂級化妝品線<br>完整資料儀表板<br><span id="gen"></span></div>
+  <a href="#s1" class="on">1　總覽</a>
+  <a href="#s2">2　14 支 SKU</a>
+  <a href="#s3">3　成本分析</a>
+  <a href="#s4">4　原料明細</a>
+  <a href="#s5">5　價格來源</a>
+  <a href="#s6">6　敏感度</a>
+  <a href="#s7">7　定價檢查</a>
+  <a href="#s8">8　投資明細</a>
+  <a href="#s9">9　化工廠合作</a>
+  <a href="#s10">10　AI Agent 團隊</a>
+  <a href="#s11">11　損益與回收</a>
+  <a href="#s12">12　獲利分配</a>
+  <a href="#s13">13　法遵邊界</a>
+  <a href="#s14">14　STO＋／RWA</a>
+</nav>
+<main>
+
+<h2 id="s1"><span class="n">1</span>總覽</h2>
+<p class="lead">Rokaizumi 合同會社（品牌：ROKAIZUMI ATELIER／露海澄研）頂級保養品產品線。代工廠：台灣安成生化科技有限公司。所有 SKU 目前 <code>enabled=false</code>，未經林總核定不得對外使用。</p>
+<div class="kpis" id="kpis"></div>
+<div class="note warn">
+<b>本頁所有數字皆為估算值，非報價、非承諾。</b>
+原料價格來自公開網路抓取與業界參考價，實際成本以代工廠正式 RFQ 回覆為準。
+</div>
+
+<h2 id="s2"><span class="n">2</span>14 支 SKU</h2>
+<p class="lead">六大系列：澄（清潔）／潤（保濕修護）／曜（美白防護）／齡（抗老）／御（頂級油與禮盒）／沁（頭皮）。分三批開發，首批 4 支 P0。</p>
+<div class="skus" id="skus"></div>
+
+<h2 id="s3"><span class="n">3</span>成本分析</h2>
+<p class="lead">逐支成本結構（TWD／支）。點欄位標題可排序。</p>
+<div class="tw"><table id="t-cost">
+<thead><tr>
+<th class="s" data-k="sku_code">SKU</th>
+<th class="s" data-k="name_zh">品名</th>
+<th class="s n" data-k="size_ml">容量</th>
+<th class="s n" data-k="raw_material_twd">料體</th>
+<th class="s n" data-k="packaging_twd">包材</th>
+<th class="s n" data-k="filling_twd">充填</th>
+<th class="s n" data-k="qc_twd">檢驗</th>
+<th class="s n" data-k="exfactory_twd">出廠成本</th>
+<th class="s n" data-k="total_cost_twd">總成本</th>
+<th class="s n" data-k="suggested_retail_twd">建議售價</th>
+<th class="s n" data-k="gross_margin_pct">毛利率</th>
+</tr></thead><tbody></tbody></table></div>
+<h3>成本結構佔比</h3>
+<div id="struct"></div>
+
+<h2 id="s4"><span class="n">4</span>原料明細</h2>
+<p class="lead">248 筆逐 SKU × 逐原料成本明細。可搜尋原料名稱或篩選 SKU。</p>
+<div class="toolbar">
+  <input type="text" id="q" placeholder="搜尋原料名稱（例如 Hyaluronate）">
+  <select id="fsku"><option value="">全部 SKU</option></select>
+  <select id="flayer">
+    <option value="">全部價格層級</option>
+    <option value="L1_scraped">L1 自動抓取</option>
+    <option value="L2_ref">L2 參考價</option>
+    <option value="L3_manual">L3 人工覆寫</option>
+  </select>
+  <span id="cnt" style="font-size:12.5px;color:var(--fg2)"></span>
+</div>
+<div class="tw" style="max-height:600px;overflow-y:auto"><table id="t-detail">
+<thead><tr>
+<th>SKU</th><th>原料（INCI）</th><th>功能類別</th>
+<th class="n">比例 %</th><th class="n">單價 USD/kg</th>
+<th>價格層級</th><th class="n">每 kg 料體成本 TWD</th><th>備註</th>
+</tr></thead><tbody></tbody></table></div>
+
+<h2 id="s5"><span class="n">5</span>價格來源</h2>
+<p class="lead">三層價格回退架構。L1 自動抓取 makingcosmetics.com 公開價；L2 業界參考價；L3 代工廠報價（優先度最高）。</p>
+<div class="kpis" id="layer-kpi"></div>
+<h3>L1 抓取失敗清單</h3>
+<p class="lead">以下原料在 makingcosmetics.com 找不到對應商品，已自動回退到 L2 參考價。</p>
+<div class="tw" style="max-height:400px;overflow-y:auto"><table id="t-fail">
+<thead><tr><th>原料（INCI）</th><th>失敗原因</th></tr></thead><tbody></tbody></table></div>
+
+<h2 id="s6"><span class="n">6</span>敏感度分析</h2>
+<p class="lead">料體價格變動 ±15%／±30% 對總成本的影響。</p>
+<div class="tw"><table id="t-sens">
+<thead><tr><th>SKU</th><th>品名</th><th class="n">基準</th>
+<th class="n">-30%</th><th class="n">-15%</th><th class="n">+15%</th><th class="n">+30%</th>
+<th class="n">最大變動</th></tr></thead><tbody></tbody></table></div>
+<div class="note ok"><b>結論：</b>即使原料漲 30%，總成本最多增加約 15%。成本控制的槓桿在<b>包材與批量</b>，不在原料議價。</div>
+
+<h2 id="s7"><span class="n">7</span>定價合理性檢查</h2>
+<p class="lead">零售價 ÷ 出廠成本。精品保養品常見區間為 6–12 倍（含品牌行銷、通路抽成、退換貨）。</p>
+<div class="tw"><table id="t-price">
+<thead><tr><th>SKU</th><th>品名</th><th class="n">出廠成本</th>
+<th class="n">原提案價</th><th class="n">倍率</th>
+<th class="n">建議價（7 倍）</th><th class="n">倍率</th><th>判定</th></tr></thead><tbody></tbody></table></div>
+<div class="note danger"><b>重要發現：</b>原提案價多數超過 20 倍，最高達 36 倍。這代表必須有極強的品牌力與行銷預算支撐，否則通路會要求更高折讓、或消費者直接轉向競品。</div>
+
+<h2 id="s8"><span class="n">8</span>投資明細</h2>
+<p class="lead">第一年一次性開發投資（TWD）。</p>
+<div class="kpis" id="inv-kpi"></div>
+<div class="tw"><table id="t-inv">
+<thead><tr><th>類別</th><th>項目</th><th class="n">金額 TWD</th><th>說明</th></tr></thead>
+<tbody></tbody><tfoot></tfoot></table></div>
+<h3>各類別佔比</h3>
+<div id="inv-bar"></div>
+
+<h2 id="s9"><span class="n">9</span>化工廠合作</h2>
+<p class="lead" id="fac-lead"></p>
+<div class="note ok" id="fac-note"></div>
+<h3>代工廠投入（不出資金、不佔股）</h3>
+<div class="tw"><table id="t-fac1"><thead><tr><th>項目</th><th>內容</th><th>說明</th></tr></thead><tbody></tbody></table></div>
+<h3>品牌方負擔費用</h3>
+<div class="tw"><table id="t-fac2"><thead><tr><th>項目</th><th>金額</th><th>說明</th></tr></thead><tbody></tbody></table></div>
+<h3>建議合約條件</h3>
+<div class="tw"><table id="t-fac3"><thead><tr><th>條款</th><th>建議內容</th><th>說明</th></tr></thead><tbody></tbody></table></div>
+<h3>風險提醒</h3>
+<ul id="fac-risk"></ul>
+
+<h2 id="s10"><span class="n">10</span>AI Agent 團隊</h2>
+<p class="lead">20 個 Agent 合併成 6 個值班入口（E1～E6，依 D-029）。每月 AI 預算 USD 60。</p>
+<div class="kpis" id="ai-kpi"></div>
+<div class="tw"><table id="t-ai">
+<thead><tr><th>入口</th><th>職能</th><th>對應 Agent</th><th>替代人力</th>
+<th class="n">人力月成本</th><th class="n">AI 月成本</th><th>主要職責</th></tr></thead>
+<tbody></tbody><tfoot></tfoot></table></div>
+<div class="note warn" id="ai-note"></div>
+
+<h2 id="s11"><span class="n">11</span>損益與回收</h2>
+<p class="lead">兩情境對照：原提案價 vs 建議價（出廠成本 × 7）。通路假設 70% 自營電商、30% 實體通路。</p>
+<div class="kpis" id="pnl-kpi"></div>
+<h3>第一年損益表</h3>
+<div class="tw"><table id="t-pnl">
+<thead><tr><th>項目</th><th class="n">原提案價</th><th class="n">建議價</th><th>說明</th></tr></thead><tbody></tbody></table></div>
+<h3>第二年損益表（14 支全開）</h3>
+<div class="tw"><table id="t-pnl2">
+<thead><tr><th>項目</th><th class="n">原提案價</th><th class="n">建議價</th><th>說明</th></tr></thead><tbody></tbody></table></div>
+<h3>投資回收期</h3>
+<div class="tw"><table id="t-pb">
+<thead><tr><th>情境</th><th class="n">年淨利 TWD</th><th class="n">回收期（年）</th><th>判定</th></tr></thead><tbody></tbody></table></div>
+
+<h2 id="s12"><span class="n">12</span>獲利分配</h2>
+<p class="lead">以建議價計算，零售價 100% 的價值鏈分配。混合通路假設：70% 自營、30% 實體通路。</p>
+<div id="wf"></div>
+<div class="note"><b>怎麼讀：</b>通路抽成吃掉最大一塊（約 15%），其次是產品成本（約 12%）。品牌稅後淨利約 12–15%。這是精品保養品的常態結構。</div>
+
+<h2 id="s13"><span class="n">13</span>法遵邊界</h2>
+<div class="note danger"><b>本專案不照抄任何他人產品線。</b>原始需求涉及照抄 tenlead.com（天麗生技／Joli 系列）的品名與成分比例，已改以「品類對標＋原創命名＋公開知識配方架構＋正式 RFQ」的合法路徑執行。</div>
+<h3>七項法律風險</h3>
+<div class="tw"><table id="t-law">
+<thead><tr><th>法規</th><th>條文</th><th>風險行為</th><th>後果</th></tr></thead><tbody></tbody></table></div>
+<h3>執行紅線</h3>
+<ol>
+<li>不使用任何他人品牌名、商標、產品名、文案、圖片。</li>
+<li>不對外宣稱「同款」「平替」「同配方」。</li>
+<li>成分比例為我方自行設定的起始架構，非任何公司實際配方。</li>
+<li>上市前每一支都需法遵（A04）逐項核對法規限量與宣稱。</li>
+<li>對外送件、簽約、付費一律先經林總核定。</li>
+</ol>
+
+<h2 id="s14"><span class="n">14</span>STO＋／RWA</h2>
+<p class="lead">每批商品可產出 RWA 批次憑證，接 STO＋ 多狀態模型。</p>
+<h3>RWA 六類資產對映</h3>
+<div class="tw"><table id="t-rwa">
+<thead><tr><th>資產類別</th><th>本專案對應</th><th>憑證內容</th></tr></thead><tbody></tbody></table></div>
+<h3>關鍵決策</h3>
+<div class="tw"><table id="t-dec">
+<thead><tr><th>編號</th><th>決策</th><th>對本專案的影響</th></tr></thead><tbody></tbody></table></div>
+
+<footer>
+<p><b>Rokaizumi 頂級化妝品線 — 完整資料儀表板</b></p>
+<p>產出時間：<span id="gen2"></span>　｜　所有 SKU <code>enabled=false</code>　｜　高影響操作需林總核定</p>
+<p>本頁為單檔自包含 HTML，無外部依賴。可雙擊開啟、可列印、可上傳任何免費靜態託管。</p>
+</footer>
+</main>
+</div>
+
+<script>
+const D = {"fin": {"schema_version": "1.0", "generated_at": "2026-10-25T21:37:28+08:00", "project": "Rokaizumi 頂級化妝品線", "status": "估算模型，非報價、非承諾；所有 SKU 仍 enabled=false", "assumptions": {"usd_twd": 32.0, "tax_rate": 0.2, "channel_cut": 0.5, "self_direct_share": 0.7, "payment_fee": 0.05, "logistics_pct": 0.04, "marketing_pct": 0.18, "agent_commission_pct": 0.12, "community_pct": 0.03, "misc_pct": 0.03, "headcount": 2, "salary_per_month": 45000, "ai_budget_usd_month": 60}, "investment": {"rows": [{"cat_code": "A", "category": "產品開發", "item": "打樣（4 支 P0 × 3 輪）", "amount_twd": 240000, "note": "每支每輪 20,000，含配方調整與穩定性初篩"}, {"cat_code": "A", "category": "產品開發", "item": "安定性與相容性測試", "amount_twd": 120000, "note": "3 個月加速安定性 + 包材相容性"}, {"cat_code": "A", "category": "產品開發", "item": "微生物與重金屬檢驗（14 支）", "amount_twd": 168000, "note": "每支 12,000，含生菌數、黴菌、鉛汞砷鎘"}, {"cat_code": "A", "category": "產品開發", "item": "功效評估（4 支，人體試驗）", "amount_twd": 480000, "note": "每支 120,000，含 28 天人體功效與安全性"}, {"cat_code": "A", "category": "產品開發", "item": "法規登錄與 PIF 建置（14 支）", "amount_twd": 280000, "note": "每支 20,000，含產品登錄、PIF、標示審查"}, {"cat_code": "B", "category": "包材與模具", "item": "公版瓶器打樣與測試", "amount_twd": 60000, "note": "多款公版比對、跌落測試、相容性"}, {"cat_code": "B", "category": "包材與模具", "item": "私模開模（霜罐 + 滴管瓶 2 款）", "amount_twd": 280000, "note": "每款 140,000，含模具與首件確認"}, {"cat_code": "B", "category": "包材與模具", "item": "印刷網版與打樣", "amount_twd": 90000, "note": "網印／燙金／UV 各版費"}, {"cat_code": "C", "category": "品牌與通路", "item": "品牌識別與視覺系統", "amount_twd": 250000, "note": "LOGO、標準字、色彩、輔助圖形、品牌手冊"}, {"cat_code": "C", "category": "品牌與通路", "item": "包裝設計（14 支）", "amount_twd": 210000, "note": "每支 15,000，含外盒、瓶身、標籤"}, {"cat_code": "C", "category": "品牌與通路", "item": "官網與電商系統", "amount_twd": 300000, "note": "含商品頁、購物車、金流串接、會員系統"}, {"cat_code": "C", "category": "品牌與通路", "item": "商標註冊（台灣 + 日本，6 類）", "amount_twd": 180000, "note": "每國每類 15,000，含檢索與申請"}, {"cat_code": "D", "category": "首批量產", "item": "4 支 P0 × 3,000 支（含 10% 損耗）", "amount_twd": 1244000, "note": "依成本引擎出廠成本計算"}, {"cat_code": "E", "category": "行銷啟動", "item": "KOL／部落客合作", "amount_twd": 350000, "note": "20 位中小型 KOL，含產品寄送"}, {"cat_code": "E", "category": "行銷啟動", "item": "內容製作（攝影、影片）", "amount_twd": 180000, "note": "產品攝影、形象影片、短影音素材"}, {"cat_code": "E", "category": "行銷啟動", "item": "數位廣告（3 個月）", "amount_twd": 450000, "note": "Meta、Google、LINE 投放"}, {"cat_code": "E", "category": "行銷啟動", "item": "通路陳列與試用", "amount_twd": 120000, "note": "藥粧通路陳列架、試用品"}, {"cat_code": "F", "category": "AI Agent 系統", "item": "建置（一次性）", "amount_twd": 150000, "note": "20 個 Agent 規格落地、6 個值班入口、知識庫"}, {"cat_code": "F", "category": "AI Agent 系統", "item": "年度維運（USD 60/月）", "amount_twd": 23040, "note": "D-029 核定預算"}, {"cat_code": "G", "category": "營運週轉金", "item": "人事（3 人 × 6 個月）", "amount_twd": 810000, "note": "籌備期人力"}, {"cat_code": "G", "category": "營運週轉金", "item": "辦公室與雜支（6 個月）", "amount_twd": 180000, "note": "租金、設備、行政"}], "by_category": [{"category": "產品開發", "amount_twd": 1288000}, {"category": "包材與模具", "amount_twd": 430000}, {"category": "品牌與通路", "amount_twd": 940000}, {"category": "首批量產", "amount_twd": 1244000}, {"category": "行銷啟動", "amount_twd": 1100000}, {"category": "AI Agent 系統", "amount_twd": 173040}, {"category": "營運週轉金", "amount_twd": 990000}], "total_twd": 6165040}, "factory": {"name": "台灣安成生化科技有限公司", "role": "委託製造（OEM／ODM）", "factory_cash_investment_twd": 0, "factory_note": "代工廠不投入資金、不佔股。所有開發費用由品牌方負擔，避免股權與配方歸屬糾纏。", "factory_contribution": [["人力", "配方工程師、品保、生產線人力", "依打樣與量產排程投入"], ["設備", "乳化槽、均質機、充填線、包裝線", "既有設備，不需新增"], ["品保", "原料檢驗、半成品與成品檢驗、留樣", "依 GMP 規範"], ["文件", "GMP 證明、成分表、COA、MSDS", "隨每批提供"], ["法規協助", "化粧品登錄所需製造廠資料", "配合提供"]], "brand_side_pays": [["打樣費", "每支每輪 20,000", "3 輪為限，超出另計"], ["開模費", "每款 140,000", "可談分攤 50% 換 2 年獨家"], ["檢驗費", "每支 12,000", "第三方公正檢驗"], ["法規登錄費", "每支 20,000", "含 PIF 建置"]], "contract_terms": [["配方所有權", "歸品牌方（Rokaizumi）所有", "代工廠不得自行使用或轉售"], ["獨家代工", "2 年獨家，換取開模費分攤 50%", "期滿可續約或轉廠"], ["價格鎖定", "簽約後 12 個月不調價", "原料漲幅超過 15% 可重議"], ["MOQ", "首批 3,000 支／SKU，後續 1,500 支", "低於 MOQ 加收換線費"], ["付款條件", "30% 訂金、70% 出貨前付清", "首批可談 40% / 60%"], ["品質違約", "不良率 > 2% 全額重製", "含運費與延遲損失"], ["保密條款", "配方、客戶、銷量均為機密", "違約賠償 3 年營業額"], ["交期", "下單後 45 天交貨", "急單 30 天加收 15%"]], "risk_notes": ["代工廠若同時代工競品，需在合約中約定競業限制", "配方應分階段揭露，避免一次性交付完整配方", "關鍵原料建議品牌方自行採購或指定供應商，避免被綁定", "每批留樣保存 3 年，以備法規查核與客訴追溯"]}, "ai_team": {"rows": [{"code": "E1", "name": "法遵與品保", "agents": "A04 法遵、A05 品保", "human_role": "法遵專員 0.5 人", "human_cost_twd": 22500, "ai_cost_twd": 320.0, "duty": "法規限量核對、宣稱白名單、PIF 文件、標示審查"}, {"code": "E2", "name": "產品與配方", "agents": "A06 配方、A07 成本", "human_role": "產品經理 0.5 人", "human_cost_twd": 25000, "ai_cost_twd": 320.0, "duty": "配方架構、打樣追蹤、成本試算、供應商比價"}, {"code": "E3", "name": "內容與行銷", "agents": "A08 內容、A09 社群、A10 廣告", "human_role": "內容編輯 1 人", "human_cost_twd": 38000, "ai_cost_twd": 320.0, "duty": "文案、素材腳本、社群排程、廣告投放建議"}, {"code": "E4", "name": "客服與代理", "agents": "A11 客服、A12 代理管理", "human_role": "客服專員 1 人", "human_cost_twd": 32000, "ai_cost_twd": 320.0, "duty": "常見問題、客訴分類、代理招募與佣金結算"}, {"code": "E5", "name": "數據與財務", "agents": "A14 記帳、A15 報表、A16 對帳", "human_role": "會計 0.5 人", "human_cost_twd": 20000, "ai_cost_twd": 320.0, "duty": "收支記帳、月報、平台對帳、稅務資料整理"}, {"code": "E6", "name": "供應鏈與物流", "agents": "A17 採購、A18 庫存、A19 出貨", "human_role": "採購 0.5 人", "human_cost_twd": 22000, "ai_cost_twd": 320.0, "duty": "原料採購、庫存預警、出貨排程、物流追蹤"}], "summary": {"agent_count": 20, "entry_count": 6, "full_human_headcount": 4, "full_human_month_twd": 159500, "full_human_year_twd": 1914000, "ai_month_usd": 60, "ai_month_twd": 1920.0, "ai_year_twd": 23040.0, "lean_headcount": 2, "lean_human_year_twd": 1080000, "lean_total_year_twd": 1103040.0, "saving_year_twd": 810960.0, "saving_pct": 42.4, "note": "AI 不取代人，是讓人從 4 人降到 2 人。留下的人負責判斷、核定與對外關係。"}}, "pricing": {"target_multiple": 7.0, "original": [{"sku_code": "RA-C01", "name_zh": "澄淨胺基酸潔膚霜", "exfactory": 84.84, "price": 1280.0, "multiple": 15.1}, {"sku_code": "RA-C02", "name_zh": "澄潤前導精華露", "exfactory": 104.63, "price": 1680.0, "multiple": 16.1}, {"sku_code": "RA-H03", "name_zh": "潤澤玻尿酸精華", "exfactory": 85.62, "price": 2280.0, "multiple": 26.6}, {"sku_code": "RA-H04", "name_zh": "潤屏神經醯胺乳霜", "exfactory": 100.87, "price": 2880.0, "multiple": 28.6}, {"sku_code": "RA-H05", "name_zh": "潤澤密集修護面膜", "exfactory": 114.69, "price": 1280.0, "multiple": 11.2}, {"sku_code": "RA-L06", "name_zh": "曜白菸鹼醯胺精華", "exfactory": 85.43, "price": 2480.0, "multiple": 29.0}, {"sku_code": "RA-L07", "name_zh": "曜光維C防護乳 SPF50+ PA++++", "exfactory": 92.38, "price": 1880.0, "multiple": 20.4}, {"sku_code": "RA-L08", "name_zh": "曜白淡斑安瓶", "exfactory": 168.38, "price": 3280.0, "multiple": 19.5}, {"sku_code": "RA-N09", "name_zh": "齡活胜肽眼霜", "exfactory": 74.0, "price": 2680.0, "multiple": 36.2}, {"sku_code": "RA-N10", "name_zh": "齡活A醇晚霜", "exfactory": 119.67, "price": 3880.0, "multiple": 32.4}, {"sku_code": "RA-R11", "name_zh": "御藏全效精華油", "exfactory": 103.21, "price": 3280.0, "multiple": 31.8}, {"sku_code": "RA-R12", "name_zh": "御藏頂級禮盒", "exfactory": 374.54, "price": 9800.0, "multiple": 26.2}, {"sku_code": "RA-S13", "name_zh": "沁淨頭皮平衡洗髮精", "exfactory": 120.73, "price": 980.0, "multiple": 8.1}, {"sku_code": "RA-S14", "name_zh": "沁養頭皮養護精華", "exfactory": 74.31, "price": 1680.0, "multiple": 22.6}], "suggested": [{"sku_code": "RA-C01", "name_zh": "澄淨胺基酸潔膚霜", "exfactory": 84.84, "price": 590, "multiple": 7.0}, {"sku_code": "RA-C02", "name_zh": "澄潤前導精華露", "exfactory": 104.63, "price": 730, "multiple": 7.0}, {"sku_code": "RA-H03", "name_zh": "潤澤玻尿酸精華", "exfactory": 85.62, "price": 600, "multiple": 7.0}, {"sku_code": "RA-H04", "name_zh": "潤屏神經醯胺乳霜", "exfactory": 100.87, "price": 710, "multiple": 7.0}, {"sku_code": "RA-H05", "name_zh": "潤澤密集修護面膜", "exfactory": 114.69, "price": 800, "multiple": 7.0}, {"sku_code": "RA-L06", "name_zh": "曜白菸鹼醯胺精華", "exfactory": 85.43, "price": 600, "multiple": 7.0}, {"sku_code": "RA-L07", "name_zh": "曜光維C防護乳 SPF50+ PA++++", "exfactory": 92.38, "price": 650, "multiple": 7.0}, {"sku_code": "RA-L08", "name_zh": "曜白淡斑安瓶", "exfactory": 168.38, "price": 1180, "multiple": 7.0}, {"sku_code": "RA-N09", "name_zh": "齡活胜肽眼霜", "exfactory": 74.0, "price": 520, "multiple": 7.0}, {"sku_code": "RA-N10", "name_zh": "齡活A醇晚霜", "exfactory": 119.67, "price": 840, "multiple": 7.0}, {"sku_code": "RA-R11", "name_zh": "御藏全效精華油", "exfactory": 103.21, "price": 720, "multiple": 7.0}, {"sku_code": "RA-R12", "name_zh": "御藏頂級禮盒", "exfactory": 374.54, "price": 2250, "multiple": 6.0}, {"sku_code": "RA-S13", "name_zh": "沁淨頭皮平衡洗髮精", "exfactory": 120.73, "price": 850, "multiple": 7.0}, {"sku_code": "RA-S14", "name_zh": "沁養頭皮養護精華", "exfactory": 74.31, "price": 520, "multiple": 7.0}]}, "pnl": {"y1_original": {"label": "第一年｜原提案價", "gross_retail_revenue": 31284000.0, "self_direct_revenue": 21898800.0, "channel_revenue": 9385200.0, "net_revenue": 25496460.0, "expenses": {"產品成本（出廠）": 1561981.0, "物流與倉儲": 1019858.0, "行銷": 4589363.0, "人事": 1080000, "平台與金流": 1094940.0, "代理佣金": 1126224.0, "社群貢獻回饋": 764894.0, "雜支": 764894.0, "AI Agent 維運": 23040.0}, "total_expenses": 12025194.0, "ebt": 13471266.0, "tax": 2694253.0, "net_profit": 10777013.0, "net_margin_pct": 42.3, "lines": [{"sku_code": "RA-C01", "name_zh": "澄淨胺基酸潔膚霜", "qty": 6000, "unit_price": 1280.0, "retail_revenue": 7680000.0, "unit_exfactory": 84.84, "product_cost": 509040.0, "unit_gross": 1195.16, "gross_margin_pct": 93.4}, {"sku_code": "RA-C02", "name_zh": "澄潤前導精華露", "qty": 4500, "unit_price": 1680.0, "retail_revenue": 7560000.0, "unit_exfactory": 104.63, "product_cost": 470835.0, "unit_gross": 1575.37, "gross_margin_pct": 93.8}, {"sku_code": "RA-H03", "name_zh": "潤澤玻尿酸精華", "qty": 3500, "unit_price": 2280.0, "retail_revenue": 7980000.0, "unit_exfactory": 85.62, "product_cost": 299670.0, "unit_gross": 2194.38, "gross_margin_pct": 96.2}, {"sku_code": "RA-H04", "name_zh": "潤屏神經醯胺乳霜", "qty": 2800, "unit_price": 2880.0, "retail_revenue": 8064000.0, "unit_exfactory": 100.87, "product_cost": 282436.0, "unit_gross": 2779.13, "gross_margin_pct": 96.5}]}, "y1_suggested": {"label": "第一年｜建議價（7 倍）", "gross_retail_revenue": 10913000.0, "self_direct_revenue": 7639100.0, "channel_revenue": 3273900.0, "net_revenue": 8894095.0, "expenses": {"產品成本（出廠）": 1561981.0, "物流與倉儲": 355764.0, "行銷": 1600937.0, "人事": 1080000, "平台與金流": 381955.0, "代理佣金": 392868.0, "社群貢獻回饋": 266823.0, "雜支": 266823.0, "AI Agent 維運": 23040.0}, "total_expenses": 5930191.0, "ebt": 2963904.0, "tax": 592781.0, "net_profit": 2371124.0, "net_margin_pct": 26.7, "lines": [{"sku_code": "RA-C01", "name_zh": "澄淨胺基酸潔膚霜", "qty": 6000, "unit_price": 590, "retail_revenue": 3540000, "unit_exfactory": 84.84, "product_cost": 509040.0, "unit_gross": 505.15999999999997, "gross_margin_pct": 85.6}, {"sku_code": "RA-C02", "name_zh": "澄潤前導精華露", "qty": 4500, "unit_price": 730, "retail_revenue": 3285000, "unit_exfactory": 104.63, "product_cost": 470835.0, "unit_gross": 625.37, "gross_margin_pct": 85.7}, {"sku_code": "RA-H03", "name_zh": "潤澤玻尿酸精華", "qty": 3500, "unit_price": 600, "retail_revenue": 2100000, "unit_exfactory": 85.62, "product_cost": 299670.0, "unit_gross": 514.38, "gross_margin_pct": 85.7}, {"sku_code": "RA-H04", "name_zh": "潤屏神經醯胺乳霜", "qty": 2800, "unit_price": 710, "retail_revenue": 1988000, "unit_exfactory": 100.87, "product_cost": 282436.0, "unit_gross": 609.13, "gross_margin_pct": 85.8}]}, "y2_original": {"label": "第二年｜原提案價", "gross_retail_revenue": 122992000.0, "self_direct_revenue": 86094400.0, "channel_revenue": 36897600.0, "net_revenue": 100238480.0, "expenses": {"產品成本（出廠）": 6069567.0, "物流與倉儲": 4009539.0, "行銷": 18042926.0, "人事": 1080000, "平台與金流": 4304720.0, "代理佣金": 4427712.0, "社群貢獻回饋": 3007154.0, "雜支": 3007154.0, "AI Agent 維運": 23040.0}, "total_expenses": 43971813.0, "ebt": 56266667.0, "tax": 11253333.0, "net_profit": 45013333.0, "net_margin_pct": 44.9, "lines": [{"sku_code": "RA-C01", "name_zh": "澄淨胺基酸潔膚霜", "qty": 12000, "unit_price": 1280.0, "retail_revenue": 15360000.0, "unit_exfactory": 84.84, "product_cost": 1018080.0, "unit_gross": 1195.16, "gross_margin_pct": 93.4}, {"sku_code": "RA-C02", "name_zh": "澄潤前導精華露", "qty": 9000, "unit_price": 1680.0, "retail_revenue": 15120000.0, "unit_exfactory": 104.63, "product_cost": 941670.0, "unit_gross": 1575.37, "gross_margin_pct": 93.8}, {"sku_code": "RA-H03", "name_zh": "潤澤玻尿酸精華", "qty": 7000, "unit_price": 2280.0, "retail_revenue": 15960000.0, "unit_exfactory": 85.62, "product_cost": 599340.0, "unit_gross": 2194.38, "gross_margin_pct": 96.2}, {"sku_code": "RA-H04", "name_zh": "潤屏神經醯胺乳霜", "qty": 5600, "unit_price": 2880.0, "retail_revenue": 16128000.0, "unit_exfactory": 100.87, "product_cost": 564872.0, "unit_gross": 2779.13, "gross_margin_pct": 96.5}, {"sku_code": "RA-H05", "name_zh": "潤澤密集修護面膜", "qty": 4000, "unit_price": 1280.0, "retail_revenue": 5120000.0, "unit_exfactory": 114.69, "product_cost": 458760.0, "unit_gross": 1165.31, "gross_margin_pct": 91.0}, {"sku_code": "RA-L06", "name_zh": "曜白菸鹼醯胺精華", "qty": 3500, "unit_price": 2480.0, "retail_revenue": 8680000.0, "unit_exfactory": 85.43, "product_cost": 299005.0, "unit_gross": 2394.57, "gross_margin_pct": 96.6}, {"sku_code": "RA-L07", "name_zh": "曜光維C防護乳 SPF50+ PA++++", "qty": 3000, "unit_price": 1880.0, "retail_revenue": 5640000.0, "unit_exfactory": 92.38, "product_cost": 277140.0, "unit_gross": 1787.62, "gross_margin_pct": 95.1}, {"sku_code": "RA-L08", "name_zh": "曜白淡斑安瓶", "qty": 1500, "unit_price": 3280.0, "retail_revenue": 4920000.0, "unit_exfactory": 168.38, "product_cost": 252570.0, "unit_gross": 3111.62, "gross_margin_pct": 94.9}, {"sku_code": "RA-N09", "name_zh": "齡活胜肽眼霜", "qty": 2500, "unit_price": 2680.0, "retail_revenue": 6700000.0, "unit_exfactory": 74.0, "product_cost": 185000.0, "unit_gross": 2606.0, "gross_margin_pct": 97.2}, {"sku_code": "RA-N10", "name_zh": "齡活A醇晚霜", "qty": 1800, "unit_price": 3880.0, "retail_revenue": 6984000.0, "unit_exfactory": 119.67, "product_cost": 215406.0, "unit_gross": 3760.33, "gross_margin_pct": 96.9}, {"sku_code": "RA-R11", "name_zh": "御藏全效精華油", "qty": 2000, "unit_price": 3280.0, "retail_revenue": 6560000.0, "unit_exfactory": 103.21, "product_cost": 206420.0, "unit_gross": 3176.79, "gross_margin_pct": 96.9}, {"sku_code": "RA-R12", "name_zh": "御藏頂級禮盒", "qty": 600, "unit_price": 9800.0, "retail_revenue": 5880000.0, "unit_exfactory": 374.54, "product_cost": 224724.0, "unit_gross": 9425.46, "gross_margin_pct": 96.2}, {"sku_code": "RA-S13", "name_zh": "沁淨頭皮平衡洗髮精", "qty": 5000, "unit_price": 980.0, "retail_revenue": 4900000.0, "unit_exfactory": 120.73, "product_cost": 603650.0, "unit_gross": 859.27, "gross_margin_pct": 87.7}, {"sku_code": "RA-S14", "name_zh": "沁養頭皮養護精華", "qty": 3000, "unit_price": 1680.0, "retail_revenue": 5040000.0, "unit_exfactory": 74.31, "product_cost": 222930.0, "unit_gross": 1605.69, "gross_margin_pct": 95.6}]}, "y2_suggested": {"label": "第二年｜建議價（7 倍）", "gross_retail_revenue": 42258000.0, "self_direct_revenue": 29580600.0, "channel_revenue": 12677400.0, "net_revenue": 34440270.0, "expenses": {"產品成本（出廠）": 6069567.0, "物流與倉儲": 1377611.0, "行銷": 6199249.0, "人事": 1080000, "平台與金流": 1479030.0, "代理佣金": 1521288.0, "社群貢獻回饋": 1033208.0, "雜支": 1033208.0, "AI Agent 維運": 23040.0}, "total_expenses": 19816201.0, "ebt": 14624069.0, "tax": 2924814.0, "net_profit": 11699256.0, "net_margin_pct": 34.0, "lines": [{"sku_code": "RA-C01", "name_zh": "澄淨胺基酸潔膚霜", "qty": 12000, "unit_price": 590, "retail_revenue": 7080000, "unit_exfactory": 84.84, "product_cost": 1018080.0, "unit_gross": 505.15999999999997, "gross_margin_pct": 85.6}, {"sku_code": "RA-C02", "name_zh": "澄潤前導精華露", "qty": 9000, "unit_price": 730, "retail_revenue": 6570000, "unit_exfactory": 104.63, "product_cost": 941670.0, "unit_gross": 625.37, "gross_margin_pct": 85.7}, {"sku_code": "RA-H03", "name_zh": "潤澤玻尿酸精華", "qty": 7000, "unit_price": 600, "retail_revenue": 4200000, "unit_exfactory": 85.62, "product_cost": 599340.0, "unit_gross": 514.38, "gross_margin_pct": 85.7}, {"sku_code": "RA-H04", "name_zh": "潤屏神經醯胺乳霜", "qty": 5600, "unit_price": 710, "retail_revenue": 3976000, "unit_exfactory": 100.87, "product_cost": 564872.0, "unit_gross": 609.13, "gross_margin_pct": 85.8}, {"sku_code": "RA-H05", "name_zh": "潤澤密集修護面膜", "qty": 4000, "unit_price": 800, "retail_revenue": 3200000, "unit_exfactory": 114.69, "product_cost": 458760.0, "unit_gross": 685.31, "gross_margin_pct": 85.7}, {"sku_code": "RA-L06", "name_zh": "曜白菸鹼醯胺精華", "qty": 3500, "unit_price": 600, "retail_revenue": 2100000, "unit_exfactory": 85.43, "product_cost": 299005.0, "unit_gross": 514.5699999999999, "gross_margin_pct": 85.8}, {"sku_code": "RA-L07", "name_zh": "曜光維C防護乳 SPF50+ PA++++", "qty": 3000, "unit_price": 650, "retail_revenue": 1950000, "unit_exfactory": 92.38, "product_cost": 277140.0, "unit_gross": 557.62, "gross_margin_pct": 85.8}, {"sku_code": "RA-L08", "name_zh": "曜白淡斑安瓶", "qty": 1500, "unit_price": 1180, "retail_revenue": 1770000, "unit_exfactory": 168.38, "product_cost": 252570.0, "unit_gross": 1011.62, "gross_margin_pct": 85.7}, {"sku_code": "RA-N09", "name_zh": "齡活胜肽眼霜", "qty": 2500, "unit_price": 520, "retail_revenue": 1300000, "unit_exfactory": 74.0, "product_cost": 185000.0, "unit_gross": 446.0, "gross_margin_pct": 85.8}, {"sku_code": "RA-N10", "name_zh": "齡活A醇晚霜", "qty": 1800, "unit_price": 840, "retail_revenue": 1512000, "unit_exfactory": 119.67, "product_cost": 215406.0, "unit_gross": 720.33, "gross_margin_pct": 85.8}, {"sku_code": "RA-R11", "name_zh": "御藏全效精華油", "qty": 2000, "unit_price": 720, "retail_revenue": 1440000, "unit_exfactory": 103.21, "product_cost": 206420.0, "unit_gross": 616.79, "gross_margin_pct": 85.7}, {"sku_code": "RA-R12", "name_zh": "御藏頂級禮盒", "qty": 600, "unit_price": 2250, "retail_revenue": 1350000, "unit_exfactory": 374.54, "product_cost": 224724.0, "unit_gross": 1875.46, "gross_margin_pct": 83.4}, {"sku_code": "RA-S13", "name_zh": "沁淨頭皮平衡洗髮精", "qty": 5000, "unit_price": 850, "retail_revenue": 4250000, "unit_exfactory": 120.73, "product_cost": 603650.0, "unit_gross": 729.27, "gross_margin_pct": 85.8}, {"sku_code": "RA-S14", "name_zh": "沁養頭皮養護精華", "qty": 3000, "unit_price": 520, "retail_revenue": 1560000, "unit_exfactory": 74.31, "product_cost": 222930.0, "unit_gross": 445.69, "gross_margin_pct": 85.7}]}}, "payback": {"y1_original_years": 0.57, "y1_suggested_years": 2.6, "y2_original_years": 0.14, "y2_suggested_years": 0.53}, "waterfall": [{"sku_code": "RA-C01", "name_zh": "澄淨胺基酸潔膚霜", "retail_price": 590, "items": [{"name": "通路抽成", "amount": 88.5, "pct": 15.0, "note": "百貨／藥粧 50%，僅 30% 走通路"}, {"name": "產品成本（出廠）", "amount": 84.8, "pct": 14.4, "note": "含料體、包材、充填、檢驗、代工廠毛利"}, {"name": "平台與金流", "amount": 20.7, "pct": 3.5, "note": "自營部分 5%"}, {"name": "物流與倉儲", "amount": 20.1, "pct": 3.4, "note": "佔品牌實收 4%"}, {"name": "行銷", "amount": 90.3, "pct": 15.3, "note": "佔品牌實收 18%"}, {"name": "代理佣金", "amount": 21.2, "pct": 3.6, "note": "通路部分 12%"}, {"name": "社群貢獻回饋", "amount": 15.0, "pct": 2.5, "note": "佔品牌實收 3%"}, {"name": "雜支", "amount": 15.0, "pct": 2.5, "note": "佔品牌實收 3%"}, {"name": "營所稅", "amount": 46.9, "pct": 7.9, "note": "20%"}, {"name": "品牌稅後淨利", "amount": 187.5, "pct": 31.8, "note": ""}], "check_sum": 590.0}, {"sku_code": "RA-C02", "name_zh": "澄潤前導精華露", "retail_price": 730, "items": [{"name": "通路抽成", "amount": 109.5, "pct": 15.0, "note": "百貨／藥粧 50%，僅 30% 走通路"}, {"name": "產品成本（出廠）", "amount": 104.6, "pct": 14.3, "note": "含料體、包材、充填、檢驗、代工廠毛利"}, {"name": "平台與金流", "amount": 25.5, "pct": 3.5, "note": "自營部分 5%"}, {"name": "物流與倉儲", "amount": 24.8, "pct": 3.4, "note": "佔品牌實收 4%"}, {"name": "行銷", "amount": 111.7, "pct": 15.3, "note": "佔品牌實收 18%"}, {"name": "代理佣金", "amount": 26.3, "pct": 3.6, "note": "通路部分 12%"}, {"name": "社群貢獻回饋", "amount": 18.6, "pct": 2.5, "note": "佔品牌實收 3%"}, {"name": "雜支", "amount": 18.6, "pct": 2.5, "note": "佔品牌實收 3%"}, {"name": "營所稅", "amount": 58.1, "pct": 8.0, "note": "20%"}, {"name": "品牌稅後淨利", "amount": 232.2, "pct": 31.8, "note": ""}], "check_sum": 730.0}, {"sku_code": "RA-H03", "name_zh": "潤澤玻尿酸精華", "retail_price": 600, "items": [{"name": "通路抽成", "amount": 90.0, "pct": 15.0, "note": "百貨／藥粧 50%，僅 30% 走通路"}, {"name": "產品成本（出廠）", "amount": 85.6, "pct": 14.3, "note": "含料體、包材、充填、檢驗、代工廠毛利"}, {"name": "平台與金流", "amount": 21.0, "pct": 3.5, "note": "自營部分 5%"}, {"name": "物流與倉儲", "amount": 20.4, "pct": 3.4, "note": "佔品牌實收 4%"}, {"name": "行銷", "amount": 91.8, "pct": 15.3, "note": "佔品牌實收 18%"}, {"name": "代理佣金", "amount": 21.6, "pct": 3.6, "note": "通路部分 12%"}, {"name": "社群貢獻回饋", "amount": 15.3, "pct": 2.5, "note": "佔品牌實收 3%"}, {"name": "雜支", "amount": 15.3, "pct": 2.5, "note": "佔品牌實收 3%"}, {"name": "營所稅", "amount": 47.8, "pct": 8.0, "note": "20%"}, {"name": "品牌稅後淨利", "amount": 191.2, "pct": 31.9, "note": ""}], "check_sum": 600.0}, {"sku_code": "RA-H04", "name_zh": "潤屏神經醯胺乳霜", "retail_price": 710, "items": [{"name": "通路抽成", "amount": 106.5, "pct": 15.0, "note": "百貨／藥粧 50%，僅 30% 走通路"}, {"name": "產品成本（出廠）", "amount": 100.9, "pct": 14.2, "note": "含料體、包材、充填、檢驗、代工廠毛利"}, {"name": "平台與金流", "amount": 24.8, "pct": 3.5, "note": "自營部分 5%"}, {"name": "物流與倉儲", "amount": 24.1, "pct": 3.4, "note": "佔品牌實收 4%"}, {"name": "行銷", "amount": 108.6, "pct": 15.3, "note": "佔品牌實收 18%"}, {"name": "代理佣金", "amount": 25.6, "pct": 3.6, "note": "通路部分 12%"}, {"name": "社群貢獻回饋", "amount": 18.1, "pct": 2.6, "note": "佔品牌實收 3%"}, {"name": "雜支", "amount": 18.1, "pct": 2.6, "note": "佔品牌實收 3%"}, {"name": "營所稅", "amount": 56.6, "pct": 8.0, "note": "20%"}, {"name": "品牌稅後淨利", "amount": 226.6, "pct": 31.9, "note": ""}], "check_sum": 710.0}], "cost": {"RA-C01": {"name_zh": "澄淨胺基酸潔膚霜", "form": "O/W 潔膚霜", "size_ml": "120", "priority": "P0", "raw": 25.5, "pack": 26.0, "fill": 13.2, "qc": 6.0, "exfactory": 84.84, "total": 91.63, "retail": 1280.0}, "RA-C02": {"name_zh": "澄潤前導精華露", "form": "水相精華露", "size_ml": "150", "priority": "P0", "raw": 32.19, "pack": 34.0, "fill": 15.0, "qc": 6.0, "exfactory": 104.63, "total": 113.0, "retail": 1680.0}, "RA-H03": {"name_zh": "潤澤玻尿酸精華", "form": "水相凝露", "size_ml": "30", "priority": "P0", "raw": 15.35, "pack": 42.0, "fill": 8.0, "qc": 6.0, "exfactory": 85.62, "total": 92.47, "retail": 2280.0}, "RA-H04": {"name_zh": "潤屏神經醯胺乳霜", "form": "O/W 乳霜", "size_ml": "50", "priority": "P0", "raw": 21.06, "pack": 48.0, "fill": 9.0, "qc": 6.0, "exfactory": 100.87, "total": 108.94, "retail": 2880.0}, "RA-H05": {"name_zh": "潤澤密集修護面膜", "form": "片狀面膜", "size_ml": "25", "priority": "P1", "raw": 9.57, "pack": 55.0, "fill": 25.0, "qc": 6.0, "exfactory": 114.69, "total": 123.86, "retail": 1280.0}, "RA-L06": {"name_zh": "曜白菸鹼醯胺精華", "form": "水相精華", "size_ml": "30", "priority": "P1", "raw": 15.2, "pack": 42.0, "fill": 8.0, "qc": 6.0, "exfactory": 85.43, "total": 92.27, "retail": 2480.0}, "RA-L07": {"name_zh": "曜光維C防護乳 SPF50+ PA++++", "form": "O/W 防曬乳", "size_ml": "40", "priority": "P2", "raw": 38.58, "pack": 24.0, "fill": 8.4, "qc": 6.0, "exfactory": 92.38, "total": 99.77, "retail": 1880.0}, "RA-L08": {"name_zh": "曜白淡斑安瓶", "form": "安瓶（高濃度水相）", "size_ml": "15", "priority": "P2", "raw": 8.32, "pack": 96.0, "fill": 30.0, "qc": 6.0, "exfactory": 168.38, "total": 181.85, "retail": 3280.0}, "RA-N09": {"name_zh": "齡活胜肽眼霜", "form": "眼霜", "size_ml": "15", "priority": "P1", "raw": 9.66, "pack": 38.0, "fill": 8.0, "qc": 6.0, "exfactory": 74.0, "total": 79.91, "retail": 2680.0}, "RA-N10": {"name_zh": "齡活A醇晚霜", "form": "O/W 晚霜", "size_ml": "50", "priority": "P2", "raw": 36.73, "pack": 48.0, "fill": 9.0, "qc": 6.0, "exfactory": 119.67, "total": 129.25, "retail": 3880.0}, "RA-R11": {"name_zh": "御藏全效精華油", "form": "油相（無水）", "size_ml": "30", "priority": "P1", "raw": 26.01, "pack": 46.0, "fill": 8.0, "qc": 6.0, "exfactory": 103.21, "total": 111.46, "retail": 3280.0}, "RA-R12": {"name_zh": "御藏頂級禮盒", "form": "組合", "size_ml": "", "priority": "P2", "raw": 87.92, "pack": 180.0, "fill": 38.2, "qc": 6.0, "exfactory": 374.54, "total": 404.51, "retail": 9800.0}, "RA-S13": {"name_zh": "沁淨頭皮平衡洗髮精", "form": "洗髮精（透明凝露）", "size_ml": "300", "priority": "P1", "raw": 34.61, "pack": 42.0, "fill": 18.0, "qc": 6.0, "exfactory": 120.73, "total": 130.39, "retail": 980.0}, "RA-S14": {"name_zh": "沁養頭皮養護精華", "form": "頭皮精華（水相，免沖）", "size_ml": "50", "priority": "P1", "raw": 6.92, "pack": 40.0, "fill": 9.0, "qc": 6.0, "exfactory": 74.31, "total": 80.25, "retail": 1680.0}}}, "products": [{"sku_code": "RA-C01", "name_zh": "澄淨胺基酸潔膚霜", "series": "C", "form": "O/W 潔膚霜", "size_ml": 120, "positioning": "溫和清潔、洗後不緊繃、可卸淡妝", "suggested_retail_twd": 1280, "priority": "P0", "ph_target": "5.0-5.5", "fragrance": "有（另備無香版）", "alcohol": false, "claims_allowed": ["溫和清潔", "保濕", "舒緩"], "claims_forbidden": ["醫療效能", "治療", "抗菌"], "regulatory_notes": ["全成分標示", "產品登錄", "PIF"], "enabled": false}, {"sku_code": "RA-C02", "name_zh": "澄潤前導精華露", "series": "C", "form": "水相精華露", "size_ml": 150, "positioning": "二次清潔、軟化角質、提升後續吸收", "suggested_retail_twd": 1680, "priority": "P0", "ph_target": "5.0-5.5", "fragrance": "有（另備無香版）", "alcohol": false, "claims_allowed": ["保濕", "舒緩", "調理"], "claims_forbidden": ["去角質醫療效能", "換膚"], "regulatory_notes": ["全成分標示", "產品登錄", "PIF"], "enabled": false}, {"sku_code": "RA-H03", "name_zh": "潤澤玻尿酸精華", "series": "H", "form": "水相凝露", "size_ml": 30, "positioning": "多分子量玻尿酸補水、長效保濕", "suggested_retail_twd": 2280, "priority": "P0", "ph_target": "5.5-6.0", "fragrance": "無", "alcohol": false, "claims_allowed": ["保濕", "補水", "舒緩"], "claims_forbidden": ["醫療效能", "注射級"], "regulatory_notes": ["全成分標示", "產品登錄", "PIF"], "enabled": false}, {"sku_code": "RA-H04", "name_zh": "潤屏神經醯胺乳霜", "series": "H", "form": "O/W 乳霜", "size_ml": 50, "positioning": "屏障修護、鎖水、敏弱肌適用", "suggested_retail_twd": 2880, "priority": "P0", "ph_target": "5.5-6.0", "fragrance": "無", "alcohol": false, "claims_allowed": ["保濕", "修護", "舒緩"], "claims_forbidden": ["異位性皮膚炎治療", "醫療效能"], "regulatory_notes": ["全成分標示", "產品登錄", "PIF", "敏弱肌宣稱需測試支持"], "enabled": false}, {"sku_code": "RA-H05", "name_zh": "潤澤密集修護面膜", "series": "H", "form": "片狀面膜", "size_ml": 25, "pack": "5 片／盒", "positioning": "急救保濕、術後舒緩", "suggested_retail_twd": 1280, "priority": "P1", "ph_target": "5.0-5.5", "fragrance": "無", "alcohol": false, "claims_allowed": ["保濕", "舒緩"], "claims_forbidden": ["術後修復醫療效能", "傷口癒合"], "regulatory_notes": ["全成分標示", "產品登錄", "PIF", "不織布材質需標示"], "enabled": false}, {"sku_code": "RA-L06", "name_zh": "曜白菸鹼醯胺精華", "series": "L", "form": "水相精華", "size_ml": 30, "positioning": "膚色均勻、毛孔調理", "suggested_retail_twd": 2480, "priority": "P1", "ph_target": "5.5-6.0", "fragrance": "無", "alcohol": false, "claims_allowed": ["膚色均勻", "調理", "保濕"], "claims_forbidden": ["美白醫療效能", "去斑療效"], "regulatory_notes": ["全成分標示", "產品登錄", "PIF", "傳明酸限量 3%", "熊果素類限量 7%"], "enabled": false}, {"sku_code": "RA-L07", "name_zh": "曜光維C防護乳 SPF50+ PA++++", "series": "L", "form": "O/W 防曬乳", "size_ml": 40, "positioning": "日常紫外線防護＋抗氧化", "suggested_retail_twd": 1880, "priority": "P2", "ph_target": "6.0-7.0", "fragrance": "有", "alcohol": false, "claims_allowed": ["紫外線防護", "保濕"], "claims_forbidden": ["防黑療效", "抗UV醫療效能"], "regulatory_notes": ["SPF/PA 需依公告方法實測", "防曬劑限量", "全成分標示", "產品登錄", "PIF"], "enabled": false}, {"sku_code": "RA-L08", "name_zh": "曜白淡斑安瓶", "series": "L", "form": "安瓶（高濃度水相）", "size_ml": 15, "pack": "15 mL × 3", "positioning": "局部暗沉、斑點護理", "suggested_retail_twd": 3280, "priority": "P2", "ph_target": "5.0-5.5", "fragrance": "無", "alcohol": false, "claims_allowed": ["膚色均勻", "調理"], "claims_forbidden": ["淡斑療效", "美白醫療效能"], "regulatory_notes": ["全成分標示", "產品登錄", "PIF", "傳明酸限量 3%", "熊果素類限量 7%", "玻璃安瓶需安全標示"], "enabled": false}, {"sku_code": "RA-N09", "name_zh": "齡活胜肽眼霜", "series": "N", "form": "眼霜", "size_ml": 15, "positioning": "眼周乾燥、細紋、浮腫", "suggested_retail_twd": 2680, "priority": "P1", "ph_target": "5.5-6.0", "fragrance": "無", "alcohol": false, "claims_allowed": ["保濕", "緊緻感", "舒緩"], "claims_forbidden": ["除皺療效", "拉提醫療效能"], "regulatory_notes": ["全成分標示", "產品登錄", "PIF", "眼周產品需刺激性評估"], "enabled": false}, {"sku_code": "RA-N10", "name_zh": "齡活A醇晚霜", "series": "N", "form": "O/W 晚霜", "size_ml": 50, "positioning": "細紋、彈性、夜間修護", "suggested_retail_twd": 3880, "priority": "P2", "ph_target": "5.5-6.0", "fragrance": "無", "alcohol": false, "claims_allowed": ["保濕", "調理", "緊緻感"], "claims_forbidden": ["除皺療效", "拉提醫療效能", "換膚"], "regulatory_notes": ["A醇限量 0.3% retinol equivalent", "孕婦警語", "需安定性試驗", "需充氮或真空充填", "全成分標示", "產品登錄", "PIF"], "enabled": false}, {"sku_code": "RA-R11", "name_zh": "御藏全效精華油", "series": "R", "form": "油相（無水）", "size_ml": 30, "positioning": "極乾肌、按摩、混搭精華", "suggested_retail_twd": 3280, "priority": "P1", "ph_target": "不適用（無水）", "fragrance": "有（另備無香版）", "alcohol": false, "claims_allowed": ["滋潤", "保濕", "舒緩"], "claims_forbidden": ["醫療效能"], "regulatory_notes": ["全成分標示", "產品登錄", "PIF", "需氧化安定性試驗（過氧化價）"], "enabled": false}, {"sku_code": "RA-R12", "name_zh": "御藏頂級禮盒", "series": "R", "form": "組合", "contents": ["RA-C01", "RA-H03", "RA-H04", "RA-R11"], "positioning": "節慶送禮、高客單", "suggested_retail_twd": 9800, "priority": "P2", "fragrance": "依內容物", "alcohol": false, "claims_allowed": ["依內容物個別標示"], "claims_forbidden": ["組合療效宣稱"], "regulatory_notes": ["組合商品需逐項標示", "外盒需標示全部成分", "產品登錄"], "enabled": false}, {"sku_code": "RA-S13", "name_zh": "沁淨頭皮平衡洗髮精", "series": "S", "form": "洗髮精（透明凝露）", "size_ml": 300, "positioning": "頭皮清潔、控油、蓬鬆", "suggested_retail_twd": 980, "priority": "P1", "ph_target": "5.0-5.5", "fragrance": "有", "alcohol": false, "claims_allowed": ["頭皮清潔", "控油", "蓬鬆"], "claims_forbidden": ["生髮", "育髮", "治療落髮", "改善雄性禿"], "regulatory_notes": ["全成分標示", "產品登錄", "PIF", "水楊酸洗髮精限量 3%", "Piroctone Olamine 限量 1%"], "enabled": false}, {"sku_code": "RA-S14", "name_zh": "沁養頭皮養護精華", "series": "S", "form": "頭皮精華（水相，免沖）", "size_ml": 50, "positioning": "頭皮保濕、舒緩、養護", "suggested_retail_twd": 1680, "priority": "P1", "ph_target": "5.0-5.5", "fragrance": "無", "alcohol": false, "alcohol_note": "配方可選添加 0-10%，敏弱頭皮建議 0%", "claims_allowed": ["頭皮保濕", "舒緩", "養護"], "claims_forbidden": ["生髮", "育髮", "治療落髮", "改善雄性禿"], "regulatory_notes": ["全成分標示", "產品登錄", "PIF", "免沖洗產品需刺激性評估"], "enabled": false}], "cost": [{"sku_code": "RA-C01", "name_zh": "澄淨胺基酸潔膚霜", "form": "O/W 潔膚霜", "size_ml": "120", "priority": "P0", "fill_grams": "120.2", "formula_density": "1.002", "raw_material_twd": "25.5", "packaging_twd": "26.0", "filling_twd": "13.2", "qc_twd": "6.0", "exfactory_twd": "84.84", "total_cost_twd": "91.63", "suggested_retail_twd": "1280", "channel_price_twd": "640.0", "gross_margin_pct": "92.8", "raw_cost_ratio_pct": "27.8", "l1_count": "10", "l2_count": "10", "l3_count": "0", "fallback_count": "0", "note": ""}, {"sku_code": "RA-C02", "name_zh": "澄潤前導精華露", "form": "水相精華露", "size_ml": "150", "priority": "P0", "fill_grams": "152.4", "formula_density": "1.016", "raw_material_twd": "32.19", "packaging_twd": "34.0", "filling_twd": "15.0", "qc_twd": "6.0", "exfactory_twd": "104.63", "total_cost_twd": "113.0", "suggested_retail_twd": "1680", "channel_price_twd": "840.0", "gross_margin_pct": "93.3", "raw_cost_ratio_pct": "28.5", "l1_count": "7", "l2_count": "11", "l3_count": "0", "fallback_count": "0", "note": ""}, {"sku_code": "RA-H03", "name_zh": "潤澤玻尿酸精華", "form": "水相凝露", "size_ml": "30", "priority": "P0", "fill_grams": "30.7", "formula_density": "1.022", "raw_material_twd": "15.35", "packaging_twd": "42.0", "filling_twd": "8.0", "qc_twd": "6.0", "exfactory_twd": "85.62", "total_cost_twd": "92.47", "suggested_retail_twd": "2280", "channel_price_twd": "1140.0", "gross_margin_pct": "95.9", "raw_cost_ratio_pct": "16.6", "l1_count": "8", "l2_count": "11", "l3_count": "0", "fallback_count": "0", "note": ""}, {"sku_code": "RA-H04", "name_zh": "潤屏神經醯胺乳霜", "form": "O/W 乳霜", "size_ml": "50", "priority": "P0", "fill_grams": "49.8", "formula_density": "0.996", "raw_material_twd": "21.06", "packaging_twd": "48.0", "filling_twd": "9.0", "qc_twd": "6.0", "exfactory_twd": "100.87", "total_cost_twd": "108.94", "suggested_retail_twd": "2880", "channel_price_twd": "1440.0", "gross_margin_pct": "96.2", "raw_cost_ratio_pct": "19.3", "l1_count": "14", "l2_count": "10", "l3_count": "0", "fallback_count": "0", "note": ""}, {"sku_code": "RA-H05", "name_zh": "潤澤密集修護面膜", "form": "片狀面膜", "size_ml": "25", "priority": "P1", "fill_grams": "25.5", "formula_density": "1.022", "raw_material_twd": "9.57", "packaging_twd": "55.0", "filling_twd": "25.0", "qc_twd": "6.0", "exfactory_twd": "114.69", "total_cost_twd": "123.86", "suggested_retail_twd": "1280", "channel_price_twd": "640.0", "gross_margin_pct": "90.3", "raw_cost_ratio_pct": "7.7", "l1_count": "6", "l2_count": "12", "l3_count": "0", "fallback_count": "0", "note": ""}, {"sku_code": "RA-L06", "name_zh": "曜白菸鹼醯胺精華", "form": "水相精華", "size_ml": "30", "priority": "P1", "fill_grams": "30.5", "formula_density": "1.016", "raw_material_twd": "15.2", "packaging_twd": "42.0", "filling_twd": "8.0", "qc_twd": "6.0", "exfactory_twd": "85.43", "total_cost_twd": "92.27", "suggested_retail_twd": "2480", "channel_price_twd": "1240.0", "gross_margin_pct": "96.3", "raw_cost_ratio_pct": "16.5", "l1_count": "10", "l2_count": "8", "l3_count": "0", "fallback_count": "0", "note": ""}, {"sku_code": "RA-L07", "name_zh": "曜光維C防護乳 SPF50+ PA++++", "form": "O/W 防曬乳", "size_ml": "40", "priority": "P2", "fill_grams": "40.6", "formula_density": "1.015", "raw_material_twd": "38.58", "packaging_twd": "24.0", "filling_twd": "8.4", "qc_twd": "6.0", "exfactory_twd": "92.38", "total_cost_twd": "99.77", "suggested_retail_twd": "1880", "channel_price_twd": "940.0", "gross_margin_pct": "94.7", "raw_cost_ratio_pct": "38.7", "l1_count": "8", "l2_count": "14", "l3_count": "0", "fallback_count": "0", "note": ""}, {"sku_code": "RA-L08", "name_zh": "曜白淡斑安瓶", "form": "安瓶（高濃度水相）", "size_ml": "15", "priority": "P2", "fill_grams": "15.2", "formula_density": "1.016", "raw_material_twd": "8.32", "packaging_twd": "96.0", "filling_twd": "30.0", "qc_twd": "6.0", "exfactory_twd": "168.38", "total_cost_twd": "181.85", "suggested_retail_twd": "3280", "channel_price_twd": "1640.0", "gross_margin_pct": "94.5", "raw_cost_ratio_pct": "4.6", "l1_count": "7", "l2_count": "8", "l3_count": "0", "fallback_count": "0", "note": ""}, {"sku_code": "RA-N09", "name_zh": "齡活胜肽眼霜", "form": "眼霜", "size_ml": "15", "priority": "P1", "fill_grams": "14.9", "formula_density": "0.996", "raw_material_twd": "9.66", "packaging_twd": "38.0", "filling_twd": "8.0", "qc_twd": "6.0", "exfactory_twd": "74.0", "total_cost_twd": "79.91", "suggested_retail_twd": "2680", "channel_price_twd": "1340.0", "gross_margin_pct": "97.0", "raw_cost_ratio_pct": "12.1", "l1_count": "10", "l2_count": "14", "l3_count": "0", "fallback_count": "0", "note": ""}, {"sku_code": "RA-N10", "name_zh": "齡活A醇晚霜", "form": "O/W 晚霜", "size_ml": "50", "priority": "P2", "fill_grams": "49.8", "formula_density": "0.996", "raw_material_twd": "36.73", "packaging_twd": "48.0", "filling_twd": "9.0", "qc_twd": "6.0", "exfactory_twd": "119.67", "total_cost_twd": "129.25", "suggested_retail_twd": "3880", "channel_price_twd": "1940.0", "gross_margin_pct": "96.7", "raw_cost_ratio_pct": "28.4", "l1_count": "12", "l2_count": "10", "l3_count": "0", "fallback_count": "0", "note": ""}, {"sku_code": "RA-R11", "name_zh": "御藏全效精華油", "form": "油相（無水）", "size_ml": "30", "priority": "P1", "fill_grams": "25.9", "formula_density": "0.862", "raw_material_twd": "26.01", "packaging_twd": "46.0", "filling_twd": "8.0", "qc_twd": "6.0", "exfactory_twd": "103.21", "total_cost_twd": "111.46", "suggested_retail_twd": "3280", "channel_price_twd": "1640.0", "gross_margin_pct": "96.6", "raw_cost_ratio_pct": "23.3", "l1_count": "4", "l2_count": "8", "l3_count": "0", "fallback_count": "0", "note": ""}, {"sku_code": "RA-R12", "name_zh": "御藏頂級禮盒", "form": "組合", "size_ml": "", "priority": "P2", "fill_grams": "", "formula_density": "", "raw_material_twd": "87.92", "packaging_twd": "180.0", "filling_twd": "38.2", "qc_twd": "6.0", "exfactory_twd": "374.54", "total_cost_twd": "404.51", "suggested_retail_twd": "9800", "channel_price_twd": "4900.0", "gross_margin_pct": "95.9", "raw_cost_ratio_pct": "21.7", "l1_count": "0", "l2_count": "0", "l3_count": "0", "fallback_count": "0", "note": "禮盒組合（內容物成本合計）"}, {"sku_code": "RA-S13", "name_zh": "沁淨頭皮平衡洗髮精", "form": "洗髮精（透明凝露）", "size_ml": "300", "priority": "P1", "fill_grams": "304.1", "formula_density": "1.014", "raw_material_twd": "34.61", "packaging_twd": "42.0", "filling_twd": "18.0", "qc_twd": "6.0", "exfactory_twd": "120.73", "total_cost_twd": "130.39", "suggested_retail_twd": "980", "channel_price_twd": "490.0", "gross_margin_pct": "86.7", "raw_cost_ratio_pct": "26.5", "l1_count": "7", "l2_count": "11", "l3_count": "0", "fallback_count": "0", "note": ""}, {"sku_code": "RA-S14", "name_zh": "沁養頭皮養護精華", "form": "頭皮精華（水相，免沖）", "size_ml": "50", "priority": "P1", "fill_grams": "50.0", "formula_density": "1.0", "raw_material_twd": "6.92", "packaging_twd": "40.0", "filling_twd": "9.0", "qc_twd": "6.0", "exfactory_twd": "74.31", "total_cost_twd": "80.25", "suggested_retail_twd": "1680", "channel_price_twd": "840.0", "gross_margin_pct": "95.2", "raw_cost_ratio_pct": "8.6", "l1_count": "7", "l2_count": "11", "l3_count": "0", "fallback_count": "0", "note": ""}], "detail": [{"sku_code": "RA-C01", "inci_name": "Cetearyl Alcohol", "function_category": "增稠／助乳化", "pct": "3.0", "usd_per_kg": "17.95", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.5385", "cost_twd_per_kg_bulk": "17.23", "note": "makingcosmetics：Cetearyl Alcohol"}, {"sku_code": "RA-C01", "inci_name": "Glyceryl Stearate SE", "function_category": "乳化劑", "pct": "2.25", "usd_per_kg": "17.0", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.3825", "cost_twd_per_kg_bulk": "12.24", "note": "makingcosmetics：Glyceryl Stearate SE"}, {"sku_code": "RA-C01", "inci_name": "Caprylic/Capric Triglyceride", "function_category": "油相／潤膚", "pct": "7.5", "usd_per_kg": "7.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.525", "cost_twd_per_kg_bulk": "16.8", "note": "業界參考價"}, {"sku_code": "RA-C01", "inci_name": "Squalane", "function_category": "油相／親膚", "pct": "3.5", "usd_per_kg": "45.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "1.575", "cost_twd_per_kg_bulk": "50.4", "note": "L1 抓取值 482.75 偏離參考價 45.00 過大，已改用參考價"}, {"sku_code": "RA-C01", "inci_name": "Cetearyl Olivate, Sorbitan Olivate", "function_category": "天然乳化劑", "pct": "3.0", "usd_per_kg": "30.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.9", "cost_twd_per_kg_bulk": "28.8", "note": "業界參考價"}, {"sku_code": "RA-C01", "inci_name": "Tocopheryl Acetate", "function_category": "抗氧化", "pct": "0.3", "usd_per_kg": "67.75", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.2033", "cost_twd_per_kg_bulk": "6.5", "note": "makingcosmetics：Vitamin E (dl-alpha tocopheryl acetate)"}, {"sku_code": "RA-C01", "inci_name": "Glycerin", "function_category": "保濕", "pct": "8.5", "usd_per_kg": "2.5", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.2125", "cost_twd_per_kg_bulk": "6.8", "note": "L1 抓取值 17.58 偏離參考價 2.50 過大，已改用參考價"}, {"sku_code": "RA-C01", "inci_name": "Butylene Glycol", "function_category": "保濕／溶劑", "pct": "3.5", "usd_per_kg": "13.47", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.4715", "cost_twd_per_kg_bulk": "15.09", "note": "makingcosmetics：Butylene Glycol"}, {"sku_code": "RA-C01", "inci_name": "Sodium Cocoyl Isethionate", "function_category": "溫和界面活性劑", "pct": "5.5", "usd_per_kg": "15.2", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.836", "cost_twd_per_kg_bulk": "26.75", "note": "makingcosmetics：Sodium Cocoyl Isethionate"}, {"sku_code": "RA-C01", "inci_name": "Cocamidopropyl Betaine", "function_category": "溫和界面活性劑", "pct": "3.5", "usd_per_kg": "3.87", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.1355", "cost_twd_per_kg_bulk": "4.33", "note": "makingcosmetics：Cocamidopropyl Betaine"}, {"sku_code": "RA-C01", "inci_name": "Panthenol", "function_category": "舒緩", "pct": "1.25", "usd_per_kg": "18.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.225", "cost_twd_per_kg_bulk": "7.2", "note": "L1 抓取值 117.95 偏離參考價 18.00 過大，已改用參考價"}, {"sku_code": "RA-C01", "inci_name": "Allantoin", "function_category": "舒緩", "pct": "0.2", "usd_per_kg": "34.76", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0695", "cost_twd_per_kg_bulk": "2.22", "note": "makingcosmetics：Allantoin, USP"}, {"sku_code": "RA-C01", "inci_name": "Disodium EDTA", "function_category": "螯合劑", "pct": "0.075", "usd_per_kg": "4.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.003", "cost_twd_per_kg_bulk": "0.1", "note": "業界參考價"}, {"sku_code": "RA-C01", "inci_name": "Xanthan Gum", "function_category": "增稠", "pct": "0.2", "usd_per_kg": "32.38", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0648", "cost_twd_per_kg_bulk": "2.07", "note": "makingcosmetics：Xanthan Gum, Prehydrated"}, {"sku_code": "RA-C01", "inci_name": "Sodium Polyacrylate", "function_category": "增稠／穩定", "pct": "0.2", "usd_per_kg": "38.88", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0778", "cost_twd_per_kg_bulk": "2.49", "note": "makingcosmetics：Sodium Polyacrylate"}, {"sku_code": "RA-C01", "inci_name": "Phenoxyethanol", "function_category": "防腐", "pct": "0.65", "usd_per_kg": "10.7", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0696", "cost_twd_per_kg_bulk": "2.23", "note": "makingcosmetics：Phenoxyethanol"}, {"sku_code": "RA-C01", "inci_name": "Ethylhexylglycerin", "function_category": "防腐增效", "pct": "0.2", "usd_per_kg": "35.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.07", "cost_twd_per_kg_bulk": "2.24", "note": "業界參考價"}, {"sku_code": "RA-C01", "inci_name": "Fragrance", "function_category": "香精", "pct": "0.1", "usd_per_kg": "40.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.04", "cost_twd_per_kg_bulk": "1.28", "note": "業界參考價"}, {"sku_code": "RA-C01", "inci_name": "Citric Acid", "function_category": "pH 調整", "pct": "0.1", "usd_per_kg": "2.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.002", "cost_twd_per_kg_bulk": "0.06", "note": "L1 抓取值 14.32 偏離參考價 2.00 過大，已改用參考價"}, {"sku_code": "RA-C01", "inci_name": "Aqua", "function_category": "溶劑", "pct": "56.475", "usd_per_kg": "0.05", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.0282", "cost_twd_per_kg_bulk": "0.9", "note": "業界參考價"}, {"sku_code": "RA-C02", "inci_name": "Butylene Glycol", "function_category": "保濕／溶劑", "pct": "4.5", "usd_per_kg": "13.47", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.6061", "cost_twd_per_kg_bulk": "19.4", "note": "makingcosmetics：Butylene Glycol"}, {"sku_code": "RA-C02", "inci_name": "Propanediol", "function_category": "保濕／溶劑", "pct": "3.0", "usd_per_kg": "14.93", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.4479", "cost_twd_per_kg_bulk": "14.33", "note": "makingcosmetics：Propanediol 1,3"}, {"sku_code": "RA-C02", "inci_name": "Glycerin", "function_category": "保濕", "pct": "5.5", "usd_per_kg": "2.5", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.1375", "cost_twd_per_kg_bulk": "4.4", "note": "L1 抓取值 17.58 偏離參考價 2.50 過大，已改用參考價"}, {"sku_code": "RA-C02", "inci_name": "Betaine", "function_category": "保濕", "pct": "2.0", "usd_per_kg": "5.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.1", "cost_twd_per_kg_bulk": "3.2", "note": "L1 抓取值 32.35 偏離參考價 5.00 過大，已改用參考價"}, {"sku_code": "RA-C02", "inci_name": "Trehalose", "function_category": "保濕", "pct": "2.0", "usd_per_kg": "12.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.24", "cost_twd_per_kg_bulk": "7.68", "note": "業界參考價"}, {"sku_code": "RA-C02", "inci_name": "Sodium Hyaluronate", "function_category": "保濕（高分子）", "pct": "0.1", "usd_per_kg": "653.45", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.6535", "cost_twd_per_kg_bulk": "20.91", "note": "makingcosmetics：Sodium Hyaluronate &amp; Glycosaminoglycans"}, {"sku_code": "RA-C02", "inci_name": "Hydrolyzed Hyaluronic Acid", "function_category": "保濕（低分子）", "pct": "0.3", "usd_per_kg": "600.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "1.8", "cost_twd_per_kg_bulk": "57.6", "note": "業界參考價"}, {"sku_code": "RA-C02", "inci_name": "Panthenol", "function_category": "舒緩", "pct": "1.25", "usd_per_kg": "18.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.225", "cost_twd_per_kg_bulk": "7.2", "note": "L1 抓取值 117.95 偏離參考價 18.00 過大，已改用參考價"}, {"sku_code": "RA-C02", "inci_name": "Allantoin", "function_category": "舒緩", "pct": "0.2", "usd_per_kg": "34.76", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0695", "cost_twd_per_kg_bulk": "2.22", "note": "makingcosmetics：Allantoin, USP"}, {"sku_code": "RA-C02", "inci_name": "Centella Asiatica Extract", "function_category": "植物舒緩", "pct": "1.25", "usd_per_kg": "40.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.5", "cost_twd_per_kg_bulk": "16.0", "note": "業界參考價"}, {"sku_code": "RA-C02", "inci_name": "Madecassoside", "function_category": "積雪草苷", "pct": "0.125", "usd_per_kg": "900.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "1.125", "cost_twd_per_kg_bulk": "36.0", "note": "業界參考價"}, {"sku_code": "RA-C02", "inci_name": "Glycyrrhiza Glabra Root Extract", "function_category": "植物舒緩", "pct": "0.3", "usd_per_kg": "85.24", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.2557", "cost_twd_per_kg_bulk": "8.18", "note": "makingcosmetics：Licorice Root Extract"}, {"sku_code": "RA-C02", "inci_name": "PEG-60 Hydrogenated Castor Oil", "function_category": "增溶劑", "pct": "0.2", "usd_per_kg": "28.99", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.058", "cost_twd_per_kg_bulk": "1.86", "note": "makingcosmetics：PEG-60 Hydrogenated Castor Oil"}, {"sku_code": "RA-C02", "inci_name": "Disodium EDTA", "function_category": "螯合劑", "pct": "0.035", "usd_per_kg": "4.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.0014", "cost_twd_per_kg_bulk": "0.04", "note": "業界參考價"}, {"sku_code": "RA-C02", "inci_name": "Phenoxyethanol", "function_category": "防腐", "pct": "0.65", "usd_per_kg": "10.7", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0696", "cost_twd_per_kg_bulk": "2.23", "note": "makingcosmetics：Phenoxyethanol"}, {"sku_code": "RA-C02", "inci_name": "Ethylhexylglycerin", "function_category": "防腐增效", "pct": "0.2", "usd_per_kg": "35.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.07", "cost_twd_per_kg_bulk": "2.24", "note": "業界參考價"}, {"sku_code": "RA-C02", "inci_name": "Citric Acid, Sodium Citrate", "function_category": "pH／緩衝", "pct": "0.1", "usd_per_kg": "3.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.003", "cost_twd_per_kg_bulk": "0.1", "note": "業界參考價"}, {"sku_code": "RA-C02", "inci_name": "Aqua", "function_category": "溶劑", "pct": "78.29", "usd_per_kg": "0.05", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.0391", "cost_twd_per_kg_bulk": "1.25", "note": "業界參考價"}, {"sku_code": "RA-H03", "inci_name": "Glycerin", "function_category": "保濕", "pct": "7.5", "usd_per_kg": "2.5", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.1875", "cost_twd_per_kg_bulk": "6.0", "note": "L1 抓取值 17.58 偏離參考價 2.50 過大，已改用參考價"}, {"sku_code": "RA-H03", "inci_name": "Propanediol", "function_category": "保濕／溶劑", "pct": "4.5", "usd_per_kg": "14.93", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.6718", "cost_twd_per_kg_bulk": "21.5", "note": "makingcosmetics：Propanediol 1,3"}, {"sku_code": "RA-H03", "inci_name": "Sodium Hyaluronate", "function_category": "玻尿酸（高分子）", "pct": "0.2", "usd_per_kg": "653.45", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "1.3069", "cost_twd_per_kg_bulk": "41.82", "note": "makingcosmetics：Sodium Hyaluronate &amp; Glycosaminoglycans"}, {"sku_code": "RA-H03", "inci_name": "Hydrolyzed Hyaluronic Acid", "function_category": "玻尿酸（低分子）", "pct": "0.6", "usd_per_kg": "600.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "3.6", "cost_twd_per_kg_bulk": "115.2", "note": "業界參考價"}, {"sku_code": "RA-H03", "inci_name": "Sodium Hyaluronate Crosspolymer", "function_category": "玻尿酸（交聯）", "pct": "0.3", "usd_per_kg": "1200.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "3.6", "cost_twd_per_kg_bulk": "115.2", "note": "業界參考價"}, {"sku_code": "RA-H03", "inci_name": "Sodium Acetylated Hyaluronate", "function_category": "玻尿酸（乙醯化）", "pct": "0.125", "usd_per_kg": "1500.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "1.875", "cost_twd_per_kg_bulk": "60.0", "note": "業界參考價"}, {"sku_code": "RA-H03", "inci_name": "Panthenol", "function_category": "舒緩", "pct": "2.0", "usd_per_kg": "18.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.36", "cost_twd_per_kg_bulk": "11.52", "note": "L1 抓取值 117.95 偏離參考價 18.00 過大，已改用參考價"}, {"sku_code": "RA-H03", "inci_name": "Ectoin", "function_category": "保濕／抗壓", "pct": "1.25", "usd_per_kg": "223.8", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "2.7975", "cost_twd_per_kg_bulk": "89.52", "note": "makingcosmetics：Ectoin"}, {"sku_code": "RA-H03", "inci_name": "Trehalose", "function_category": "保濕", "pct": "2.0", "usd_per_kg": "12.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.24", "cost_twd_per_kg_bulk": "7.68", "note": "業界參考價"}, {"sku_code": "RA-H03", "inci_name": "Betaine", "function_category": "保濕", "pct": "2.0", "usd_per_kg": "5.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.1", "cost_twd_per_kg_bulk": "3.2", "note": "L1 抓取值 32.35 偏離參考價 5.00 過大，已改用參考價"}, {"sku_code": "RA-H03", "inci_name": "Allantoin", "function_category": "舒緩", "pct": "0.2", "usd_per_kg": "34.76", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0695", "cost_twd_per_kg_bulk": "2.22", "note": "makingcosmetics：Allantoin, USP"}, {"sku_code": "RA-H03", "inci_name": "Carbomer", "function_category": "增稠", "pct": "0.2", "usd_per_kg": "33.25", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0665", "cost_twd_per_kg_bulk": "2.13", "note": "makingcosmetics：Carbomer 940"}, {"sku_code": "RA-H03", "inci_name": "Sodium Polyacrylate", "function_category": "增稠／穩定", "pct": "0.2", "usd_per_kg": "38.88", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0778", "cost_twd_per_kg_bulk": "2.49", "note": "makingcosmetics：Sodium Polyacrylate"}, {"sku_code": "RA-H03", "inci_name": "Xanthan Gum", "function_category": "增稠", "pct": "0.125", "usd_per_kg": "32.38", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0405", "cost_twd_per_kg_bulk": "1.3", "note": "makingcosmetics：Xanthan Gum, Prehydrated"}, {"sku_code": "RA-H03", "inci_name": "Disodium EDTA", "function_category": "螯合劑", "pct": "0.035", "usd_per_kg": "4.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.0014", "cost_twd_per_kg_bulk": "0.04", "note": "業界參考價"}, {"sku_code": "RA-H03", "inci_name": "Phenoxyethanol", "function_category": "防腐", "pct": "0.65", "usd_per_kg": "10.7", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0696", "cost_twd_per_kg_bulk": "2.23", "note": "makingcosmetics：Phenoxyethanol"}, {"sku_code": "RA-H03", "inci_name": "Ethylhexylglycerin", "function_category": "防腐增效", "pct": "0.2", "usd_per_kg": "35.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.07", "cost_twd_per_kg_bulk": "2.24", "note": "業界參考價"}, {"sku_code": "RA-H03", "inci_name": "Sodium Hydroxide", "function_category": "pH 調整", "pct": "0.1", "usd_per_kg": "2.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.002", "cost_twd_per_kg_bulk": "0.06", "note": "業界參考價"}, {"sku_code": "RA-H03", "inci_name": "Aqua", "function_category": "溶劑", "pct": "77.815", "usd_per_kg": "0.05", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.0389", "cost_twd_per_kg_bulk": "1.25", "note": "業界參考價"}, {"sku_code": "RA-H04", "inci_name": "Squalane", "function_category": "油相", "pct": "5.5", "usd_per_kg": "45.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "2.475", "cost_twd_per_kg_bulk": "79.2", "note": "L1 抓取值 482.75 偏離參考價 45.00 過大，已改用參考價"}, {"sku_code": "RA-H04", "inci_name": "Caprylic/Capric Triglyceride", "function_category": "油相", "pct": "5.5", "usd_per_kg": "7.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.385", "cost_twd_per_kg_bulk": "12.32", "note": "業界參考價"}, {"sku_code": "RA-H04", "inci_name": "Cetearyl Alcohol", "function_category": "增稠／助乳化", "pct": "3.0", "usd_per_kg": "17.95", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.5385", "cost_twd_per_kg_bulk": "17.23", "note": "makingcosmetics：Cetearyl Alcohol"}, {"sku_code": "RA-H04", "inci_name": "Glyceryl Stearate", "function_category": "乳化劑", "pct": "2.25", "usd_per_kg": "17.0", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.3825", "cost_twd_per_kg_bulk": "12.24", "note": "makingcosmetics：Glyceryl Stearate SE"}, {"sku_code": "RA-H04", "inci_name": "Cetearyl Olivate, Sorbitan Olivate", "function_category": "天然乳化劑", "pct": "3.0", "usd_per_kg": "30.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.9", "cost_twd_per_kg_bulk": "28.8", "note": "業界參考價"}, {"sku_code": "RA-H04", "inci_name": "Ceramide NP", "function_category": "屏障修護", "pct": "0.3", "usd_per_kg": "399.6", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "1.1988", "cost_twd_per_kg_bulk": "38.36", "note": "makingcosmetics：Ceramide Lotion"}, {"sku_code": "RA-H04", "inci_name": "Ceramide AP", "function_category": "屏障修護", "pct": "0.125", "usd_per_kg": "771.8", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.9647", "cost_twd_per_kg_bulk": "30.87", "note": "makingcosmetics：Ceramide Complex"}, {"sku_code": "RA-H04", "inci_name": "Ceramide EOP", "function_category": "屏障修護", "pct": "0.06", "usd_per_kg": "771.8", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.4631", "cost_twd_per_kg_bulk": "14.82", "note": "makingcosmetics：Ceramide Complex"}, {"sku_code": "RA-H04", "inci_name": "Cholesterol", "function_category": "屏障（脂質三元）", "pct": "0.3", "usd_per_kg": "275.36", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.8261", "cost_twd_per_kg_bulk": "26.43", "note": "makingcosmetics：Cholesterol NF"}, {"sku_code": "RA-H04", "inci_name": "Phytosphingosine", "function_category": "屏障", "pct": "0.06", "usd_per_kg": "2000.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "1.2", "cost_twd_per_kg_bulk": "38.4", "note": "業界參考價"}, {"sku_code": "RA-H04", "inci_name": "Tocopheryl Acetate", "function_category": "抗氧化", "pct": "0.3", "usd_per_kg": "67.75", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.2033", "cost_twd_per_kg_bulk": "6.5", "note": "makingcosmetics：Vitamin E (dl-alpha tocopheryl acetate)"}, {"sku_code": "RA-H04", "inci_name": "Glycerin", "function_category": "保濕", "pct": "7.5", "usd_per_kg": "2.5", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.1875", "cost_twd_per_kg_bulk": "6.0", "note": "L1 抓取值 17.58 偏離參考價 2.50 過大，已改用參考價"}, {"sku_code": "RA-H04", "inci_name": "Butylene Glycol", "function_category": "保濕／溶劑", "pct": "3.5", "usd_per_kg": "13.47", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.4715", "cost_twd_per_kg_bulk": "15.09", "note": "makingcosmetics：Butylene Glycol"}, {"sku_code": "RA-H04", "inci_name": "Panthenol", "function_category": "舒緩", "pct": "2.0", "usd_per_kg": "18.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.36", "cost_twd_per_kg_bulk": "11.52", "note": "L1 抓取值 117.95 偏離參考價 18.00 過大，已改用參考價"}, {"sku_code": "RA-H04", "inci_name": "Sodium Hyaluronate", "function_category": "保濕", "pct": "0.125", "usd_per_kg": "653.45", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.8168", "cost_twd_per_kg_bulk": "26.14", "note": "makingcosmetics：Sodium Hyaluronate &amp; Glycosaminoglycans"}, {"sku_code": "RA-H04", "inci_name": "Allantoin", "function_category": "舒緩", "pct": "0.2", "usd_per_kg": "34.76", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0695", "cost_twd_per_kg_bulk": "2.22", "note": "makingcosmetics：Allantoin, USP"}, {"sku_code": "RA-H04", "inci_name": "Bisabolol", "function_category": "舒緩", "pct": "0.3", "usd_per_kg": "365.6", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "1.0968", "cost_twd_per_kg_bulk": "35.1", "note": "makingcosmetics：Natural Bisabolol"}, {"sku_code": "RA-H04", "inci_name": "Disodium EDTA", "function_category": "螯合劑", "pct": "0.075", "usd_per_kg": "4.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.003", "cost_twd_per_kg_bulk": "0.1", "note": "業界參考價"}, {"sku_code": "RA-H04", "inci_name": "Xanthan Gum", "function_category": "增稠", "pct": "0.2", "usd_per_kg": "32.38", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0648", "cost_twd_per_kg_bulk": "2.07", "note": "makingcosmetics：Xanthan Gum, Prehydrated"}, {"sku_code": "RA-H04", "inci_name": "Carbomer", "function_category": "增稠", "pct": "0.125", "usd_per_kg": "33.25", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0416", "cost_twd_per_kg_bulk": "1.33", "note": "makingcosmetics：Carbomer 940"}, {"sku_code": "RA-H04", "inci_name": "Phenoxyethanol", "function_category": "防腐", "pct": "0.65", "usd_per_kg": "10.7", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0696", "cost_twd_per_kg_bulk": "2.23", "note": "makingcosmetics：Phenoxyethanol"}, {"sku_code": "RA-H04", "inci_name": "Ethylhexylglycerin", "function_category": "防腐增效", "pct": "0.2", "usd_per_kg": "35.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.07", "cost_twd_per_kg_bulk": "2.24", "note": "業界參考價"}, {"sku_code": "RA-H04", "inci_name": "Sodium Hydroxide", "function_category": "pH 調整", "pct": "0.1", "usd_per_kg": "2.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.002", "cost_twd_per_kg_bulk": "0.06", "note": "業界參考價"}, {"sku_code": "RA-H04", "inci_name": "Aqua", "function_category": "溶劑", "pct": "64.63", "usd_per_kg": "0.05", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.0323", "cost_twd_per_kg_bulk": "1.03", "note": "業界參考價"}, {"sku_code": "RA-H05", "inci_name": "Glycerin", "function_category": "保濕", "pct": "7.5", "usd_per_kg": "2.5", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.1875", "cost_twd_per_kg_bulk": "6.0", "note": "L1 抓取值 17.58 偏離參考價 2.50 過大，已改用參考價"}, {"sku_code": "RA-H05", "inci_name": "Butylene Glycol", "function_category": "保濕／溶劑", "pct": "4.5", "usd_per_kg": "13.47", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.6061", "cost_twd_per_kg_bulk": "19.4", "note": "makingcosmetics：Butylene Glycol"}, {"sku_code": "RA-H05", "inci_name": "Propanediol", "function_category": "保濕／溶劑", "pct": "3.0", "usd_per_kg": "14.93", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.4479", "cost_twd_per_kg_bulk": "14.33", "note": "makingcosmetics：Propanediol 1,3"}, {"sku_code": "RA-H05", "inci_name": "Sodium Hyaluronate", "function_category": "保濕", "pct": "0.2", "usd_per_kg": "653.45", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "1.3069", "cost_twd_per_kg_bulk": "41.82", "note": "makingcosmetics：Sodium Hyaluronate &amp; Glycosaminoglycans"}, {"sku_code": "RA-H05", "inci_name": "Hydrolyzed Hyaluronic Acid", "function_category": "保濕", "pct": "0.5", "usd_per_kg": "600.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "3.0", "cost_twd_per_kg_bulk": "96.0", "note": "業界參考價"}, {"sku_code": "RA-H05", "inci_name": "Panthenol", "function_category": "舒緩", "pct": "2.0", "usd_per_kg": "18.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.36", "cost_twd_per_kg_bulk": "11.52", "note": "L1 抓取值 117.95 偏離參考價 18.00 過大，已改用參考價"}, {"sku_code": "RA-H05", "inci_name": "Trehalose", "function_category": "保濕", "pct": "2.0", "usd_per_kg": "12.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.24", "cost_twd_per_kg_bulk": "7.68", "note": "業界參考價"}, {"sku_code": "RA-H05", "inci_name": "Betaine", "function_category": "保濕", "pct": "2.0", "usd_per_kg": "5.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.1", "cost_twd_per_kg_bulk": "3.2", "note": "L1 抓取值 32.35 偏離參考價 5.00 過大，已改用參考價"}, {"sku_code": "RA-H05", "inci_name": "Allantoin", "function_category": "舒緩", "pct": "0.2", "usd_per_kg": "34.76", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0695", "cost_twd_per_kg_bulk": "2.22", "note": "makingcosmetics：Allantoin, USP"}, {"sku_code": "RA-H05", "inci_name": "Centella Asiatica Extract", "function_category": "植物舒緩", "pct": "2.0", "usd_per_kg": "40.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.8", "cost_twd_per_kg_bulk": "25.6", "note": "業界參考價"}, {"sku_code": "RA-H05", "inci_name": "Madecassoside", "function_category": "積雪草苷", "pct": "0.2", "usd_per_kg": "900.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "1.8", "cost_twd_per_kg_bulk": "57.6", "note": "業界參考價"}, {"sku_code": "RA-H05", "inci_name": "Ectoin", "function_category": "保濕／抗壓", "pct": "1.0", "usd_per_kg": "223.8", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "2.238", "cost_twd_per_kg_bulk": "71.62", "note": "makingcosmetics：Ectoin"}, {"sku_code": "RA-H05", "inci_name": "Hydroxyethylcellulose", "function_category": "增稠", "pct": "0.2", "usd_per_kg": "12.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.024", "cost_twd_per_kg_bulk": "0.77", "note": "業界參考價"}, {"sku_code": "RA-H05", "inci_name": "Disodium EDTA", "function_category": "螯合劑", "pct": "0.035", "usd_per_kg": "4.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.0014", "cost_twd_per_kg_bulk": "0.04", "note": "業界參考價"}, {"sku_code": "RA-H05", "inci_name": "Phenoxyethanol", "function_category": "防腐", "pct": "0.65", "usd_per_kg": "10.7", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0696", "cost_twd_per_kg_bulk": "2.23", "note": "makingcosmetics：Phenoxyethanol"}, {"sku_code": "RA-H05", "inci_name": "Ethylhexylglycerin", "function_category": "防腐增效", "pct": "0.2", "usd_per_kg": "35.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.07", "cost_twd_per_kg_bulk": "2.24", "note": "業界參考價"}, {"sku_code": "RA-H05", "inci_name": "Citric Acid", "function_category": "pH 調整", "pct": "0.1", "usd_per_kg": "2.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.002", "cost_twd_per_kg_bulk": "0.06", "note": "L1 抓取值 14.32 偏離參考價 2.00 過大，已改用參考價"}, {"sku_code": "RA-H05", "inci_name": "Aqua", "function_category": "溶劑", "pct": "73.715", "usd_per_kg": "0.05", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.0369", "cost_twd_per_kg_bulk": "1.18", "note": "業界參考價"}, {"sku_code": "RA-L06", "inci_name": "Niacinamide", "function_category": "亮白／屏障", "pct": "4.0", "usd_per_kg": "35.88", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "1.4352", "cost_twd_per_kg_bulk": "45.93", "note": "makingcosmetics：Niacinamide PH"}, {"sku_code": "RA-L06", "inci_name": "Glycerin", "function_category": "保濕", "pct": "5.5", "usd_per_kg": "2.5", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.1375", "cost_twd_per_kg_bulk": "4.4", "note": "L1 抓取值 17.58 偏離參考價 2.50 過大，已改用參考價"}, {"sku_code": "RA-L06", "inci_name": "Propanediol", "function_category": "保濕／溶劑", "pct": "3.5", "usd_per_kg": "14.93", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.5226", "cost_twd_per_kg_bulk": "16.72", "note": "makingcosmetics：Propanediol 1,3"}, {"sku_code": "RA-L06", "inci_name": "Butylene Glycol", "function_category": "保濕／溶劑", "pct": "3.5", "usd_per_kg": "13.47", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.4715", "cost_twd_per_kg_bulk": "15.09", "note": "makingcosmetics：Butylene Glycol"}, {"sku_code": "RA-L06", "inci_name": "Zinc PCA", "function_category": "控油／調理", "pct": "1.0", "usd_per_kg": "60.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.6", "cost_twd_per_kg_bulk": "19.2", "note": "業界參考價"}, {"sku_code": "RA-L06", "inci_name": "Panthenol", "function_category": "舒緩", "pct": "1.25", "usd_per_kg": "18.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.225", "cost_twd_per_kg_bulk": "7.2", "note": "L1 抓取值 117.95 偏離參考價 18.00 過大，已改用參考價"}, {"sku_code": "RA-L06", "inci_name": "Tranexamic Acid", "function_category": "亮白", "pct": "2.0", "usd_per_kg": "60.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "1.2", "cost_twd_per_kg_bulk": "38.4", "note": "業界參考價"}, {"sku_code": "RA-L06", "inci_name": "Alpha-Arbutin", "function_category": "亮白", "pct": "1.5", "usd_per_kg": "358.0", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "5.37", "cost_twd_per_kg_bulk": "171.84", "note": "makingcosmetics：Alpha-Arbutin"}, {"sku_code": "RA-L06", "inci_name": "3-O-Ethyl Ascorbic Acid", "function_category": "抗氧化／亮白", "pct": "1.5", "usd_per_kg": "264.9", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "3.9735", "cost_twd_per_kg_bulk": "127.15", "note": "makingcosmetics：3-O-Ethyl Ascorbic Acid"}, {"sku_code": "RA-L06", "inci_name": "Sodium Hyaluronate", "function_category": "保濕", "pct": "0.125", "usd_per_kg": "653.45", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.8168", "cost_twd_per_kg_bulk": "26.14", "note": "makingcosmetics：Sodium Hyaluronate &amp; Glycosaminoglycans"}, {"sku_code": "RA-L06", "inci_name": "Allantoin", "function_category": "舒緩", "pct": "0.2", "usd_per_kg": "34.76", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0695", "cost_twd_per_kg_bulk": "2.22", "note": "makingcosmetics：Allantoin, USP"}, {"sku_code": "RA-L06", "inci_name": "Carbomer", "function_category": "增稠", "pct": "0.2", "usd_per_kg": "33.25", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0665", "cost_twd_per_kg_bulk": "2.13", "note": "makingcosmetics：Carbomer 940"}, {"sku_code": "RA-L06", "inci_name": "Xanthan Gum", "function_category": "增稠", "pct": "0.125", "usd_per_kg": "32.38", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0405", "cost_twd_per_kg_bulk": "1.3", "note": "makingcosmetics：Xanthan Gum, Prehydrated"}, {"sku_code": "RA-L06", "inci_name": "Disodium EDTA", "function_category": "螯合劑", "pct": "0.035", "usd_per_kg": "4.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.0014", "cost_twd_per_kg_bulk": "0.04", "note": "業界參考價"}, {"sku_code": "RA-L06", "inci_name": "Phenoxyethanol", "function_category": "防腐", "pct": "0.65", "usd_per_kg": "10.7", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0696", "cost_twd_per_kg_bulk": "2.23", "note": "makingcosmetics：Phenoxyethanol"}, {"sku_code": "RA-L06", "inci_name": "Ethylhexylglycerin", "function_category": "防腐增效", "pct": "0.2", "usd_per_kg": "35.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.07", "cost_twd_per_kg_bulk": "2.24", "note": "業界參考價"}, {"sku_code": "RA-L06", "inci_name": "Sodium Hydroxide", "function_category": "pH 調整", "pct": "0.1", "usd_per_kg": "2.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.002", "cost_twd_per_kg_bulk": "0.06", "note": "業界參考價"}, {"sku_code": "RA-L06", "inci_name": "Aqua", "function_category": "溶劑", "pct": "74.615", "usd_per_kg": "0.05", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.0373", "cost_twd_per_kg_bulk": "1.19", "note": "業界參考價"}, {"sku_code": "RA-L07", "inci_name": "Ethylhexyl Methoxycinnamate", "function_category": "UVB 防曬劑", "pct": "8.5", "usd_per_kg": "18.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "1.53", "cost_twd_per_kg_bulk": "48.96", "note": "業界參考價"}, {"sku_code": "RA-L07", "inci_name": "Diethylamino Hydroxybenzoyl Hexyl Benzoate", "function_category": "UVA 防曬劑", "pct": "7.5", "usd_per_kg": "90.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "6.75", "cost_twd_per_kg_bulk": "216.0", "note": "業界參考價"}, {"sku_code": "RA-L07", "inci_name": "Bis-Ethylhexyloxyphenol Methoxyphenyl Triazine", "function_category": "廣域防曬劑", "pct": "6.5", "usd_per_kg": "180.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "11.7", "cost_twd_per_kg_bulk": "374.4", "note": "業界參考價"}, {"sku_code": "RA-L07", "inci_name": "Ethylhexyl Triazone", "function_category": "UVB 防曬劑", "pct": "3.5", "usd_per_kg": "120.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "4.2", "cost_twd_per_kg_bulk": "134.4", "note": "業界參考價"}, {"sku_code": "RA-L07", "inci_name": "C12-15 Alkyl Benzoate", "function_category": "油相／溶劑", "pct": "5.5", "usd_per_kg": "15.49", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.8519", "cost_twd_per_kg_bulk": "27.26", "note": "makingcosmetics：C12-15 Alkyl Benzoate"}, {"sku_code": "RA-L07", "inci_name": "Caprylic/Capric Triglyceride", "function_category": "油相", "pct": "3.5", "usd_per_kg": "7.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.245", "cost_twd_per_kg_bulk": "7.84", "note": "業界參考價"}, {"sku_code": "RA-L07", "inci_name": "Cetearyl Alcohol", "function_category": "增稠／助乳化", "pct": "2.25", "usd_per_kg": "17.95", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.4039", "cost_twd_per_kg_bulk": "12.92", "note": "makingcosmetics：Cetearyl Alcohol"}, {"sku_code": "RA-L07", "inci_name": "Glyceryl Stearate", "function_category": "乳化劑", "pct": "1.75", "usd_per_kg": "17.0", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.2975", "cost_twd_per_kg_bulk": "9.52", "note": "makingcosmetics：Glyceryl Stearate SE"}, {"sku_code": "RA-L07", "inci_name": "Cetearyl Olivate, Sorbitan Olivate", "function_category": "天然乳化劑", "pct": "2.25", "usd_per_kg": "30.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.675", "cost_twd_per_kg_bulk": "21.6", "note": "業界參考價"}, {"sku_code": "RA-L07", "inci_name": "Tocopheryl Acetate", "function_category": "抗氧化", "pct": "0.3", "usd_per_kg": "67.75", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.2033", "cost_twd_per_kg_bulk": "6.5", "note": "makingcosmetics：Vitamin E (dl-alpha tocopheryl acetate)"}, {"sku_code": "RA-L07", "inci_name": "Glycerin", "function_category": "保濕", "pct": "5.5", "usd_per_kg": "2.5", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.1375", "cost_twd_per_kg_bulk": "4.4", "note": "L1 抓取值 17.58 偏離參考價 2.50 過大，已改用參考價"}, {"sku_code": "RA-L07", "inci_name": "Butylene Glycol", "function_category": "保濕／溶劑", "pct": "3.5", "usd_per_kg": "13.47", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.4715", "cost_twd_per_kg_bulk": "15.09", "note": "makingcosmetics：Butylene Glycol"}, {"sku_code": "RA-L07", "inci_name": "Sodium Hyaluronate", "function_category": "保濕", "pct": "0.125", "usd_per_kg": "653.45", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.8168", "cost_twd_per_kg_bulk": "26.14", "note": "makingcosmetics：Sodium Hyaluronate &amp; Glycosaminoglycans"}, {"sku_code": "RA-L07", "inci_name": "Panthenol", "function_category": "舒緩", "pct": "1.25", "usd_per_kg": "18.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.225", "cost_twd_per_kg_bulk": "7.2", "note": "L1 抓取值 117.95 偏離參考價 18.00 過大，已改用參考價"}, {"sku_code": "RA-L07", "inci_name": "Disodium EDTA", "function_category": "螯合劑", "pct": "0.075", "usd_per_kg": "4.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.003", "cost_twd_per_kg_bulk": "0.1", "note": "業界參考價"}, {"sku_code": "RA-L07", "inci_name": "Xanthan Gum", "function_category": "增稠", "pct": "0.2", "usd_per_kg": "32.38", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0648", "cost_twd_per_kg_bulk": "2.07", "note": "makingcosmetics：Xanthan Gum, Prehydrated"}, {"sku_code": "RA-L07", "inci_name": "Acrylates/C10-30 Alkyl Acrylate Crosspolymer", "function_category": "增稠", "pct": "0.2", "usd_per_kg": "18.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.036", "cost_twd_per_kg_bulk": "1.15", "note": "業界參考價"}, {"sku_code": "RA-L07", "inci_name": "Phenoxyethanol", "function_category": "防腐", "pct": "0.65", "usd_per_kg": "10.7", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0696", "cost_twd_per_kg_bulk": "2.23", "note": "makingcosmetics：Phenoxyethanol"}, {"sku_code": "RA-L07", "inci_name": "Ethylhexylglycerin", "function_category": "防腐增效", "pct": "0.2", "usd_per_kg": "35.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.07", "cost_twd_per_kg_bulk": "2.24", "note": "業界參考價"}, {"sku_code": "RA-L07", "inci_name": "Fragrance", "function_category": "香精", "pct": "0.1", "usd_per_kg": "40.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.04", "cost_twd_per_kg_bulk": "1.28", "note": "業界參考價"}, {"sku_code": "RA-L07", "inci_name": "Sodium Hydroxide", "function_category": "pH 調整", "pct": "0.1", "usd_per_kg": "2.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.002", "cost_twd_per_kg_bulk": "0.06", "note": "業界參考價"}, {"sku_code": "RA-L07", "inci_name": "Aqua", "function_category": "溶劑", "pct": "46.55", "usd_per_kg": "0.05", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.0233", "cost_twd_per_kg_bulk": "0.74", "note": "業界參考價"}, {"sku_code": "RA-L08", "inci_name": "Tranexamic Acid", "function_category": "亮白", "pct": "2.5", "usd_per_kg": "60.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "1.5", "cost_twd_per_kg_bulk": "48.0", "note": "業界參考價"}, {"sku_code": "RA-L08", "inci_name": "Niacinamide", "function_category": "亮白", "pct": "3.0", "usd_per_kg": "35.88", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "1.0764", "cost_twd_per_kg_bulk": "34.44", "note": "makingcosmetics：Niacinamide PH"}, {"sku_code": "RA-L08", "inci_name": "Alpha-Arbutin", "function_category": "亮白", "pct": "1.5", "usd_per_kg": "358.0", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "5.37", "cost_twd_per_kg_bulk": "171.84", "note": "makingcosmetics：Alpha-Arbutin"}, {"sku_code": "RA-L08", "inci_name": "3-O-Ethyl Ascorbic Acid", "function_category": "抗氧化／亮白", "pct": "2.5", "usd_per_kg": "264.9", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "6.6225", "cost_twd_per_kg_bulk": "211.92", "note": "makingcosmetics：3-O-Ethyl Ascorbic Acid"}, {"sku_code": "RA-L08", "inci_name": "Glycerin", "function_category": "保濕", "pct": "5.5", "usd_per_kg": "2.5", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.1375", "cost_twd_per_kg_bulk": "4.4", "note": "L1 抓取值 17.58 偏離參考價 2.50 過大，已改用參考價"}, {"sku_code": "RA-L08", "inci_name": "Propanediol", "function_category": "保濕／溶劑", "pct": "3.5", "usd_per_kg": "14.93", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.5226", "cost_twd_per_kg_bulk": "16.72", "note": "makingcosmetics：Propanediol 1,3"}, {"sku_code": "RA-L08", "inci_name": "Panthenol", "function_category": "舒緩", "pct": "1.25", "usd_per_kg": "18.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.225", "cost_twd_per_kg_bulk": "7.2", "note": "L1 抓取值 117.95 偏離參考價 18.00 過大，已改用參考價"}, {"sku_code": "RA-L08", "inci_name": "Sodium Hyaluronate", "function_category": "保濕", "pct": "0.125", "usd_per_kg": "653.45", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.8168", "cost_twd_per_kg_bulk": "26.14", "note": "makingcosmetics：Sodium Hyaluronate &amp; Glycosaminoglycans"}, {"sku_code": "RA-L08", "inci_name": "Allantoin", "function_category": "舒緩", "pct": "0.2", "usd_per_kg": "34.76", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0695", "cost_twd_per_kg_bulk": "2.22", "note": "makingcosmetics：Allantoin, USP"}, {"sku_code": "RA-L08", "inci_name": "Hydroxyethylcellulose", "function_category": "增稠", "pct": "0.2", "usd_per_kg": "12.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.024", "cost_twd_per_kg_bulk": "0.77", "note": "業界參考價"}, {"sku_code": "RA-L08", "inci_name": "Disodium EDTA", "function_category": "螯合劑", "pct": "0.035", "usd_per_kg": "4.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.0014", "cost_twd_per_kg_bulk": "0.04", "note": "業界參考價"}, {"sku_code": "RA-L08", "inci_name": "Phenoxyethanol", "function_category": "防腐", "pct": "0.65", "usd_per_kg": "10.7", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0696", "cost_twd_per_kg_bulk": "2.23", "note": "makingcosmetics：Phenoxyethanol"}, {"sku_code": "RA-L08", "inci_name": "Ethylhexylglycerin", "function_category": "防腐增效", "pct": "0.2", "usd_per_kg": "35.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.07", "cost_twd_per_kg_bulk": "2.24", "note": "業界參考價"}, {"sku_code": "RA-L08", "inci_name": "Citric Acid", "function_category": "pH 調整", "pct": "0.1", "usd_per_kg": "2.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.002", "cost_twd_per_kg_bulk": "0.06", "note": "L1 抓取值 14.32 偏離參考價 2.00 過大，已改用參考價"}, {"sku_code": "RA-L08", "inci_name": "Aqua", "function_category": "溶劑", "pct": "78.74", "usd_per_kg": "0.05", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.0394", "cost_twd_per_kg_bulk": "1.26", "note": "業界參考價"}, {"sku_code": "RA-N09", "inci_name": "Squalane", "function_category": "油相", "pct": "5.5", "usd_per_kg": "45.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "2.475", "cost_twd_per_kg_bulk": "79.2", "note": "L1 抓取值 482.75 偏離參考價 45.00 過大，已改用參考價"}, {"sku_code": "RA-N09", "inci_name": "Caprylic/Capric Triglyceride", "function_category": "油相", "pct": "5.5", "usd_per_kg": "7.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.385", "cost_twd_per_kg_bulk": "12.32", "note": "業界參考價"}, {"sku_code": "RA-N09", "inci_name": "Cetearyl Alcohol", "function_category": "增稠／助乳化", "pct": "3.0", "usd_per_kg": "17.95", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.5385", "cost_twd_per_kg_bulk": "17.23", "note": "makingcosmetics：Cetearyl Alcohol"}, {"sku_code": "RA-N09", "inci_name": "Glyceryl Stearate", "function_category": "乳化劑", "pct": "2.25", "usd_per_kg": "17.0", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.3825", "cost_twd_per_kg_bulk": "12.24", "note": "makingcosmetics：Glyceryl Stearate SE"}, {"sku_code": "RA-N09", "inci_name": "Cetearyl Olivate, Sorbitan Olivate", "function_category": "天然乳化劑", "pct": "3.0", "usd_per_kg": "30.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.9", "cost_twd_per_kg_bulk": "28.8", "note": "業界參考價"}, {"sku_code": "RA-N09", "inci_name": "Tocopheryl Acetate", "function_category": "抗氧化", "pct": "0.3", "usd_per_kg": "67.75", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.2033", "cost_twd_per_kg_bulk": "6.5", "note": "makingcosmetics：Vitamin E (dl-alpha tocopheryl acetate)"}, {"sku_code": "RA-N09", "inci_name": "Glycerin", "function_category": "保濕", "pct": "7.5", "usd_per_kg": "2.5", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.1875", "cost_twd_per_kg_bulk": "6.0", "note": "L1 抓取值 17.58 偏離參考價 2.50 過大，已改用參考價"}, {"sku_code": "RA-N09", "inci_name": "Butylene Glycol", "function_category": "保濕／溶劑", "pct": "3.5", "usd_per_kg": "13.47", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.4715", "cost_twd_per_kg_bulk": "15.09", "note": "makingcosmetics：Butylene Glycol"}, {"sku_code": "RA-N09", "inci_name": "Caffeine", "function_category": "循環調理", "pct": "1.25", "usd_per_kg": "30.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.375", "cost_twd_per_kg_bulk": "12.0", "note": "業界參考價"}, {"sku_code": "RA-N09", "inci_name": "Palmitoyl Tripeptide-1", "function_category": "胜肽", "pct": "2.0", "usd_per_kg": "8.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.16", "cost_twd_per_kg_bulk": "5.12", "note": "L1 抓取值 651.32 偏離參考價 8.00 過大，已改用參考價"}, {"sku_code": "RA-N09", "inci_name": "Palmitoyl Tetrapeptide-7", "function_category": "胜肽", "pct": "2.0", "usd_per_kg": "8.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.16", "cost_twd_per_kg_bulk": "5.12", "note": "L1 抓取值 651.32 偏離參考價 8.00 過大，已改用參考價"}, {"sku_code": "RA-N09", "inci_name": "Acetyl Hexapeptide-8", "function_category": "胜肽", "pct": "3.5", "usd_per_kg": "300.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "10.5", "cost_twd_per_kg_bulk": "336.0", "note": "業界參考價"}, {"sku_code": "RA-N09", "inci_name": "Copper Tripeptide-1", "function_category": "胜肽", "pct": "1.25", "usd_per_kg": "50.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.625", "cost_twd_per_kg_bulk": "20.0", "note": "業界參考價"}, {"sku_code": "RA-N09", "inci_name": "Niacinamide", "function_category": "亮白／屏障", "pct": "2.0", "usd_per_kg": "35.88", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.7176", "cost_twd_per_kg_bulk": "22.96", "note": "makingcosmetics：Niacinamide PH"}, {"sku_code": "RA-N09", "inci_name": "Panthenol", "function_category": "舒緩", "pct": "2.0", "usd_per_kg": "18.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.36", "cost_twd_per_kg_bulk": "11.52", "note": "L1 抓取值 117.95 偏離參考價 18.00 過大，已改用參考價"}, {"sku_code": "RA-N09", "inci_name": "Sodium Hyaluronate", "function_category": "保濕", "pct": "0.125", "usd_per_kg": "653.45", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.8168", "cost_twd_per_kg_bulk": "26.14", "note": "makingcosmetics：Sodium Hyaluronate &amp; Glycosaminoglycans"}, {"sku_code": "RA-N09", "inci_name": "Allantoin", "function_category": "舒緩", "pct": "0.2", "usd_per_kg": "34.76", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0695", "cost_twd_per_kg_bulk": "2.22", "note": "makingcosmetics：Allantoin, USP"}, {"sku_code": "RA-N09", "inci_name": "Disodium EDTA", "function_category": "螯合劑", "pct": "0.075", "usd_per_kg": "4.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.003", "cost_twd_per_kg_bulk": "0.1", "note": "業界參考價"}, {"sku_code": "RA-N09", "inci_name": "Xanthan Gum", "function_category": "增稠", "pct": "0.2", "usd_per_kg": "32.38", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0648", "cost_twd_per_kg_bulk": "2.07", "note": "makingcosmetics：Xanthan Gum, Prehydrated"}, {"sku_code": "RA-N09", "inci_name": "Carbomer", "function_category": "增稠", "pct": "0.125", "usd_per_kg": "33.25", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0416", "cost_twd_per_kg_bulk": "1.33", "note": "makingcosmetics：Carbomer 940"}, {"sku_code": "RA-N09", "inci_name": "Phenoxyethanol", "function_category": "防腐", "pct": "0.65", "usd_per_kg": "10.7", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0696", "cost_twd_per_kg_bulk": "2.23", "note": "makingcosmetics：Phenoxyethanol"}, {"sku_code": "RA-N09", "inci_name": "Ethylhexylglycerin", "function_category": "防腐增效", "pct": "0.2", "usd_per_kg": "35.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.07", "cost_twd_per_kg_bulk": "2.24", "note": "業界參考價"}, {"sku_code": "RA-N09", "inci_name": "Sodium Hydroxide", "function_category": "pH 調整", "pct": "0.1", "usd_per_kg": "2.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.002", "cost_twd_per_kg_bulk": "0.06", "note": "業界參考價"}, {"sku_code": "RA-N09", "inci_name": "Aqua", "function_category": "溶劑", "pct": "53.775", "usd_per_kg": "0.05", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.0269", "cost_twd_per_kg_bulk": "0.86", "note": "業界參考價"}, {"sku_code": "RA-N10", "inci_name": "Squalane", "function_category": "油相", "pct": "5.5", "usd_per_kg": "45.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "2.475", "cost_twd_per_kg_bulk": "79.2", "note": "L1 抓取值 482.75 偏離參考價 45.00 過大，已改用參考價"}, {"sku_code": "RA-N10", "inci_name": "Caprylic/Capric Triglyceride", "function_category": "油相", "pct": "5.5", "usd_per_kg": "7.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.385", "cost_twd_per_kg_bulk": "12.32", "note": "業界參考價"}, {"sku_code": "RA-N10", "inci_name": "Cetearyl Alcohol", "function_category": "增稠／助乳化", "pct": "3.0", "usd_per_kg": "17.95", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.5385", "cost_twd_per_kg_bulk": "17.23", "note": "makingcosmetics：Cetearyl Alcohol"}, {"sku_code": "RA-N10", "inci_name": "Glyceryl Stearate", "function_category": "乳化劑", "pct": "2.25", "usd_per_kg": "17.0", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.3825", "cost_twd_per_kg_bulk": "12.24", "note": "makingcosmetics：Glyceryl Stearate SE"}, {"sku_code": "RA-N10", "inci_name": "Cetearyl Olivate, Sorbitan Olivate", "function_category": "天然乳化劑", "pct": "3.0", "usd_per_kg": "30.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.9", "cost_twd_per_kg_bulk": "28.8", "note": "業界參考價"}, {"sku_code": "RA-N10", "inci_name": "Dimethicone", "function_category": "膚感／防水", "pct": "2.0", "usd_per_kg": "8.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.16", "cost_twd_per_kg_bulk": "5.12", "note": "L1 抓取值 48.69 偏離參考價 8.00 過大，已改用參考價"}, {"sku_code": "RA-N10", "inci_name": "Tocopherol", "function_category": "抗氧化", "pct": "0.3", "usd_per_kg": "159.0", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.477", "cost_twd_per_kg_bulk": "15.26", "note": "makingcosmetics：Vitamin E Tocopherol Natural"}, {"sku_code": "RA-N10", "inci_name": "Glycerin", "function_category": "保濕", "pct": "7.5", "usd_per_kg": "2.5", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.1875", "cost_twd_per_kg_bulk": "6.0", "note": "L1 抓取值 17.58 偏離參考價 2.50 過大，已改用參考價"}, {"sku_code": "RA-N10", "inci_name": "Butylene Glycol", "function_category": "保濕／溶劑", "pct": "3.5", "usd_per_kg": "13.47", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.4715", "cost_twd_per_kg_bulk": "15.09", "note": "makingcosmetics：Butylene Glycol"}, {"sku_code": "RA-N10", "inci_name": "Niacinamide", "function_category": "亮白／屏障", "pct": "2.0", "usd_per_kg": "35.88", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.7176", "cost_twd_per_kg_bulk": "22.96", "note": "makingcosmetics：Niacinamide PH"}, {"sku_code": "RA-N10", "inci_name": "Panthenol", "function_category": "舒緩", "pct": "2.0", "usd_per_kg": "18.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.36", "cost_twd_per_kg_bulk": "11.52", "note": "L1 抓取值 117.95 偏離參考價 18.00 過大，已改用參考價"}, {"sku_code": "RA-N10", "inci_name": "Sodium Hyaluronate", "function_category": "保濕", "pct": "0.125", "usd_per_kg": "653.45", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.8168", "cost_twd_per_kg_bulk": "26.14", "note": "makingcosmetics：Sodium Hyaluronate &amp; Glycosaminoglycans"}, {"sku_code": "RA-N10", "inci_name": "Disodium EDTA", "function_category": "螯合劑", "pct": "0.075", "usd_per_kg": "4.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.003", "cost_twd_per_kg_bulk": "0.1", "note": "業界參考價"}, {"sku_code": "RA-N10", "inci_name": "Retinol", "function_category": "抗老", "pct": "0.175", "usd_per_kg": "2312.8", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "4.0474", "cost_twd_per_kg_bulk": "129.52", "note": "makingcosmetics：Retinol"}, {"sku_code": "RA-N10", "inci_name": "Bakuchiol", "function_category": "植物抗老替代", "pct": "0.75", "usd_per_kg": "1339.6", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "10.047", "cost_twd_per_kg_bulk": "321.5", "note": "makingcosmetics：Bakuchiol"}, {"sku_code": "RA-N10", "inci_name": "Polysorbate 20", "function_category": "增溶劑", "pct": "1.0", "usd_per_kg": "10.35", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.1035", "cost_twd_per_kg_bulk": "3.31", "note": "makingcosmetics：Polysorbate 20"}, {"sku_code": "RA-N10", "inci_name": "Xanthan Gum", "function_category": "增稠", "pct": "0.2", "usd_per_kg": "32.38", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0648", "cost_twd_per_kg_bulk": "2.07", "note": "makingcosmetics：Xanthan Gum, Prehydrated"}, {"sku_code": "RA-N10", "inci_name": "Carbomer", "function_category": "增稠", "pct": "0.125", "usd_per_kg": "33.25", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0416", "cost_twd_per_kg_bulk": "1.33", "note": "makingcosmetics：Carbomer 940"}, {"sku_code": "RA-N10", "inci_name": "Phenoxyethanol", "function_category": "防腐", "pct": "0.65", "usd_per_kg": "10.7", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0696", "cost_twd_per_kg_bulk": "2.23", "note": "makingcosmetics：Phenoxyethanol"}, {"sku_code": "RA-N10", "inci_name": "Ethylhexylglycerin", "function_category": "防腐增效", "pct": "0.2", "usd_per_kg": "35.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.07", "cost_twd_per_kg_bulk": "2.24", "note": "業界參考價"}, {"sku_code": "RA-N10", "inci_name": "Sodium Hydroxide", "function_category": "pH 調整", "pct": "0.1", "usd_per_kg": "2.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.002", "cost_twd_per_kg_bulk": "0.06", "note": "業界參考價"}, {"sku_code": "RA-N10", "inci_name": "Aqua", "function_category": "溶劑", "pct": "60.05", "usd_per_kg": "0.05", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.03", "cost_twd_per_kg_bulk": "0.96", "note": "業界參考價"}, {"sku_code": "RA-R11", "inci_name": "Squalane", "function_category": "基底油", "pct": "39.565", "usd_per_kg": "45.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "17.8042", "cost_twd_per_kg_bulk": "569.73", "note": "L1 抓取值 482.75 偏離參考價 45.00 過大，已改用參考價"}, {"sku_code": "RA-R11", "inci_name": "Caprylic/Capric Triglyceride", "function_category": "基底油", "pct": "22.255", "usd_per_kg": "7.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "1.5579", "cost_twd_per_kg_bulk": "49.85", "note": "業界參考價"}, {"sku_code": "RA-R11", "inci_name": "Isoamyl Laurate", "function_category": "輕質油", "pct": "9.891", "usd_per_kg": "23.56", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "2.3304", "cost_twd_per_kg_bulk": "74.57", "note": "makingcosmetics：Isoamyl Laurate"}, {"sku_code": "RA-R11", "inci_name": "Coco-Caprylate/Caprate", "function_category": "輕質油", "pct": "9.891", "usd_per_kg": "23.85", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "2.3591", "cost_twd_per_kg_bulk": "75.49", "note": "makingcosmetics：Coco Caprylate Caprate"}, {"sku_code": "RA-R11", "inci_name": "Camellia Japonica Seed Oil", "function_category": "植物油", "pct": "5.44", "usd_per_kg": "25.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "1.36", "cost_twd_per_kg_bulk": "43.52", "note": "業界參考價"}, {"sku_code": "RA-R11", "inci_name": "Argania Spinosa Kernel Oil", "function_category": "植物油", "pct": "3.462", "usd_per_kg": "40.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "1.3848", "cost_twd_per_kg_bulk": "44.31", "note": "業界參考價"}, {"sku_code": "RA-R11", "inci_name": "Rosa Canina Fruit Oil", "function_category": "植物油", "pct": "1.978", "usd_per_kg": "30.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.5935", "cost_twd_per_kg_bulk": "18.99", "note": "業界參考價"}, {"sku_code": "RA-R11", "inci_name": "Simmondsia Chinensis Seed Oil", "function_category": "植物油（蠟酯）", "pct": "3.462", "usd_per_kg": "25.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.8655", "cost_twd_per_kg_bulk": "27.7", "note": "業界參考價"}, {"sku_code": "RA-R11", "inci_name": "Helianthus Annuus Seed Oil", "function_category": "植物油／載體", "pct": "2.967", "usd_per_kg": "4.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.1187", "cost_twd_per_kg_bulk": "3.8", "note": "業界參考價"}, {"sku_code": "RA-R11", "inci_name": "Tocopherol", "function_category": "抗氧化", "pct": "0.593", "usd_per_kg": "159.0", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.9436", "cost_twd_per_kg_bulk": "30.2", "note": "makingcosmetics：Vitamin E Tocopherol Natural"}, {"sku_code": "RA-R11", "inci_name": "Bisabolol", "function_category": "舒緩", "pct": "0.297", "usd_per_kg": "365.6", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "1.0849", "cost_twd_per_kg_bulk": "34.72", "note": "makingcosmetics：Natural Bisabolol"}, {"sku_code": "RA-R11", "inci_name": "Fragrance", "function_category": "香精", "pct": "0.198", "usd_per_kg": "40.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.0791", "cost_twd_per_kg_bulk": "2.53", "note": "業界參考價"}, {"sku_code": "RA-S13", "inci_name": "Sodium Lauroyl Methyl Isethionate", "function_category": "溫和界面活性劑", "pct": "11.5", "usd_per_kg": "10.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "1.15", "cost_twd_per_kg_bulk": "36.8", "note": "業界參考價"}, {"sku_code": "RA-S13", "inci_name": "Cocamidopropyl Betaine", "function_category": "溫和界面活性劑", "pct": "5.5", "usd_per_kg": "3.87", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.2129", "cost_twd_per_kg_bulk": "6.81", "note": "makingcosmetics：Cocamidopropyl Betaine"}, {"sku_code": "RA-S13", "inci_name": "Decyl Glucoside", "function_category": "溫和界面活性劑", "pct": "3.5", "usd_per_kg": "11.56", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.4046", "cost_twd_per_kg_bulk": "12.95", "note": "makingcosmetics：Decyl Glucoside Sodium Lauroyl Lactylate"}, {"sku_code": "RA-S13", "inci_name": "Glycerin", "function_category": "保濕", "pct": "3.5", "usd_per_kg": "2.5", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.0875", "cost_twd_per_kg_bulk": "2.8", "note": "L1 抓取值 17.58 偏離參考價 2.50 過大，已改用參考價"}, {"sku_code": "RA-S13", "inci_name": "Polyquaternium-7", "function_category": "調理", "pct": "0.5", "usd_per_kg": "7.64", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0382", "cost_twd_per_kg_bulk": "1.22", "note": "makingcosmetics：Polyquaternium-7"}, {"sku_code": "RA-S13", "inci_name": "Polyquaternium-10", "function_category": "調理", "pct": "0.2", "usd_per_kg": "56.63", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.1133", "cost_twd_per_kg_bulk": "3.62", "note": "makingcosmetics：Polyquaternium-10"}, {"sku_code": "RA-S13", "inci_name": "Panthenol", "function_category": "舒緩", "pct": "1.25", "usd_per_kg": "18.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.225", "cost_twd_per_kg_bulk": "7.2", "note": "L1 抓取值 117.95 偏離參考價 18.00 過大，已改用參考價"}, {"sku_code": "RA-S13", "inci_name": "Niacinamide", "function_category": "頭皮調理", "pct": "1.25", "usd_per_kg": "35.88", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.4485", "cost_twd_per_kg_bulk": "14.35", "note": "makingcosmetics：Niacinamide PH"}, {"sku_code": "RA-S13", "inci_name": "Caffeine", "function_category": "頭皮調理", "pct": "0.6", "usd_per_kg": "30.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.18", "cost_twd_per_kg_bulk": "5.76", "note": "業界參考價"}, {"sku_code": "RA-S13", "inci_name": "Menthol", "function_category": "清涼感", "pct": "0.125", "usd_per_kg": "63.92", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0799", "cost_twd_per_kg_bulk": "2.56", "note": "makingcosmetics：Menthol Crystals, USP"}, {"sku_code": "RA-S13", "inci_name": "Piroctone Olamine", "function_category": "抗屑", "pct": "0.35", "usd_per_kg": "60.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.21", "cost_twd_per_kg_bulk": "6.72", "note": "業界參考價"}, {"sku_code": "RA-S13", "inci_name": "Salicylic Acid", "function_category": "角質調理", "pct": "0.35", "usd_per_kg": "30.36", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.1063", "cost_twd_per_kg_bulk": "3.4", "note": "makingcosmetics：Salicylic Acid, USP"}, {"sku_code": "RA-S13", "inci_name": "Disodium EDTA", "function_category": "螯合劑", "pct": "0.075", "usd_per_kg": "4.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.003", "cost_twd_per_kg_bulk": "0.1", "note": "業界參考價"}, {"sku_code": "RA-S13", "inci_name": "Sodium Chloride", "function_category": "增黏", "pct": "1.25", "usd_per_kg": "0.3", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.0037", "cost_twd_per_kg_bulk": "0.12", "note": "業界參考價"}, {"sku_code": "RA-S13", "inci_name": "Sodium Benzoate", "function_category": "防腐", "pct": "0.35", "usd_per_kg": "3.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.0105", "cost_twd_per_kg_bulk": "0.34", "note": "業界參考價"}, {"sku_code": "RA-S13", "inci_name": "Fragrance", "function_category": "香精", "pct": "0.35", "usd_per_kg": "40.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.14", "cost_twd_per_kg_bulk": "4.48", "note": "業界參考價"}, {"sku_code": "RA-S13", "inci_name": "Citric Acid", "function_category": "pH 調整", "pct": "0.1", "usd_per_kg": "2.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.002", "cost_twd_per_kg_bulk": "0.06", "note": "L1 抓取值 14.32 偏離參考價 2.00 過大，已改用參考價"}, {"sku_code": "RA-S13", "inci_name": "Aqua", "function_category": "溶劑", "pct": "69.25", "usd_per_kg": "0.05", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.0346", "cost_twd_per_kg_bulk": "1.11", "note": "業界參考價"}, {"sku_code": "RA-S14", "inci_name": "Alcohol Denat.", "function_category": "溶劑（可選）", "pct": "5.0", "usd_per_kg": "2.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.1", "cost_twd_per_kg_bulk": "3.2", "note": "業界參考價"}, {"sku_code": "RA-S14", "inci_name": "Butylene Glycol", "function_category": "保濕／溶劑", "pct": "3.5", "usd_per_kg": "13.47", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.4715", "cost_twd_per_kg_bulk": "15.09", "note": "makingcosmetics：Butylene Glycol"}, {"sku_code": "RA-S14", "inci_name": "Propanediol", "function_category": "保濕／溶劑", "pct": "3.5", "usd_per_kg": "14.93", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.5226", "cost_twd_per_kg_bulk": "16.72", "note": "makingcosmetics：Propanediol 1,3"}, {"sku_code": "RA-S14", "inci_name": "Glycerin", "function_category": "保濕", "pct": "3.5", "usd_per_kg": "2.5", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.0875", "cost_twd_per_kg_bulk": "2.8", "note": "L1 抓取值 17.58 偏離參考價 2.50 過大，已改用參考價"}, {"sku_code": "RA-S14", "inci_name": "Niacinamide", "function_category": "頭皮調理", "pct": "2.0", "usd_per_kg": "35.88", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.7176", "cost_twd_per_kg_bulk": "22.96", "note": "makingcosmetics：Niacinamide PH"}, {"sku_code": "RA-S14", "inci_name": "Caffeine", "function_category": "頭皮調理", "pct": "1.25", "usd_per_kg": "30.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.375", "cost_twd_per_kg_bulk": "12.0", "note": "業界參考價"}, {"sku_code": "RA-S14", "inci_name": "Panthenol", "function_category": "舒緩", "pct": "2.0", "usd_per_kg": "18.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.36", "cost_twd_per_kg_bulk": "11.52", "note": "L1 抓取值 117.95 偏離參考價 18.00 過大，已改用參考價"}, {"sku_code": "RA-S14", "inci_name": "Copper Tripeptide-1", "function_category": "胜肽", "pct": "1.25", "usd_per_kg": "50.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.625", "cost_twd_per_kg_bulk": "20.0", "note": "業界參考價"}, {"sku_code": "RA-S14", "inci_name": "Biotin", "function_category": "頭皮調理", "pct": "0.03", "usd_per_kg": "749.0", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.2247", "cost_twd_per_kg_bulk": "7.19", "note": "makingcosmetics：Biotin Liposomes"}, {"sku_code": "RA-S14", "inci_name": "Zinc PCA", "function_category": "控油", "pct": "0.6", "usd_per_kg": "60.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.36", "cost_twd_per_kg_bulk": "11.52", "note": "業界參考價"}, {"sku_code": "RA-S14", "inci_name": "Menthol", "function_category": "清涼感", "pct": "0.125", "usd_per_kg": "63.92", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0799", "cost_twd_per_kg_bulk": "2.56", "note": "makingcosmetics：Menthol Crystals, USP"}, {"sku_code": "RA-S14", "inci_name": "Allantoin", "function_category": "舒緩", "pct": "0.2", "usd_per_kg": "34.76", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0695", "cost_twd_per_kg_bulk": "2.22", "note": "makingcosmetics：Allantoin, USP"}, {"sku_code": "RA-S14", "inci_name": "Hydroxyethylcellulose", "function_category": "增稠", "pct": "0.2", "usd_per_kg": "12.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.024", "cost_twd_per_kg_bulk": "0.77", "note": "業界參考價"}, {"sku_code": "RA-S14", "inci_name": "Disodium EDTA", "function_category": "螯合劑", "pct": "0.035", "usd_per_kg": "4.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.0014", "cost_twd_per_kg_bulk": "0.04", "note": "業界參考價"}, {"sku_code": "RA-S14", "inci_name": "Phenoxyethanol", "function_category": "防腐", "pct": "0.65", "usd_per_kg": "10.7", "price_layer": "L1_scraped", "cost_usd_per_kg_bulk": "0.0696", "cost_twd_per_kg_bulk": "2.23", "note": "makingcosmetics：Phenoxyethanol"}, {"sku_code": "RA-S14", "inci_name": "Ethylhexylglycerin", "function_category": "防腐增效", "pct": "0.2", "usd_per_kg": "35.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.07", "cost_twd_per_kg_bulk": "2.24", "note": "業界參考價"}, {"sku_code": "RA-S14", "inci_name": "Citric Acid", "function_category": "pH 調整", "pct": "0.1", "usd_per_kg": "2.0", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.002", "cost_twd_per_kg_bulk": "0.06", "note": "L1 抓取值 14.32 偏離參考價 2.00 過大，已改用參考價"}, {"sku_code": "RA-S14", "inci_name": "Aqua", "function_category": "溶劑", "pct": "75.86", "usd_per_kg": "0.05", "price_layer": "L2_ref", "cost_usd_per_kg_bulk": "0.0379", "cost_twd_per_kg_bulk": "1.21", "note": "業界參考價"}], "sens": [{"sku": "RA-C01", "name": "澄淨胺基酸潔膚霜", "base": 91.63, "d-30": 81.7, "d-15": 86.7, "d15": 96.6, "d30": 101.5}, {"sku": "RA-C02", "name": "澄潤前導精華露", "base": 113.0, "d-30": 100.5, "d-15": 106.7, "d15": 119.3, "d30": 125.5}, {"sku": "RA-H03", "name": "潤澤玻尿酸精華", "base": 92.47, "d-30": 86.5, "d-15": 89.5, "d15": 95.5, "d30": 98.4}, {"sku": "RA-H04", "name": "潤屏神經醯胺乳霜", "base": 108.94, "d-30": 100.8, "d-15": 104.8, "d15": 113.0, "d30": 117.1}, {"sku": "RA-H05", "name": "潤澤密集修護面膜", "base": 123.86, "d-30": 120.1, "d-15": 122.0, "d15": 125.7, "d30": 127.6}, {"sku": "RA-L06", "name": "曜白菸鹼醯胺精華", "base": 92.27, "d-30": 86.4, "d-15": 89.3, "d15": 95.2, "d30": 98.2}, {"sku": "RA-L07", "name": "曜光維C防護乳 SPF50+ PA++++", "base": 99.77, "d-30": 84.8, "d-15": 92.3, "d15": 107.3, "d30": 114.8}, {"sku": "RA-L08", "name": "曜白淡斑安瓶", "base": 181.85, "d-30": 178.6, "d-15": 180.2, "d15": 183.5, "d30": 185.1}, {"sku": "RA-N09", "name": "齡活胜肽眼霜", "base": 79.91, "d-30": 76.2, "d-15": 78.0, "d15": 81.8, "d30": 83.7}, {"sku": "RA-N10", "name": "齡活A醇晚霜", "base": 129.25, "d-30": 115.0, "d-15": 122.1, "d15": 136.4, "d30": 143.5}, {"sku": "RA-R11", "name": "御藏全效精華油", "base": 111.46, "d-30": 101.4, "d-15": 106.4, "d15": 116.5, "d30": 121.6}, {"sku": "RA-R12", "name": "御藏頂級禮盒", "base": 404.51, "d-30": 370.3, "d-15": 387.4, "d15": 421.6, "d30": 438.7}, {"sku": "RA-S13", "name": "沁淨頭皮平衡洗髮精", "base": 130.39, "d-30": 116.9, "d-15": 123.7, "d15": 137.1, "d30": 143.8}, {"sku": "RA-S14", "name": "沁養頭皮養護精華", "base": 80.25, "d-30": 77.6, "d-15": 78.9, "d15": 81.6, "d30": 82.9}], "layerCount": {"L1_scraped": 110, "L2_ref": 138}, "failed": [{"inci": "Aqua", "reason": "no search keyword"}, {"inci": "Cetearyl Olivate, Sorbitan Olivate", "reason": "no name match"}, {"inci": "Sodium Lauroyl Methyl Isethionate", "reason": "no search results"}, {"inci": "Disodium EDTA", "reason": "no name match"}, {"inci": "Hydroxyethylcellulose", "reason": "no name match"}, {"inci": "Acrylates/C10-30 Alkyl Acrylate Crosspolymer", "reason": "no name match"}, {"inci": "Ethylhexylglycerin", "reason": "no name match"}, {"inci": "Sodium Benzoate", "reason": "no name match"}, {"inci": "Fragrance", "reason": "no name match"}, {"inci": "Citric Acid, Sodium Citrate", "reason": "no name match"}, {"inci": "Sodium Hydroxide", "reason": "no name match"}, {"inci": "Trehalose", "reason": "no name match"}, {"inci": "Hydrolyzed Hyaluronic Acid", "reason": "no search results"}, {"inci": "Sodium Hyaluronate Crosspolymer", "reason": "no search results"}, {"inci": "Sodium Acetylated Hyaluronate", "reason": "no search results"}, {"inci": "Centella Asiatica Extract", "reason": "no name match"}, {"inci": "Madecassoside", "reason": "no search results"}, {"inci": "Phytosphingosine", "reason": "no name match"}, {"inci": "Zinc PCA", "reason": "no name match"}, {"inci": "Tranexamic Acid", "reason": "no search results"}, {"inci": "Ethylhexyl Methoxycinnamate", "reason": "no search results"}, {"inci": "Diethylamino Hydroxybenzoyl Hexyl Benzoate", "reason": "no search results"}, {"inci": "Bis-Ethylhexyloxyphenol Methoxyphenyl Triazine", "reason": "no search results"}, {"inci": "Ethylhexyl Triazone", "reason": "no search results"}, {"inci": "Caffeine", "reason": "no name match"}, {"inci": "Acetyl Hexapeptide-8", "reason": "no name match"}, {"inci": "Copper Tripeptide-1", "reason": "no name match"}, {"inci": "Camellia Japonica Seed Oil", "reason": "no name match"}, {"inci": "Argania Spinosa Kernel Oil", "reason": "no name match"}, {"inci": "Rosa Canina Fruit Oil", "reason": "no name match"}, {"inci": "Simmondsia Chinensis Seed Oil", "reason": "no name match"}, {"inci": "Helianthus Annuus Seed Oil", "reason": "no name match"}, {"inci": "Piroctone Olamine", "reason": "no search results"}, {"inci": "Sodium Chloride", "reason": "no name match"}, {"inci": "Alcohol Denat.", "reason": "no search results"}, {"inci": "Caprylic/Capric Triglyceride", "reason": "no name match"}], "masterCount": 82, "priceOk": 46};
+const F = D.fin;
+const fmt = n => (n===null||n===undefined||n==='')?'—':Number(n).toLocaleString('zh-TW');
+const fmt0 = n => (n===null||n===undefined||n==='')?'—':Math.round(Number(n)).toLocaleString('zh-TW');
+const pct = n => (n===null||n===undefined||n==='')?'—':Number(n).toFixed(1)+'%';
+const el = (t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!==undefined)e.innerHTML=h;return e;};
+const $ = s=>document.querySelector(s);
+
+document.getElementById('gen').textContent = F.generated_at.slice(0,10);
+document.getElementById('gen2').textContent = F.generated_at.replace('T',' ').slice(0,19);
+
+function toggleTheme(){
+  const b=document.body;
+  b.dataset.theme = b.dataset.theme==='dark'?'light':'dark';
+}
+
+/* ---------- 1 總覽 ---------- */
+(function(){
+  const inv = F.investment.total_twd;
+  const y1o = F.pnl.y1_original, y1s = F.pnl.y1_suggested;
+  const kp = [
+    ['b','SKU 總數','14','支','六大系列，首批 4 支 P0'],
+    ['g','一次性投資',fmt0(inv),'TWD','第一年開發＋首批量產'],
+    ['p','第一年營收（建議價）',fmt0(y1s.net_revenue),'TWD','品牌實收，已扣通路抽成'],
+    ['g','第一年淨利（建議價）',fmt0(y1s.net_profit),'TWD','淨利率 '+pct(y1s.net_margin_pct)],
+    ['w','回收期（建議價）',F.payback.y1_suggested_years,'年','原提案價為 '+F.payback.y1_original_years+' 年'],
+    ['b','AI 團隊年省',fmt0(F.ai_team.summary.saving_year_twd),'TWD','4 人降至 2 人 + AI'],
+  ];
+  const box=$('#kpis');
+  kp.forEach(([c,l,v,u,n])=>{
+    box.appendChild(el('div','kpi '+c,
+      `<div class="lbl">${l}</div><div class="val">${v}<span class="unit">${u}</span></div><div class="note">${n}</div>`));
+  });
+})();
+
+/* ---------- 2 SKU 卡 ---------- */
+(function(){
+  const box=$('#skus');
+  const cmap={}; D.cost.forEach(r=>cmap[r.sku_code]=r);
+  D.products.forEach(p=>{
+    const c=cmap[p.sku_code]||{};
+    const pr=(p.priority||'').toLowerCase();
+    const d=el('div','sku '+pr);
+    d.innerHTML=`
+      <div class="hd">
+        <div><div class="code">${p.sku_code}</div><div class="nm">${p.name_zh}</div></div>
+        <span class="tag t-${pr}">${p.priority||'—'}</span>
+      </div>
+      <div class="meta">${p.form||''}　${p.size_ml?p.size_ml+' mL':(p.pack||'組合')}</div>
+      <div class="row"><span>建議售價</span><b>TWD ${fmt(p.suggested_retail_twd)}</b></div>
+      <div class="row"><span>出廠成本</span><b>TWD ${fmt0(c.exfactory_twd)}</b></div>
+      <div class="row"><span>總成本</span><b>TWD ${fmt0(c.total_cost_twd)}</b></div>
+      <div class="row"><span>零售／出廠倍率</span><b>${c.exfactory_twd?(p.suggested_retail_twd/c.exfactory_twd).toFixed(1)+'×':'—'}</b></div>
+      <div class="row"><span>狀態</span><b style="color:var(--warn)">enabled=false</b></div>`;
+    box.appendChild(d);
+  });
+})();
+
+/* ---------- 3 成本表 ---------- */
+(function(){
+  const tb=$('#t-cost tbody');
+  const cols=['sku_code','name_zh','size_ml','raw_material_twd','packaging_twd',
+    'filling_twd','qc_twd','exfactory_twd','total_cost_twd','suggested_retail_twd','gross_margin_pct'];
+  function render(rows){
+    tb.innerHTML='';
+    rows.forEach(r=>{
+      const tr=el('tr');
+      tr.innerHTML=`<td><code>${r.sku_code}</code></td><td>${r.name_zh}</td>
+        <td class="n">${r.size_ml||'—'}</td>
+        <td class="n">${fmt0(r.raw_material_twd)}</td>
+        <td class="n">${fmt0(r.packaging_twd)}</td>
+        <td class="n">${fmt0(r.filling_twd)}</td>
+        <td class="n">${fmt0(r.qc_twd)}</td>
+        <td class="n"><b>${fmt0(r.exfactory_twd)}</b></td>
+        <td class="n">${fmt0(r.total_cost_twd)}</td>
+        <td class="n">${fmt(r.suggested_retail_twd)}</td>
+        <td class="n">${pct(r.gross_margin_pct)}</td>`;
+      tb.appendChild(tr);
+    });
+  }
+  render(D.cost);
+  let dir={};
+  document.querySelectorAll('#t-cost th.s').forEach(th=>{
+    th.onclick=()=>{
+      const k=th.dataset.k; dir[k]=!dir[k];
+      const rows=[...D.cost].sort((a,b)=>{
+        const x=a[k],y=b[k];
+        const nx=parseFloat(x),ny=parseFloat(y);
+        const v=(!isNaN(nx)&&!isNaN(ny))?nx-ny:String(x).localeCompare(String(y),'zh-TW');
+        return dir[k]?v:-v;
+      });
+      render(rows);
+    };
+  });
+})();
+
+/* ---------- 3b 成本結構 ---------- */
+(function(){
+  const box=$('#struct');
+  D.cost.forEach(r=>{
+    const t=Number(r.total_cost_twd)||1;
+    const raw=Number(r.raw_material_twd)/t*100;
+    const pack=Number(r.packaging_twd)/t*100;
+    const other=100-raw-pack;
+    const d=el('div','bar');
+    d.innerHTML=`<div class="nm">${r.sku_code}</div>
+      <div class="tr" style="display:flex">
+        <div class="fl" style="width:${raw}%;background:var(--accent)"></div>
+        <div class="fl" style="width:${pack}%;background:var(--purple)"></div>
+        <div class="fl" style="width:${other}%;background:var(--bg3)"></div>
+      </div>
+      <div class="vl">料${raw.toFixed(0)}% 包${pack.toFixed(0)}%</div>`;
+    box.appendChild(d);
+  });
+  box.appendChild(el('div','note',
+    '<b>圖例：</b><span style="color:var(--accent)">■</span> 料體　'+
+    '<span style="color:var(--purple)">■</span> 包材　<span style="color:var(--fg2)">■</span> 充填＋檢驗＋管銷'));
+})();
+
+/* ---------- 4 原料明細 ---------- */
+(function(){
+  const tb=$('#t-detail tbody');
+  const sel=$('#fsku');
+  [...new Set(D.detail.map(r=>r.sku_code))].sort().forEach(s=>{
+    const o=el('option'); o.value=s; o.textContent=s; sel.appendChild(o);
+  });
+  const layerName={L1_scraped:'L1 自動抓取',L2_ref:'L2 參考價',L3_manual:'L3 人工覆寫',fallback:'fallback'};
+  const layerCls={L1_scraped:'t-l1',L2_ref:'t-l2',L3_manual:'t-l3',fallback:'t-bad'};
+  function render(){
+    const q=$('#q').value.toLowerCase().trim();
+    const fs=sel.value, fl=$('#flayer').value;
+    const rows=D.detail.filter(r=>
+      (!q||r.inci_name.toLowerCase().includes(q)) &&
+      (!fs||r.sku_code===fs) && (!fl||r.price_layer===fl));
+    tb.innerHTML='';
+    rows.forEach(r=>{
+      const tr=el('tr');
+      tr.innerHTML=`<td><code>${r.sku_code}</code></td><td>${r.inci_name}</td>
+        <td>${r.function_category||'—'}</td>
+        <td class="n">${Number(r.pct).toFixed(3)}</td>
+        <td class="n">${fmt(r.usd_per_kg)}</td>
+        <td><span class="tag ${layerCls[r.price_layer]||'t-p2'}">${layerName[r.price_layer]||r.price_layer}</span></td>
+        <td class="n">${fmt(r.cost_twd_per_kg_bulk)}</td>
+        <td style="font-size:12px;color:var(--fg2)">${r.note||''}</td>`;
+      tb.appendChild(tr);
+    });
+    $('#cnt').textContent=`顯示 ${rows.length} / ${D.detail.length} 筆`;
+  }
+  $('#q').oninput=render; sel.onchange=render; $('#flayer').onchange=render;
+  render();
+})();
+
+/* ---------- 5 價格來源 ---------- */
+(function(){
+  const lc=D.layerCount;
+  const total=Object.values(lc).reduce((a,b)=>a+b,0)||1;
+  const box=$('#layer-kpi');
+  const defs=[
+    ['L1_scraped','L1 自動抓取','makingcosmetics.com 公開價','b'],
+    ['L2_ref','L2 內建參考價','業界行情中位數','p'],
+    ['L3_manual','L3 人工覆寫','代工廠正式報價','g'],
+    ['fallback','fallback','無資料保守值','r'],
+  ];
+  defs.forEach(([k,l,d,c])=>{
+    const v=lc[k]||0;
+    box.appendChild(el('div','kpi '+c,
+      `<div class="lbl">${l}</div><div class="val">${v}<span class="unit">筆</span></div>
+       <div class="note">${d}　${(v/total*100).toFixed(1)}%</div>`));
+  });
+  const tb=$('#t-fail tbody');
+  D.failed.forEach(r=>{
+    const tr=el('tr');
+    tr.innerHTML=`<td>${r.inci}</td><td style="color:var(--fg2)">${r.reason}</td>`;
+    tb.appendChild(tr);
+  });
+})();
+
+/* ---------- 6 敏感度 ---------- */
+(function(){
+  const tb=$('#t-sens tbody');
+  D.sens.forEach(r=>{
+    const mx=Math.max(Math.abs(r.d30-r.base),Math.abs(r.dm30-r.base));
+    const tr=el('tr');
+    tr.innerHTML=`<td><code>${r.sku}</code></td><td>${r.name}</td>
+      <td class="n">${fmt0(r.base)}</td>
+      <td class="n">${fmt0(r.dm30)}</td><td class="n">${fmt0(r.dm15)}</td>
+      <td class="n">${fmt0(r.d15)}</td><td class="n">${fmt0(r.d30)}</td>
+      <td class="n">±${(mx/r.base*100).toFixed(1)}%</td>`;
+    tb.appendChild(tr);
+  });
+})();
+
+/* ---------- 7 定價檢查 ---------- */
+(function(){
+  const tb=$('#t-price tbody');
+  const om={}, sm={};
+  F.pricing.original.forEach(r=>om[r.sku_code]=r);
+  F.pricing.suggested.forEach(r=>sm[r.sku_code]=r);
+  F.pricing.original.forEach(o=>{
+    const s=sm[o.sku_code];
+    let verdict,cls;
+    if(o.multiple>20){verdict='顯著偏高';cls='t-bad';}
+    else if(o.multiple>12){verdict='偏高';cls='t-p1';}
+    else if(o.multiple<4){verdict='偏低';cls='t-p1';}
+    else {verdict='合理';cls='t-ok';}
+    const tr=el('tr');
+    tr.innerHTML=`<td><code>${o.sku_code}</code></td><td>${o.name_zh}</td>
+      <td class="n">${fmt0(o.exfactory)}</td>
+      <td class="n">${fmt(o.price)}</td>
+      <td class="n">${o.multiple}×</td>
+      <td class="n" style="color:var(--accent2)">${fmt(s.price)}</td>
+      <td class="n" style="color:var(--accent2)">${s.multiple}×</td>
+      <td><span class="tag ${cls}">${verdict}</span></td>`;
+    tb.appendChild(tr);
+  });
+})();
+
+/* ---------- 8 投資明細 ---------- */
+(function(){
+  const inv=F.investment;
+  const box=$('#inv-kpi');
+  box.appendChild(el('div','kpi g',
+    `<div class="lbl">一次性投資總額</div><div class="val">${fmt0(inv.total_twd)}<span class="unit">TWD</span></div>
+     <div class="note">約 ${(inv.total_twd/10000).toFixed(0)} 萬元</div>`));
+  inv.by_category.forEach(c=>{
+    box.appendChild(el('div','kpi b',
+      `<div class="lbl">${c.category}</div><div class="val">${fmt0(c.amount_twd)}<span class="unit">TWD</span></div>
+       <div class="note">${(c.amount_twd/inv.total_twd*100).toFixed(1)}%</div>`));
+  });
+  const tb=$('#t-inv tbody');
+  inv.rows.forEach(r=>{
+    const tr=el('tr');
+    tr.innerHTML=`<td>${r.category}</td><td>${r.item}</td>
+      <td class="n">${fmt(r.amount_twd)}</td>
+      <td style="font-size:12px;color:var(--fg2)">${r.note}</td>`;
+    tb.appendChild(tr);
+  });
+  $('#t-inv tfoot').innerHTML=`<tr><td colspan="2">合計</td>
+    <td class="n">${fmt(inv.total_twd)}</td><td></td></tr>`;
+  const bar=$('#inv-bar');
+  const mx=Math.max(...inv.by_category.map(c=>c.amount_twd));
+  inv.by_category.forEach(c=>{
+    const d=el('div','bar');
+    d.innerHTML=`<div class="nm">${c.category}</div>
+      <div class="tr"><div class="fl" style="width:${c.amount_twd/mx*100}%;background:var(--accent)"></div></div>
+      <div class="vl">${fmt0(c.amount_twd)}</div>`;
+    bar.appendChild(d);
+  });
+})();
+
+/* ---------- 9 化工廠 ---------- */
+(function(){
+  const f=F.factory;
+  $('#fac-lead').textContent=`受託方：${f.name}　｜　角色：${f.role}　｜　代工廠出資金額：TWD ${fmt(f.factory_cash_investment_twd)}`;
+  $('#fac-note').innerHTML='<b>核心原則：</b>'+f.factory_note;
+  const fill=(sel,rows)=>{
+    const tb=$(sel+' tbody');
+    rows.forEach(r=>{
+      const tr=el('tr');
+      tr.innerHTML=`<td>${r[0]}</td><td>${r[1]}</td><td style="color:var(--fg2);font-size:12.5px">${r[2]}</td>`;
+      tb.appendChild(tr);
+    });
+  };
+  fill('#t-fac1',f.factory_contribution);
+  fill('#t-fac2',f.brand_side_pays);
+  fill('#t-fac3',f.contract_terms);
+  const ul=$('#fac-risk');
+  f.risk_notes.forEach(n=>ul.appendChild(el('li',null,n)));
+})();
+
+/* ---------- 10 AI 團隊 ---------- */
+(function(){
+  const s=F.ai_team.summary;
+  const box=$('#ai-kpi');
+  const kp=[
+    ['b','Agent 總數',s.agent_count,'個','合併成 '+s.entry_count+' 個值班入口'],
+    ['w','純人力年成本',fmt0(s.full_human_year_twd),'TWD',s.full_human_headcount+' 人 × 月 '+fmt(s.full_human_month_twd)],
+    ['g','AI 年成本',fmt0(s.ai_year_twd),'TWD','USD '+s.ai_month_usd+'/月'],
+    ['p','精簡後總成本',fmt0(s.lean_total_year_twd),'TWD',s.lean_headcount+' 人 + AI'],
+    ['g','年節省',fmt0(s.saving_year_twd),'TWD','節省 '+pct(s.saving_pct)],
+  ];
+  kp.forEach(([c,l,v,u,n])=>{
+    box.appendChild(el('div','kpi '+c,
+      `<div class="lbl">${l}</div><div class="val">${v}<span class="unit">${u}</span></div><div class="note">${n}</div>`));
+  });
+  const tb=$('#t-ai tbody');
+  F.ai_team.rows.forEach(r=>{
+    const tr=el('tr');
+    tr.innerHTML=`<td><b>${r.code}</b></td><td>${r.name}</td><td style="font-size:12px">${r.agents}</td>
+      <td>${r.human_role}</td>
+      <td class="n">${fmt(r.human_cost_twd)}</td>
+      <td class="n" style="color:var(--accent2)">${r.ai_cost_twd}</td>
+      <td style="font-size:12px;color:var(--fg2)">${r.duty}</td>`;
+    tb.appendChild(tr);
+  });
+  $('#t-ai tfoot').innerHTML=`<tr><td colspan="4">合計</td>
+    <td class="n">${fmt(s.full_human_month_twd)}</td>
+    <td class="n">${fmt(s.ai_month_twd)}</td><td></td></tr>`;
+  $('#ai-note').innerHTML='<b>誠實說明：</b>'+s.note;
+})();
+
+/* ---------- 11 損益 ---------- */
+(function(){
+  const y1o=F.pnl.y1_original, y1s=F.pnl.y1_suggested;
+  const y2o=F.pnl.y2_original, y2s=F.pnl.y2_suggested;
+  const box=$('#pnl-kpi');
+  const kp=[
+    ['b','第一年營收（原價）',fmt0(y1o.net_revenue),'TWD','品牌實收'],
+    ['b','第一年營收（建議價）',fmt0(y1s.net_revenue),'TWD','品牌實收'],
+    ['g','第一年淨利（原價）',fmt0(y1o.net_profit),'TWD','淨利率 '+pct(y1o.net_margin_pct)],
+    ['g','第一年淨利（建議價）',fmt0(y1s.net_profit),'TWD','淨利率 '+pct(y1s.net_margin_pct)],
+    ['p','第二年淨利（建議價）',fmt0(y2s.net_profit),'TWD','14 支全開'],
+  ];
+  kp.forEach(([c,l,v,u,n])=>{
+    box.appendChild(el('div','kpi '+c,
+      `<div class="lbl">${l}</div><div class="val">${v}<span class="unit">${u}</span></div><div class="note">${n}</div>`));
+  });
+
+  const notes={
+    '產品成本（出廠）':'含料體、包材、充填、檢驗、代工廠毛利',
+    '物流與倉儲':'佔品牌實收 4%',
+    '行銷':'佔品牌實收 18%',
+    '人事':'2 人 × 月 45,000 × 12',
+    '平台與金流':'自營部分 5%',
+    '代理佣金':'通路部分 12%',
+    '社群貢獻回饋':'佔品牌實收 3%，與代理佣金分開記帳',
+    '雜支':'佔品牌實收 3%',
+    'AI Agent 維運':'USD 60/月 × 12',
+  };
+  function fillPnl(sel,o,s){
+    const tb=$(sel+' tbody');
+    tb.innerHTML='';
+    const add=(label,a,b,note,cls)=>{
+      const tr=el('tr');
+      tr.innerHTML=`<td${cls?' style="font-weight:700"':''}>${label}</td>
+        <td class="n"${cls?' style="font-weight:700"':''}>${fmt0(a)}</td>
+        <td class="n"${cls?' style="font-weight:700"':''}>${fmt0(b)}</td>
+        <td style="font-size:12px;color:var(--fg2)">${note||''}</td>`;
+      tb.appendChild(tr);
+    };
+    add('零售總額（建議售價 × 銷量）',o.gross_retail_revenue,s.gross_retail_revenue,'未扣通路抽成');
+    add('品牌實收營收',o.net_revenue,s.net_revenue,'已扣通路抽成與金流手續費',1);
+    Object.keys(o.expenses).forEach(k=>{
+      add('　− '+k,o.expenses[k],s.expenses[k],notes[k]||'');
+    });
+    add('費用合計',o.total_expenses,s.total_expenses,'',1);
+    add('稅前淨利',o.ebt,s.ebt,'');
+    add('營所稅（20%）',o.tax,s.tax,'');
+    add('稅後淨利',o.net_profit,s.net_profit,'淨利率 '+pct(o.net_margin_pct)+' / '+pct(s.net_margin_pct),1);
+  }
+  fillPnl('#t-pnl',y1o,y1s);
+  fillPnl('#t-pnl2',y2o,y2s);
+
+  const tb=$('#t-pb tbody');
+  const rows=[
+    ['第一年｜原提案價',y1o.net_profit,F.payback.y1_original_years],
+    ['第一年｜建議價',y1s.net_profit,F.payback.y1_suggested_years],
+    ['第二年｜原提案價',y2o.net_profit,F.payback.y2_original_years],
+    ['第二年｜建議價',y2s.net_profit,F.payback.y2_suggested_years],
+  ];
+  rows.forEach(([l,p,y])=>{
+    let v,cls;
+    if(y===null){v='無法回收';cls='t-bad';}
+    else if(y<=1.5){v='快速回收';cls='t-ok';}
+    else if(y<=3){v='合理';cls='t-ok';}
+    else {v='偏長';cls='t-p1';}
+    const tr=el('tr');
+    tr.innerHTML=`<td>${l}</td><td class="n">${fmt0(p)}</td>
+      <td class="n">${y===null?'—':y}</td>
+      <td><span class="tag ${cls}">${v}</span></td>`;
+    tb.appendChild(tr);
+  });
+})();
+
+/* ---------- 12 獲利分配瀑布 ---------- */
+(function(){
+  const box=$('#wf');
+  const colors=['var(--danger)','var(--accent)','var(--warn)','var(--fg2)',
+    'var(--purple)','var(--pink)','var(--accent2)','var(--fg2)','var(--warn)','var(--accent2)'];
+  F.waterfall.forEach(w=>{
+    box.appendChild(el('h3',null,`${w.sku_code}　${w.name_zh}　零售價 TWD ${fmt(w.retail_price)}`));
+    const mx=Math.max(...w.items.map(i=>i.amount));
+    w.items.forEach((it,i)=>{
+      const d=el('div','bar');
+      d.innerHTML=`<div class="nm">${it.name}</div>
+        <div class="tr"><div class="fl" style="width:${it.amount/mx*100}%;background:${colors[i%colors.length]}"></div></div>
+        <div class="vl">${fmt(it.amount)}　${it.pct}%</div>`;
+      box.appendChild(d);
+      if(it.note){
+        const n=el('div',null,`<span style="font-size:11.5px;color:var(--fg2);margin-left:160px">${it.note}</span>`);
+        box.appendChild(n);
+      }
+    });
+  });
+})();
+
+/* ---------- 13 法遵 ---------- */
+(function(){
+  const rows=[
+    ['商標法','第 68 條','使用相同或近似他人註冊商標於同一或類似商品','民事賠償、刑事責任'],
+    ['商標法','第 95 條','意圖販賣而持有、陳列仿冒商標商品','3 年以下有期徒刑'],
+    ['著作權法','第 91 條','重製他人語文、美術、攝影著作（文案、圖片、包裝設計）','3 年以下有期徒刑、罰金'],
+    ['營業秘密法','第 10 條','以不正方法取得、使用他人配方與製程','民事賠償、刑事責任'],
+    ['營業秘密法','第 13-1 條','意圖為自己或第三人不法之利益','1 年以上 10 年以下有期徒刑'],
+    ['公平交易法','第 21 條','商品品質、內容為虛偽不實或引人錯誤之表示','罰鍰 5 萬至 2,500 萬元'],
+    ['公平交易法','第 22 條','以著名表徵為相同或類似之使用，致混淆','罰鍰、民事賠償'],
+    ['公平交易法','第 25 條','足以影響交易秩序之欺罔或顯失公平行為','罰鍰、民事賠償'],
+    ['化粧品衛生安全管理法','第 7、8 條','未經登錄、標示不實、成分不符限量','罰鍰、沒入銷毀'],
+    ['化粧品衛生安全管理法','第 22 條','宣稱醫療效能','罰鍰 60 萬至 500 萬元'],
+    ['民法','第 185 條','代工廠共同參與侵權行為','連帶損害賠償'],
+  ];
+  const tb=$('#t-law tbody');
+  rows.forEach(r=>{
+    const tr=el('tr');
+    tr.innerHTML=`<td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td>
+      <td style="color:var(--danger);font-size:12.5px">${r[3]}</td>`;
+    tb.appendChild(tr);
+  });
+})();
+
+/* ---------- 14 STO＋／RWA ---------- */
+(function(){
+  const rwa=[
+    ['實體商品批次','每批生產的成品','批號、SKU、生產日、效期、檢驗報告雜湊'],
+    ['原料來源憑證','關鍵活性成分','供應商、COA、產地、檢驗結果'],
+    ['品質檢驗紀錄','每批出廠檢驗','微生物、重金屬、安定性、留樣編號'],
+    ['法規登錄文件','產品登錄與 PIF','登錄字號、PIF 版本、宣稱白名單'],
+    ['通路銷售紀錄','出貨與銷售','出貨批號、通路、數量（不含個資）'],
+    ['社群貢獻紀錄','消費者與代理貢獻','貢獻類型、點數、與佣金分開記帳'],
+  ];
+  const tb=$('#t-rwa tbody');
+  rwa.forEach(r=>{
+    const tr=el('tr');
+    tr.innerHTML=`<td><b>${r[0]}</b></td><td>${r[1]}</td>
+      <td style="font-size:12.5px;color:var(--fg2)">${r[2]}</td>`;
+    tb.appendChild(tr);
+  });
+  const dec=[
+    ['D-014','鏈上公開 payload 只含 merkle_root 與 leaf_count','配方與檢驗明細不上鏈，只上雜湊根'],
+    ['D-017','消費者端先「不可轉讓、不承諾轉 ST」','避免被認定為有價證券'],
+    ['D-018','第一階段面對消費者的市場為台灣＋日本','七國同步為長期目標，非首發'],
+    ['D-020','照片、個資、健康資料一律不送境外 API','AI Agent 處理客服時須遵守'],
+    ['D-021','代理制度先只做單層推薦','避免多層次傳銷認定風險'],
+    ['D-025','高影響操作仍不自行執行','公開發布、付費、簽約、送件、正式發行需林總核定'],
+    ['D-029','20 個 Agent 合併成 6 個值班入口；每月 AI 預算 USD 60','本頁第 10 節的成本依據'],
+  ];
+  const tb2=$('#t-dec tbody');
+  dec.forEach(r=>{
+    const tr=el('tr');
+    tr.innerHTML=`<td><code>${r[0]}</code></td><td>${r[1]}</td>
+      <td style="font-size:12.5px;color:var(--fg2)">${r[2]}</td>`;
+    tb2.appendChild(tr);
+  });
+})();
+
+/* ---------- 導覽高亮 ---------- */
+(function(){
+  const links=[...document.querySelectorAll('nav a')];
+  const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const obs=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(l=>l.classList.remove('on'));
+        const i=secs.indexOf(e.target);
+        if(i>=0) links[i].classList.add('on');
+      }
+    });
+  },{rootMargin:'-20% 0px -70% 0px'});
+  secs.forEach(s=>obs.observe(s));
+})();
+</script>
+</body>
+</html>

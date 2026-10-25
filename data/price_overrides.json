@@ -1,0 +1,7 @@
+{
+  "schema_version": "1.0",
+  "note": "L3 人工覆寫層。填入代工廠／供應商正式報價後，重跑 scripts/cost_engine.py 即自動採用，優先度高於 L1 自動抓取與 L2 參考價。",
+  "usage": "{\"overrides\": {\"Squalane\": {\"usd_per_kg\": 28.5, \"source\": \"安成生化 2026-11 報價\", \"moq_kg\": 25}}}",
+  "updated_at": null,
+  "overrides": {}
+}
